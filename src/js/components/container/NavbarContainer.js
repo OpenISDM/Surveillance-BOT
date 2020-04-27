@@ -84,25 +84,6 @@ class NavbarContainer extends React.Component {
             showShiftChange
         } = this.state;
 
-        const {
-            areaOptions,
-            defaultAreaId,
-        } = config.mapConfig
-
-        const options = Object.values(config.mapConfig.areaOptions).map(area => {
-            return {
-                value: area,
-                label: locale.texts[area.toUpperCase().replace(/ /g, '_')],
-            }
-        })
-
-        let selectedArea = {
-            value: areaOptions[areaId] || areaOptions[defaultAreaId] || Object.values(areaOptions)[0],
-            label: this.context.locale.texts[areaOptions[areaId]] || 
-                this.context.locale.texts[areaOptions[defaultAreaId]] || 
-                this.context.locale.texts[Object.values(areaOptions)[0]]
-        }
-
         return (
             <Navbar
                 id="navbar"  
@@ -124,36 +105,11 @@ class NavbarContainer extends React.Component {
                             width={50}
                             className="d-inline-block align-top px-1"
                         />
-                        <Select
-                            placeholder = {locale.texts.SELECT_LOCATION}
-                            name="select"
-                            value = {selectedArea}
-                            options={options}
-                            onChange={value => {
-                                let { stateReducer } = this.context
-                                let [{areaId}, dispatch] = stateReducer
-                                dispatch({
-                                    type: 'setArea',
-                                    value: config.mapConfig.areaModules[value.value].id
-                                })
-                            }}
-                            styles={styleConfig.reactSelectNavbar}
-                            isSearchable={false}
-                            components={{
-                                IndicatorSeparator: () => null,
-                                DropdownIndicator:() => null
-                            }}
-                        />
                     </Nav.Item> 
                 </Navbar.Brand>
                 
                 <Navbar.Toggle 
                     aria-controls="responisve-navbar-nav" 
-                    // style={{
-                    //     right: 22,
-                    //     position: 'fixed',
-                    //     top: 18,
-                    // }}
                 />
                 <Navbar.Collapse id="responsive-navbar-nav">  
                     <Nav className="mr-auto my-auto" >

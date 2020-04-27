@@ -1,11 +1,10 @@
 import BOT_LOGO from "../img//logo/BOT_LOGO_RED.png";
 import moment from 'moment'
 import siteConfig from '../../site_module/siteConfig';
-import React from 'react'
 
 const config = {
 
-    version: "v1.1 b.1900",
+    version: "v1.1 b.1869",
     
     objectStatus: {
         PERIMETER: "perimeter",
