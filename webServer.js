@@ -1,9 +1,8 @@
 require('dotenv').config();
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
-const httpPort = process.env.HTTP_PORT || 80;
-const httpsPort = process.env.HTTPS_PORT || 443;
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const httpsPort = 443;
 const db = require('./web_server/query')
 const path = require('path');
 const fs = require('fs')
@@ -230,29 +229,22 @@ areaRoutes(app);
  * If it is window os, please refer to https://tecadmin.net/install-openssl-on-windows/ install openssl 
  * and set the environment variables*/
 
-// var privateKey = process.env.PRIVATE_KEY && fs.readFileSync(__dirname + `/ssl/${process.env.PRIVATE_KEY}`)
-// var certificate = process.env.CERTIFICATE && fs.readFileSync(__dirname + `/ssl/${process.env.CERTIFICATE}`) 
-// var ca_bundle = process.env.CA_BUNDLE && fs.readFileSync(__dirname + `/ssl/${process.env.CA_BUNDLE}`)
+var privateKey = process.env.PRIVATE_KEY && fs.readFileSync(__dirname + `/ssl/${process.env.PRIVATE_KEY}`)
+var certificate = process.env.CERTIFICATE && fs.readFileSync(__dirname + `/ssl/${process.env.CERTIFICATE}`) 
+var ca_bundle = process.env.CA_BUNDLE && fs.readFileSync(__dirname + `/ssl/${process.env.CA_BUNDLE}`)
 
-// var credentials = { 
-//     key: privateKey, 
-//     cert: certificate,
-//     ca: ca_bundle
-// }
+var credentials = { 
+    key: privateKey, 
+    cert: certificate,
+    ca: ca_bundle
+}
 
-// const httpsServer = https.createServer(credentials, app)
+const httpsServer = https.createServer(credentials, app)
 
 // /** Enable HTTPS server */
-// httpsServer.listen(httpsPort, () => {
-//     console.log(`HTTPS Server running on PORT ${httpsPort}`)
-// })
-
-const httpServer = process.env.HTTP_PORT 
-    ?   http.createServer(app).listen(httpPort, () =>{
-        console.log(`HTTP Server running on port ${httpPort}`)
-    })
-    :   null;
-
+httpsServer.listen(httpsPort, () => {
+    console.log(`HTTPS Server running on PORT ${httpsPort}`)
+})
 
 
 
