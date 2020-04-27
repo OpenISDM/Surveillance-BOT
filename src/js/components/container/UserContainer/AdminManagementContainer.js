@@ -88,6 +88,7 @@ class AdminManagementContainer extends React.Component{
                 showDeleteConfirmation:false,
                 deleteUserName:'',
                 selectedUser: null,
+                locale: locale.abbr
             }, callback)
         })
     }
