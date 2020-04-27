@@ -33,6 +33,13 @@ class ImportPatientTable extends React.Component{
         filetext:'',
         data: [],
         columns: [],
+        locale: this.context.locale.abbr
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (this.context.locale.abbr !== prevState.locale) {
+            this.getData()
+        }
     }
 
     componentDidMount = () =>{
@@ -55,7 +62,8 @@ class ImportPatientTable extends React.Component{
             this.setState({
                 data: res.data.rows,
                 columns,
-                showDeleteConfirmation:false
+                showDeleteConfirmation:false,
+                locale: locale.abbr
             })
         })
         .catch(err => {

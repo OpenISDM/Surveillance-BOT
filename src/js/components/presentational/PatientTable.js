@@ -50,12 +50,19 @@ class PatientTable extends React.Component{
         importData: [],
         filteredData: [],
         filterSelection: {},
+        locale: this.context.locale.abbr
     }
 
     componentDidMount = () => {
         this.getData();
         this.getAreaTable();
         this.getImportedData();
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (this.context.locale.abbr !== prevState.locale) {
+            this.getData()
+        }
     }
 
     getData = (callback) => {
@@ -99,6 +106,7 @@ class PatientTable extends React.Component{
                 filteredData: data,
                 columns,
                 objectTable: res.data.rows,
+                locale: locale.abbr
             }, callback)
         })
         .catch(err => {
