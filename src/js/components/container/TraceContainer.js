@@ -622,7 +622,8 @@ class TraceContainer extends React.Component{
                                             {...this.modeInputField[values.mode]}
                                             options={this.state.options[values.mode]}
                                             styles={styleConfig.reactSelectSearch}
-                                            components={styleConfig.reactSelectSearchComponent}                                    
+                                            components={styleConfig.reactSelectSearchComponent}         
+                                            placeholder={locale.texts[`SEARCH_FOR_${values.mode.toUpperCase()}`]}                           
                                         />
                                         {errors.key && (
                                             <div 
@@ -639,30 +640,6 @@ class TraceContainer extends React.Component{
                                             </div>
                                         )}
                                     </div>
-                                    {/* {console.log(values)}
-                                    {console.log(errors)} */}
-                                    {/* <BOTField
-                                        name="startTime"
-                                        iconName="far fa-clock"
-                                        error={errors.startTime}
-                                        touched={touched.startTime}
-                                        placeholder={locale.texts.START_TIME}
-                                        label={locale.texts.START_TIME}
-                                        example={timeTypeExample}
-                                        className="mx-2"
-                                        boxWidth={350}
-                                    />
-                                    <BOTField
-                                        name="endTime"
-                                        iconName="far fa-clock"
-                                        error={errors.endTime}
-                                        touched={touched.endTime}
-                                        placeholder={locale.texts.END_TIME}
-                                        label={locale.texts.END_TIME}
-                                        example={timeTypeExample}
-                                        className="mx-2"
-                                        boxWidth={350}
-                                    /> */}
                                     <DateTimePicker 
                                         name="startTime"
                                         className="mx-2"
@@ -677,7 +654,6 @@ class TraceContainer extends React.Component{
                                         className="mx-2"
                                         value={values.endTime}
                                         onChange={(value) => {
-                                            console.log(123)
                                             setFieldValue('endTime', moment(value).toDate())
                                         }}
                                         placeholder={locale.texts.START_TIME}
@@ -697,38 +673,6 @@ class TraceContainer extends React.Component{
                                     </PrimaryButton>
                                 </div>
                             </div>
-                            {/* {this.state.data.length != 0 && <hr/>}
-                            {additionalData && (
-                                <div className="d-flex justify-content-between my-3">
-                                    <div className="d-flex justify-content-start">
-                                        {this.additionalData[values.mode].map((field, index) => {
-                                            return (
-                                                <div
-                                                    key={index}
-                                                    style={{
-                                                        padding: '0 20px',
-                                                    }}
-                                                >
-                                                    <BOTValueField
-                                                        type="text"
-                                                        key={index}
-                                                        value={locale.texts[additionalData[field]] ? locale.texts[additionalData[field]] : additionalData[field]}
-                                                        label={locale.texts[field.toUpperCase().replace(/ /g, '_')]}
-                                                        disabled={true}
-                                                    />
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                    <IconButton
-                                        iconName="fas fa-download"
-                                        name="export"
-                                        onClick={this.handleClick}
-                                    >
-                                        {locale.texts.EXPORT}
-                                    </IconButton>
-                                </div>
-                            )} */}
                             {status == this.statusMap.LOADING && <Loader />}
                             <hr/>
                             {this.state.data.length != 0 ? 
@@ -744,7 +688,7 @@ class TraceContainer extends React.Component{
                                         getTrProps={this.onRowClick}
                                     />
                                 )
-                                :   <NoDataFoundDiv>{status}</NoDataFoundDiv>
+                                :   <NoDataFoundDiv>{locale.texts[status.toUpperCase().replace(/ /g, '_')]}</NoDataFoundDiv>
                             }         
                         </Fragment>
                     )}
