@@ -116,7 +116,7 @@ const getTrackingData = (request, response) => {
                     ? moment(item.last_seen_timestamp).locale(locale).from(moment(item.first_seen_timestamp)) 
                     : item.last_reported_timestamp 
                         ? moment(item.last_reported_timestamp).locale(locale).fromNow()
-                        : 'N/A'      
+                        : ""      
 
                 /** Flag the object's battery volumn is limiting */
                 if (item.battery_voltage >= parseInt(process.env.BATTERY_VOLTAGE_INDICATOR)                    

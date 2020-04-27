@@ -2,6 +2,7 @@ import config from '../config'
 
 export const getDescription = (item, locale) => {
     var foundDeviceDescription = ``; 
+    console.log(item)
     switch(item.object_type) {
         case '0':
             foundDeviceDescription += 
@@ -48,11 +49,17 @@ export const getDescription = (item, locale) => {
 
                 ${getID(item, locale)}
 
-                ${getAreaName(item, locale)}-
+                ${item.currentPosition 
+                    ?   `
+                
+                    ${getAreaName(item, locale)}-
 
-                ${getPosition(item, locale)}
+                    ${getPosition(item, locale)}
+                `
+                    :   ""
+                }
 
-                ${item.residence_time} 
+                ${item.residence_time ? item.residence_time : ''}
 
             `    
         break;
@@ -147,7 +154,7 @@ export const getStatus = (item, locale) => {
 
 export const getPosition = (item, locale) => {
     return `
-        ${item.currentPosition && item.location_description}, 
+        ${item.location_description}, 
     `
 }
 
@@ -172,11 +179,7 @@ export const getAreaName = (item, locale) => {
 }
 
 export const getID = (item, locale) => {
-    // return `
-    //     ${locale.texts.ID}:
-    //     ${config.ACNOmitsymbol}${item.asset_control_number.slice(-4)},
-    // `
     return `
-        ${locale.texts.ID}: ${item.asset_control_number},
+        ${locale.texts.ID}: ${item.asset_control_number}${item.currentPosition ? ',' : ""}
     `
 }
