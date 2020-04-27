@@ -1,0 +1,115 @@
+
+
+ /* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    html, body {
+        font-size: 14px;
+    }
+
+    #searchMap {
+        display: none;
+    }
+
+    .searchResultForMobile {
+        display: inline-block
+    }
+
+    .searchResultForDestop {
+        display: none;
+    }
+
+    .searchResultListGroup {
+        max-Height: none;
+        overflow: hidden auto;
+        margin: 0 5px 0 5px;
+    }
+
+    #navbar {
+        font-size: 0.78rem;
+    }
+    .navbar-brand {
+        font-size: 1rem;  
+    }
+
+    .navbar img {
+        width: 25px;
+    }
+
+    .modal {
+        z-Index: 1080;
+    }
+    .modal-backdrop {
+        z-index: 1070;
+    }
+    .notShowOnMobile {
+        display: none;
+    }
+    .container-fluid {
+        width: 100%
+    }
+
+    #downloadPdfRequest {
+        top: 50%;
+        /* left: -10%; */
+        /* right: auto; */
+        bottom: auto;
+    }
+
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+    #searchMap {
+        display: none;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+    #mapid {
+        height: 30vh;
+    } 
+    #searchbar {
+        min-width: 200;
+    }
+
+  }
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 800px) and (max-width: 1600px) {
+    html, body {
+        font-size: 16px;
+    }
+    #navbar {
+        height: 55px;
+        font-size: 14px;
+    }
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1600px) {
+    
+    #navbar {
+        height: 65px;
+    }
+
+    #searchPanel {
+        height: 90vh;
+    }
+
+    #downloadPdfRequest {
+        z-Index: 1050;
+        top: 10%;
+        /* left: -10%; */
+        right: auto;
+        bottom: auto;
+        padding: 0;
+    }
+}

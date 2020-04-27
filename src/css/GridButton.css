@@ -1,0 +1,35 @@
+.gridbutton_wrapper {
+    display: grid;
+    grid-template-columns: 200px 200px; 
+    /* min-width: 500px; */
+}
+  * {box-sizing: border-box;}
+
+.gridbutton_wrapper {
+    /* border-radius: 5px; */
+    /* background-color: #fff4e6; */
+}
+.gridbutton {
+    border-radius: 5px;
+    margin: 0px 3px 3px 0px;
+    color: rgba(0, 0, 0, 0.54);
+    font-weight: 500;
+    padding: 0.5rem;
+    /* padding: 0px; */
+    min-width: 60px;
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gridbutton:hover {
+    cursor: pointer;
+}
+/* .nested {
+    border: 2px solid #ffec99;
+    border-radius: 5px;
+    background-color: #fff9db;
+    padding: 1em;
+}
+*/

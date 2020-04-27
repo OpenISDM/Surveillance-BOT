@@ -1,0 +1,65 @@
+#App {
+  font-family: sans-serif;
+  height: 100vh;
+}
+
+#page-wrap {
+  text-align: center;
+  overflow: auto;
+}
+
+.bm-item {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: #000000;
+  transition: color 0.1s;
+}
+
+.bm-item:hover {
+  color: white;
+  background-color:  #efeeeec9;
+}
+
+/** Burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 36px;
+}
+
+.bm-burger-bars {
+  background: #373a47;
+}
+
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+.bm-cross {
+  background: #bdc3c7;
+}
+
+.bm-menu {
+  background:#efeeee;
+  padding-right: 0em;/** padding: 2.5em 1em 0em;*/
+  font-size: 1.15em;
+}
+
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+.bm-item-list {
+  color: #000000;
+  padding: 0em;/** padding: 0.8em */
+
+}
+
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
