@@ -323,11 +323,11 @@ const objectImport = (request, response) => {
     const idPackage = request.body.newData
        pool.query(queryType.objectImport(idPackage))
         .then(res => {
-            console.log("import objects success");
+            console.log("import object succeed");
             response.status(200).json(res)
         })
         .catch(err => {
-            console.log("import objects Fails: " + err)
+            console.log(`import object failed ${err}`)
         })   
 
 

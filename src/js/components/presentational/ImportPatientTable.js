@@ -168,6 +168,8 @@ class ImportPatientTable extends React.Component{
         const fileReader = new FileReader();
         //console.log(fileReader);
 
+        let { locale } = this.context
+
         if (files.length !=0 ) { //避免按下取消後的bug
             for (let index = 0; index < files.length; index++) {
                 fileReader.name = files[index].name;
@@ -205,44 +207,50 @@ class ImportPatientTable extends React.Component{
                 let reapetFlag = false;
                 let DataNameIsNull = '';
                 let ReapeName = ''; 
-                data.map(importData =>{
+
+
+                data.map(importData => {
+
                     reapetFlag = false;
-                    this.props.dataPatient.map(dataOrigin=>{
-                    importData.asset_control_number === dataOrigin.asset_control_number ? reapetFlag=true : null
-                    importData.asset_control_number == dataOrigin.asset_control_number ? reapetFlag=true : null
+
+                    this.state.data.map(dataOrigin => {
+
+                        importData.asset_control_number == dataOrigin.asset_control_number ? reapetFlag = true : null
+
                     })
-                if( reapetFlag == false) {
-                    if(importData.asset_control_number !=undefined ){
-                            newData.push(importData) 
-                    }else{
-                        DataNameIsNull += importData.name + ','
-                    }
-                    }else{
-                        ReapeName += importData.name   + ','
-                    }
-                })
+
+                    if( reapetFlag == false) {
+                        if(importData.asset_control_number !=undefined ){
+                                newData.push(importData) 
+                        }else{
+                            DataNameIsNull += importData.name + ','
+                        }
+                        }else{
+                            ReapeName += importData.name   + ','
+                        }
+                    })
 
 
+                    DataNameIsNull!='' ? alert('ASN必須不等於空:' + DataNameIsNull) : null 
+                    ReapeName!='' ?    alert(ReapeName + '的ASN與其他筆資料重複')  : null
+                    //沒被擋掉的存到newData後輸出
+            
 
-                DataNameIsNull!='' ? alert('ASN必須不等於空:' + DataNameIsNull) : null 
-                ReapeName!='' ?    alert(ReapeName + '的ASN與其他筆資料重複')  : null
-                //沒被擋掉的存到newData後輸出
-        
-                let { locale } = this.context
-                newData.map(item =>{
-                item.type = 'patient'
-            }) 
+                    newData.map(item => {
+                            item.type = 'patient'
+                    }) 
+
                 axios.post(objectImport, {
                     locale: locale.abbr ,
                     newData
                 })
                 .then(res => {
+                    this.handleSubmitForm()
                 })
                 .catch(err => {
                     console.log(err)
                     
                 })
-            this.handleSubmitForm()
 
             } catch (e) {
                 // 這裡可以拋出文件類型錯誤不正確的相關提示
