@@ -273,6 +273,7 @@ const en =  {
     NEW_PASSWORD:"New password",
     CHECK_PASSWORD:"Check password",
     LEVEL:"level",
+    ADD_COMMENT: "add comment",
 
     /** error message */
     GENDER_IS_REQUIRED: "Gender is required",

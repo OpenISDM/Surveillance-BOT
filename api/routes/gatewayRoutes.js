@@ -9,5 +9,6 @@ module.exports = app => {
     app.route('/data/gateway')
         .get(gatewayController.getAllGateway)
         .delete(gatewayController.deleteGateway)
+        .put(gatewayController.editGateway)
 
 }

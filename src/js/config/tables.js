@@ -106,6 +106,11 @@ const gatewayTableColumn = [
         width: 250
     },
     {
+        Header: "comment",
+        accessor: "comment",
+        width: 130
+    },
+    {
         Header: "Last Report Timestamp",
         accessor: "last_report_timestamp",
         width: 300,
@@ -289,11 +294,6 @@ const importTableColumn = [
     {
         Header: "Name",
         accessor: "name",
-        width: 200,
-    },
-    {
-        Header: "Type",
-        accessor: "type",
         width: 200,
     },
     {

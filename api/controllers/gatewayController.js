@@ -44,7 +44,20 @@ const deleteGateway = (request, response) => {
         })
 }
 
+const editGateway = (request, response) => {
+    const { formOption } = request.body
+    pool.query(dbQueries.editGateway(formOption))
+        .then(res => {
+            console.log('edit lbeacon succeed')
+            response.status(200).json(res)
+        })
+        .catch(err => {
+            console.log(`edit lbeacon failed ${err}`)
+        })
+}
+
 module.exports = {
     getAllGateway,
     deleteGateway,
+    editGateway
 }

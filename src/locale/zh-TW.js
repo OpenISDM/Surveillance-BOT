@@ -231,7 +231,7 @@ const tw = {
     RECORDED_BY: '紀錄',
     ADD_NEW_RECORD: '新增紀錄',
     FOLD:'折疊',
-    COMMENT: '註解',
+    COMMENT: '註記',
 
     /** form title */
     EDIT_LBEACON: '編輯 lbeacon',
@@ -274,6 +274,7 @@ const tw = {
     NEW_PASSWORD:'新密碼',
     CHECK_PASSWORD:'確認新密碼',
     LEVEL:'等級',
+    ADD_COMMENT: '新增註記',
 
     /** error message */
     GENDER_IS_REQUIRED: '請選擇性別',

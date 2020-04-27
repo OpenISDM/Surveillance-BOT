@@ -19,7 +19,8 @@ const SelectTable = selecTableHOC(ReactTable);
 import {
     PrimaryButton
 } from '../BOTComponent/styleComponent'
-import AccessControl from '../presentational/AccessControl'
+import AccessControl from '../presentational/AccessControl';
+import EditGatewayForm from '../presentational/EditGatewayForm';
 
 class GatewayTable extends React.Component{
     
@@ -72,7 +73,8 @@ class GatewayTable extends React.Component{
                 locale: locale.abbr,
                 selection: [],
                 selectAll: false,
-                showDeleteConfirmation: false
+                showDeleteConfirmation: false,
+                showEdit: false,
             }, callback)
         })
         .catch(err => {
@@ -95,6 +97,19 @@ class GatewayTable extends React.Component{
             selectType:''
         })
     }  
+
+    handleSubmitForm = (formOption) => {
+        let callback = () => messageGenerator.setSuccessMessage(
+            'save success'
+        ) 
+        axios.put(dataSrc.gateway, {
+            formOption,
+        }).then(res => {
+            this.getData(callback) 
+        }).catch(err => {
+            console.log(`edit gateway failed ${err}`)
+        })
+    }
 
     toggleSelection = (key, shift, row) => {
          
@@ -248,6 +263,7 @@ class GatewayTable extends React.Component{
                                 onClick: (e, handleOriginal) => {
                                     this.setState({
                                         selectedRowData: rowInfo.original,
+                                        showEdit: true,
                                     })
                                     if (handleOriginal) {
                                         handleOriginal()
@@ -256,7 +272,14 @@ class GatewayTable extends React.Component{
                             }
                         }}
                     />
-                    }
+                }
+                <EditGatewayForm 
+                    show= {this.state.showEdit} 
+                    title='add comment'
+                    selectedObjectData={this.state.selectedRowData} 
+                    handleSubmit={this.handleSubmitForm}
+                    handleClose={this.handleClose}
+                />
                 <DeleteConfirmationForm
                     show={this.state.showDeleteConfirmation} 
                     handleClose={this.handleClose}
