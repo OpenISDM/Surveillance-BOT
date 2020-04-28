@@ -7,11 +7,11 @@ import {
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import config from '../../config';
-import LocaleContext from '../../context/LocaleContext'
+import LocaleContext from '../../context/LocaleContext';
 import axios from 'axios';
-import dataSrc from '../../dataSrc'
+import dataSrc from '../../dataSrc';
 import AuthenticationContext from '../../context/AuthenticationContext';
-import permissionsTable from '../../roles'
+import permissionsTable from '../../roles';
 
 const SiginForm = ({
     show,
@@ -31,7 +31,7 @@ const SiginForm = ({
         >
             <Modal.Body>
                 <div className='d-flex justify-content-center'>
-                    <Image src={config.image.logo} rounded width={50} height={50} ></Image>
+                    <Image src={config.logo} rounded width={50} height={50} ></Image>
                 </div>
                 <div className='d-flex justify-content-center'>
                     <div className="title my-1">{locale.texts.SIGN_IN}</div>

@@ -2,23 +2,21 @@ import React from 'react';
 import { 
     BrowserRouter as Router, 
     Link, 
-} from "react-router-dom";
+} from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { 
     Navbar, 
     Nav, 
     Image, 
     Dropdown  
-} from 'react-bootstrap'
+} from 'react-bootstrap';
 import SiginForm from '../presentational/SigninForm';
 import config from '../../config';
 import AccessControl from '../presentational/AccessControl';
-import ShiftChange from './ShiftChange'
+import ShiftChange from './ShiftChange';
 import { AppContext } from '../../context/AppContext';
-import Select from 'react-select';
-import BatteryLevelNotification from "./BatteryLevelNotification"
-import { navbarNavList } from '../../config/pageModules'
-import styleConfig from '../../config/styleConfig';
+import BatteryLevelNotification from './BatteryLevelNotification';
+import { navbarNavList } from '../../config/pageModules';
 
 class NavbarContainer extends React.Component {
 
@@ -41,13 +39,13 @@ class NavbarContainer extends React.Component {
     handleClick = (e) => {
         let name = e.target.getAttribute('name')
         switch(name) {
-            case "shiftChange":
+            case 'shiftChange':
             e.preventDefault()
             this.setState({
                 showShiftChange: true
             })
             break;
-            case "signin":
+            case 'signin':
             this.setState({
                 showSignin: true,
             })
@@ -58,7 +56,7 @@ class NavbarContainer extends React.Component {
     render= () => {
         const style = {
             navbar: {
-                boxShadow: "0 1px 6px 0 rgba(32,33,36,0.28)",
+                boxShadow: '0 1px 6px 0 rgba(32,33,36,0.28)',
                 fontWeight: '450',
             },
             navbarBrand: {
@@ -75,10 +73,8 @@ class NavbarContainer extends React.Component {
         const { 
             locale, 
             auth, 
-            stateReducer 
         } = this.context;
 
-        const [{ areaId }, dispatch] = stateReducer
         const { 
             showSignin, 
             showShiftChange
@@ -86,33 +82,33 @@ class NavbarContainer extends React.Component {
 
         return (
             <Navbar
-                id="navbar"  
-                bg="white" 
-                className="navbar sticky-top navbar-light text-capitalize" 
-                expand="lg"
-                fixed="top" 
+                id='navbar'  
+                bg='white' 
+                className='navbar sticky-top navbar-light text-capitalize' 
+                expand='lg'
+                fixed='top' 
                 collapseOnSelect
                 style={style.navbar}
             >
                 <Navbar.Brand className='px-0 mx-0'>  
                     <Nav.Item 
-                        className="nav-link nav-brand d-flex align-items-center" 
+                        className='nav-link nav-brand d-flex align-items-center' 
                         style={style.navbarBrand}
                     >
                         <Image
-                            alt=""
-                            src={config.image.logo}
+                            alt=''
+                            src={config.logo}
                             width={50}
-                            className="d-inline-block align-top px-1"
+                            className='d-inline-block align-top px-1'
                         />
                     </Nav.Item> 
                 </Navbar.Brand>
                 
                 <Navbar.Toggle 
-                    aria-controls="responisve-navbar-nav" 
+                    aria-controls='responisve-navbar-nav' 
                 />
-                <Navbar.Collapse id="responsive-navbar-nav">  
-                    <Nav className="mr-auto my-auto" >
+                <Navbar.Collapse id='responsive-navbar-nav'>  
+                    <Nav className='mr-auto my-auto' >
                         {this.navList.map(nav => {
                             return (
                                 <AccessControl
@@ -124,7 +120,7 @@ class NavbarContainer extends React.Component {
                                     <Nav.Item>
                                         <Link 
                                             to={nav.path} 
-                                            className="nav-link nav-route"
+                                            className='nav-link nav-route'
                                             name={nav.alias}
                                             onClick={nav.hasEvent && this.handleClick}
                                             key={nav.alias}
@@ -147,7 +143,7 @@ class NavbarContainer extends React.Component {
                             <BatteryLevelNotification />
                         </AccessControl>
                         <Nav.Item 
-                            className="nav-link nav-route" 
+                            className='nav-link nav-route' 
                             name={'en'}
                             onClick={(e) => locale.changeLocale(e, auth)}                         
                         >
@@ -158,28 +154,28 @@ class NavbarContainer extends React.Component {
                                 <Dropdown>
                                     <Dropdown.Toggle 
                                         variant='light'
-                                        id="collasible-nav-dropdown" 
+                                        id='collasible-nav-dropdown' 
                                     >
-                                        <i className="fas fa-user-alt" />
+                                        <i className='fas fa-user-alt' />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu
                                         bsPrefix='bot-dropdown-menu-right  dropdown-menu '
                                     >
-                                        <div className="dropdownWrapper">
-                                            <LinkContainer to="/page/userSetting" className="bg-white">
-                                                <Dropdown.Item className="lang-select">
+                                        <div className='dropdownWrapper'>
+                                            <LinkContainer to='/page/userSetting' className='bg-white'>
+                                                <Dropdown.Item className='lang-select'>
                                                     {auth.user.name}
                                                 </Dropdown.Item>
                                             </LinkContainer>
                                             <Dropdown.Divider />
-                                            <LinkContainer to='/page/about' className="bg-white">
-                                                <Dropdown.Item className="lang-select">
+                                            <LinkContainer to='/page/about' className='bg-white'>
+                                                <Dropdown.Item className='lang-select'>
                                                     {locale.texts.ABOUT}
                                                 </Dropdown.Item>
                                             </LinkContainer>
                                             <Dropdown.Divider />
-                                            <LinkContainer to="/" className="bg-white">
-                                                <Dropdown.Item className="lang-select" onClick={auth.signout}>
+                                            <LinkContainer to='/' className='bg-white'>
+                                                <Dropdown.Item className='lang-select' onClick={auth.signout}>
                                                     {locale.texts.SIGN_OUT}
                                                 </Dropdown.Item>
                                             </LinkContainer>
@@ -190,9 +186,9 @@ class NavbarContainer extends React.Component {
 
                             :   (
                                 <Nav.Item 
-                                    className="nav-link nav-route" 
+                                    className='nav-link nav-route' 
                                     onClick={this.handleClick}
-                                    name="signin"
+                                    name='signin'
                                 >
                                     {locale.texts.SIGN_IN}
                                 </Nav.Item>

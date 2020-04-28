@@ -44,9 +44,9 @@ const config = {
         defaultLocale: 'tw' ,
     },
 
-    image: {
-        logo: BOT_LOGO,
-    },
+    defaultLocale: 'tw' ,
+
+    logo: BOT_LOGO,
 
     systemAdmin: {
 
