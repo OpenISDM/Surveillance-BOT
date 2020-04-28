@@ -64,23 +64,6 @@ class TraceContainer extends React.Component{
 
     defaultActiveKey="name" 
 
-    modeInputField = {
-        name: {
-            placeholder: this.context.locale.texts.SEARCH_FOR_NAME,
-            label: "name",
-            example: '',
-        },
-        mac: {
-            placeholder: this.context.locale.texts.PLEASE_ENTER_OR_SCAN_MAC_ADDRESS,
-            label: "mac address",
-        },
-        uuid: {
-            placeholder: this.context.locale.texts.SEARCH_FOR_UUID,
-            label: "UUID",
-            example: "ex: 00010015-0000-0005-4605-000000018086",
-        }
-    }
-
     statusMap = {
         LOADING: 'loading',
         SUCCESS: 'succcess',
@@ -88,30 +71,11 @@ class TraceContainer extends React.Component{
         WAIT_FOR_SEARCH: 'wait for search',
     }
 
-
-
-    additionalData = {
-        name: [
-            'area',
-        ],
-        mac: [
-            'area',
-        ],
-        uuid: [
-            'area',
-            'description'
-        ]
-    }
-
     navList = [
         {
             name: 'name',
             mode: 'name',
         },
-        // {
-        //     name: 'mac_address',
-        //     mode: 'mac',
-        // },
         {
             name: 'lbeacon',
             mode: 'uuid'
@@ -619,7 +583,6 @@ class TraceContainer extends React.Component{
                                             }}
                                             isClearable={true}
                                             isSearchable={true}
-                                            {...this.modeInputField[values.mode]}
                                             options={this.state.options[values.mode]}
                                             styles={styleConfig.reactSelectSearch}
                                             components={styleConfig.reactSelectSearchComponent}         

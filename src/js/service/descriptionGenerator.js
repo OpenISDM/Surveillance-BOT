@@ -1,8 +1,7 @@
-import config from '../config'
+import config from '../config';
 
 export const getDescription = (item, locale) => {
     var foundDeviceDescription = ``; 
-    console.log(item)
     switch(item.object_type) {
         case '0':
             foundDeviceDescription += 

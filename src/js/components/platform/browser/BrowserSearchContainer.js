@@ -1,21 +1,16 @@
 import React from 'react';
 import {
     Row,
-    Col
+    Image
 } from 'react-bootstrap';
-import Searchbar from '../../presentational/Searchbar';
-import FrequentSearch from '../../container/FrequentSearch';
-import ObjectTypeList from '../../container/ObjectTypeList';
-import config from '../../../config';
 import BOTSearchbar from '../../presentational/BOTSearchbar';
+import config from '../../../config';
 
 const BrowserSearchContainer = ({
     searchKey,
-    objectTypeList,
     getSearchKey,
     handleTouchMove,
     clearSearchResult,
-    hasGridButton,
 }) => {
     return (
         <div 
@@ -23,6 +18,7 @@ const BrowserSearchContainer = ({
             className="py-1" 
             onTouchMove={handleTouchMove}
         >
+            <Image src={config.logo} rounded />
             <Row id='searchBar' className='d-flex justify-content-center align-items-center pb-2'>
                 <BOTSearchbar
                     placeholder={searchKey}
