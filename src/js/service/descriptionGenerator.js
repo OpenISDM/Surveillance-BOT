@@ -173,7 +173,7 @@ export const getRSSI = (item, locale) => {
 
 export const getAreaName = (item, locale) => {
     return `
-        ${locale.texts.NEAR}${locale.texts[item.area.value]}
+        ${locale.texts.NEAR}${locale.texts[item.lbeacon_area.value]}
     `
 }
 
