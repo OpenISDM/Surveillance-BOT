@@ -15,7 +15,6 @@ const SearchResultListGroup = ({
     data,
     onSelect,
     selection,
-    disabled,
     action
 }) => {
 
@@ -46,7 +45,7 @@ const SearchResultListGroup = ({
                             state: {
                                 key: {
                                     value: item.name,
-                                    label: item.name
+                                    label: item.name,
                                 },
                                 mode: 'name'
                             }
