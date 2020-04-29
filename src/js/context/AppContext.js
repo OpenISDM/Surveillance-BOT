@@ -14,7 +14,7 @@ const AppContextProvider = (props) => {
     const locale = React.useContext(LocaleContext)
 
     const initialState = {
-        areaId: parseInt(config.mapConfig.defaultAreaId),
+        areaId: parseInt(config.DEFAULT_AREA_ID),
         shouldUpdateTrackingData: true
     }
     

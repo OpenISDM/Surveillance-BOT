@@ -86,32 +86,6 @@ export const systemSettingModule = {
     ]
 }
 
-export const monitorSettingModule= {
-    
-    title: "monitor setting",
-
-    defaultActiveKey: "movement_monitor",
-
-    tabList: [
-        {
-            name: config.monitorSettingType.MOVEMENT_MONITOR,
-            component: (props) => <MonitorSettingBlock {...props}/>
-        },
-        {
-            name: config.monitorSettingType.LONG_STAY_IN_DANGER_MONITOR,
-            component: (props) => <MonitorSettingBlock {...props}/>
-        },
-        {
-            name: config.monitorSettingType.NOT_STAY_ROOM_MONITOR,
-            component: (props) => <MonitorSettingBlock {...props}/>
-        },
-        {
-            name: config.monitorSettingType.GEOFENCE_MONITOR,
-            component: (props) => <GeoFenceSettingBlock {...props}/>
-        },
-    ]
-}
-
 export const trackingHistoryContainerModule = {
 
     title: "tracking history",

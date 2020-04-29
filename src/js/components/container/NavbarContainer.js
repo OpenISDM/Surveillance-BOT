@@ -13,7 +13,6 @@ import {
 import SiginForm from '../presentational/SigninForm';
 import config from '../../config';
 import AccessControl from '../presentational/AccessControl';
-import ShiftChange from './ShiftChange';
 import { AppContext } from '../../context/AppContext';
 import BatteryLevelNotification from './BatteryLevelNotification';
 import { navbarNavList } from '../../config/pageModules';
@@ -199,10 +198,6 @@ class NavbarContainer extends React.Component {
 
                 <SiginForm 
                     show={showSignin}
-                    handleClose={this.handleClose}
-                />
-                <ShiftChange 
-                    show={showShiftChange}
                     handleClose={this.handleClose}
                 />
             </Navbar>
