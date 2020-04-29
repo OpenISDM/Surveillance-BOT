@@ -7,6 +7,8 @@ const pg = require('pg');
 const pdf = require('html-pdf');
 const csv =require('csvtojson')
 var exec = require('child_process').execFile;
+const session = require('express-session');
+
 const fs = require('fs')
 const path = require('path')
 const config = {
@@ -438,11 +440,15 @@ const signin = (request, response) => {
                         locale
                     }
 
-                    request.session.userInfo = userInfo
-                    response.json({
+                    /** Set session */
+                    request.session.regenerate(()=>{})
+                    request.session.user = name
+
+                    response.status(200).json({
                         authentication: true,
                         userInfo
                     })
+
                     pool.query(queryType.setVisitTimestamp(username))
                         .then(res =>  console.log(`sign in success: ${name}`))
                         .catch(err => console.log(`set visit timestamp fails ${err}`))
