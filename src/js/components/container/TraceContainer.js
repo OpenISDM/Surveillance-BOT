@@ -87,8 +87,8 @@ class TraceContainer extends React.Component{
 
         if (this.props.location.state) {
             let { state } = this.props.location
-            let now = moment().format('YYYY/MM/DD HH:mm:ss')
-            let lastday = moment().subtract(30, 'minutes').format('YYYY/MM/DD HH:mm:ss')
+            let now = moment();
+            let lastday = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT);
             let field = {
                 mode: state.mode,
                 key: state.key,
@@ -579,7 +579,6 @@ class TraceContainer extends React.Component{
                                             active={this.state.breadIndex == index}
                                             name="bread"
                                             onClick={(e) => {
-                                                console.log(e.target.getAttribute('name'))
                                                 setFieldValue('mode', history.mode)
                                                 setFieldValue('key', history.key)
                                                 setFieldValue('startTime', moment(history.startTime).toDate())
