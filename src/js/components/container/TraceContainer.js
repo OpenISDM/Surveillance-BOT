@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { CSVLink, CSVDownload } from 'react-csv'
 import { DateTimePicker } from 'react-widgets';
 import momentLocalizer from 'react-widgets-moment';
 import dataSrc from "../../dataSrc"
@@ -11,6 +10,8 @@ import {
 import * as Yup from 'yup';
 import { 
     Nav,
+    Breadcrumb,
+    Button
 } from 'react-bootstrap';
 import styleConfig from '../../config/styleConfig'
 import 'react-tabs/style/react-tabs.css';
@@ -34,9 +35,7 @@ import Select, {components} from 'react-select'
 import {
     PageTitle
 } from '../BOTComponent/styleComponent';
-import BOTValueField from '../BOTComponent/BOTValueField';
 import IconButton from '../BOTComponent/IconButton';
-import BOTField from '../BOTComponent/BOTField';
 import styleSheet from '../../config/styleSheet';
 import ExportModal from '../presentational/ExportModal';
 import config from '../../config';
@@ -52,13 +51,13 @@ class TraceContainer extends React.Component{
     state = {
         columns:[], 
         data:[],
-        showModal: false,
-        additionalData: null,
         options: {
             name: [],
             uuid: [],
         },
         locale: this.context.locale.abbr,
+        histories: [],
+        breadIndex: -1,
     }
     columns = [];
 
@@ -90,14 +89,14 @@ class TraceContainer extends React.Component{
             let { state } = this.props.location
             let now = moment().format('YYYY/MM/DD HH:mm:ss')
             let lastday = moment().subtract(30, 'minutes').format('YYYY/MM/DD HH:mm:ss')
-
             let field = {
                 mode: state.mode,
                 key: state.key,
                 startTime: lastday,
                 endTime: now,
+                description: state.key.label
             }
-            this.getLocationHistory(field)
+            this.getLocationHistory(field, 0)
         }
     }
 
@@ -136,7 +135,8 @@ class TraceContainer extends React.Component{
             let name = res.data.rows.map(item => {
                 return {
                     value: item.name,
-                    label: item.name
+                    label: item.name,
+                    description: item.name,
                 }
             })
             this.setState({
@@ -159,9 +159,11 @@ class TraceContainer extends React.Component{
             let uuid = res.data.rows.map(lbeacon => {
                 return {
                     value: lbeacon.uuid,
-                    label: `${lbeacon.description}[${lbeacon.uuid}]`
+                    label: `${lbeacon.description}[${lbeacon.uuid}]`,
+                    description: lbeacon.description
                 }
             })
+
             this.setState({
                 options: {
                     ...this.state.options,
@@ -170,7 +172,7 @@ class TraceContainer extends React.Component{
             })
         })
     }
-    getLocationHistory = (fields) => {
+    getLocationHistory = (fields, breadIndex) => {
 
         const {
             locale
@@ -215,14 +217,12 @@ class TraceContainer extends React.Component{
                 this.formikRef.current.setStatus(this.statusMap.NO_RESULT)
                 this.setState({
                     data: [],
-                    additionalData: null,
                 })
                 return
             }
 
             let prevUUID = "";
             let data = []
-            let additionalData = null;
             switch(fields.mode) {
                 case 'mac':
                 case 'name':
@@ -249,18 +249,33 @@ class TraceContainer extends React.Component{
                         item.mode = fields.mode
                         item.area_original = item.area
                         item.area= locale.texts[item.area]
-
+                        item.description = item.name
                         return item
                     })
                     break;
             }
+            var histories = this.state.histories
+
+            if (breadIndex < this.state.histories.length - 1) {
+                histories = histories.slice(0, breadIndex)
+            }
+
+            histories.push({
+                key: fields.key,
+                startTime: moment(fields.startTime).format(), 
+                endTime: moment(fields.endTime).format(),
+                mode: fields.mode,
+                data,
+                columns,
+                description: fields.description
+            })
+
             this.setState({
                 data,
                 columns,
-                additionalData,
+                histories,
+                breadIndex,
             }, this.formikRef.current.setStatus(this.statusMap.SUCCESS))
-
-            /** Set formik status as 1. Dismiss loading page */
 
         })
         .catch(err => {
@@ -283,6 +298,7 @@ class TraceContainer extends React.Component{
         return {
             mode: this.defaultActiveKey,
             key: null,
+            description: null,
         }
     }
 
@@ -293,15 +309,18 @@ class TraceContainer extends React.Component{
         let values = this.formikRef.current.state.values;
         let startTime;
         let endTime;
+
         return {
             onClick: (e) => { 
                 let key;
+                let breadIndex = Number(this.state.breadIndex)
                 switch(rowInfo.original.mode) {
-                    case 'mac':
                     case 'name':
                         key = {
                             value: rowInfo.original.uuid,
                             label: rowInfo.original.uuid,
+                            description: rowInfo.original.description
+
                         };
                         startTime = moment(rowInfo.original.startTime).toDate()
                         endTime = moment(rowInfo.original.endTime).toDate()
@@ -313,13 +332,15 @@ class TraceContainer extends React.Component{
                             ...values,
                             ...rowInfo.original,
                             key,
-                            mode: 'uuid'
-                        })
+                            mode: 'uuid',
+                            description: rowInfo.original.description,
+                        }, breadIndex + 1)
                         break;
                     case 'uuid':
                         key = {
                             value: rowInfo.original.name,
                             label: rowInfo.original.name,
+                            description: rowInfo.original.description
                         }
                         startTime = moment(values.startTime).toDate()
                         endTime = moment(values.endTime).toDate()
@@ -331,8 +352,9 @@ class TraceContainer extends React.Component{
                             ...values,
                             ...rowInfo.original,
                             key,
-                            mode: 'name'
-                        })
+                            mode: 'name',
+                            description: rowInfo.original.description,
+                        }, breadIndex + 1)
                         break;
                 }
             },
@@ -341,7 +363,7 @@ class TraceContainer extends React.Component{
 
 
     handleClick = (e) => {
-        let { name } = e.target
+        let name = e.target.name 
         let {
             auth,
             locale
@@ -422,19 +444,19 @@ class TraceContainer extends React.Component{
                 setErrors({})
                 setTouched({})
                 setStatus(this.statusMap.WAIT_FOR_SEARCH)
+                this.setState({
+                    data: [],
+                    columns: [],
+                })
                 break;
+
         }
     }
  
     render(){
 
         const { locale } = this.context
-
-        const {
-            additionalData
-        } = this.state
  
-        const timeTypeExample = `YYYY/MM/DD HH:MM:SS`
         const timeValidatedFormat = 'YYYY/MM/DD HH:mm:ss'
 
         let initialValues = this.getInitialValues()
@@ -531,7 +553,10 @@ class TraceContainer extends React.Component{
                     })}
 
                     onSubmit={(values) => {
-                        this.getLocationHistory(values)
+                        this.getLocationHistory({
+                            ...values,
+                            description: values.key.description
+                        }, this.state.breadIndex + 1)
                     }}
                 
                     render={({ 
@@ -542,12 +567,35 @@ class TraceContainer extends React.Component{
                         isSubmitting, 
                         setFieldValue, 
                         submitForm, 
-                        setErrors, 
-                        setTouched, 
-                        setStatus,
-                        setSubmitting 
                     }) => (
                         <Fragment>
+                            <Breadcrumb 
+                                className="my-2"
+                            >
+                                {this.state.histories.map((history, index) => {
+                                    return (
+                                        <Breadcrumb.Item
+                                            key={index}
+                                            active={this.state.breadIndex == index}
+                                            name="bread"
+                                            onClick={(e) => {
+                                                console.log(e.target.getAttribute('name'))
+                                                setFieldValue('mode', history.mode)
+                                                setFieldValue('key', history.key)
+                                                setFieldValue('startTime', moment(history.startTime).toDate())
+                                                setFieldValue('endTime', moment(history.endTime).toDate())
+                                                this.setState({
+                                                    data: history.data,
+                                                    columns: history.columns,
+                                                    breadIndex: index
+                                                })
+                                            }}
+                                        >
+                                            {history.description}
+                                        </Breadcrumb.Item>
+                                    )
+                                })}
+                            </Breadcrumb>
                             <BOTNav>
                                 {this.navList.map((nav, index) => {
                                     return (

@@ -710,3 +710,26 @@ p {
     height: 3rem;
     border-radius: 0px;
 }
+
+.breadcrumb {
+    background: #e6e6e638;
+    border-radius: 0;
+    min-height: 2.5rem;
+}
+
+.breadcrumb ol{
+    min-height: 2.5rem;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+}
+
+.breadcrumb-item a{
+    color: black;
+}
+
+.breadcrumb-item.active {
+    font-weight: 500;
+    color: #007bff;
+}
