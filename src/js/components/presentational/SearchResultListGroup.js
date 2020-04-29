@@ -1,14 +1,14 @@
-import React from 'react'
-import { ListGroup } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { ListGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import config from '../../config';
-import { AppContext } from '../../context/AppContext'
+import { AppContext } from '../../context/AppContext';
 import { 
     getDescription, 
     getMacaddress,
     getRSSI 
-} from '../../service/descriptionGenerator'
-import AccessControl from './AccessControl'
+} from '../../service/descriptionGenerator';
+import AccessControl from './AccessControl';
 
 
 const SearchResultListGroup = ({
@@ -60,17 +60,9 @@ const SearchResultListGroup = ({
                     >   
                         <div 
                             style={style.item}
-                            className="d-flex justify-content-center"
+                            className='d-flex justify-content-center'
                         >
-                            {selection.indexOf(item.mac_address) >= 0 
-                                ?   <i 
-                                        className="fas fa-check d-inline-block" 
-                                        style={style.icon}
-                                    /> 
-                                : config.mapConfig.iconOptions.showNumber
-                                    ?   <p className='d-inline-block'>{index + 1}.</p>
-                                    :   <p className='d-inline-block'>&#9642;</p>
-                            }
+                            <p className='d-inline-block'>{index + 1}.</p>
                         </div>
                         {getDescription(item, locale, config)}
                         {
