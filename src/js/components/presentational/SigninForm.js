@@ -49,7 +49,7 @@ const SiginForm = ({
                     })}
 
                     onSubmit={({ username, password, radioGroup }, { setStatus, setSubmitting }) => {
-                        axios.post(dataSrc.signin, {
+                        axios.post(dataSrc.auth.signin, {
                             username,
                             password,
                         })
