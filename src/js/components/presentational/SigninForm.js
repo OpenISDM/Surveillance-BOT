@@ -8,10 +8,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import config from '../../config';
 import LocaleContext from '../../context/LocaleContext';
-import axios from 'axios';
-import dataSrc from '../../dataSrc';
 import AuthenticationContext from '../../context/AuthenticationContext';
-import permissionsTable from '../../roles';
 
 const SiginForm = ({
     show,
@@ -48,48 +45,8 @@ const SiginForm = ({
                         password: Yup.string().required(locale.texts.PASSWORD_IS_REQUIRED)
                     })}
 
-                    onSubmit={({ username, password, radioGroup }, { setStatus, setSubmitting }) => {
-                        axios.post(dataSrc.auth.signin, {
-                            username,
-                            password,
-                        })
-                        .then(res => {
-                            if (!res.data.authentication) { 
-                                setStatus(res.data.message)
-                                setSubmitting(false)
-                            } else {
-                                let {
-                                    userInfo
-                                } = res.data
-
-                                if (userInfo.roles.includes("dev")) {
-                                    userInfo.permissions = 
-                                        Object.keys(permissionsTable).reduce((permissions, role) => {
-                                            permissionsTable[role].permission.map(item => {
-                                                if (!permissions.includes(item)) {
-                                                    permissions.push(item)
-                                                }
-                                            })
-                                            return permissions
-                                        }, [])
-                                } else {
-                                    userInfo.permissions = 
-                                        userInfo.roles.reduce((permissions, role) => {
-                                            permissionsTable[role].permission.map(item => {
-                                                if (!permissions.includes(item)) {
-                                                    permissions.push(item)
-                                                }
-                                            })
-                                            return permissions
-                                        }, [])
-                                }
-                                auth.signin(userInfo)
-                                locale.reSetState(userInfo.locale)
-                                handleClose()
-                            }
-                        }).catch(error => {
-                            console.log(error)
-                        })
+                    onSubmit={(values, actions) => {
+                        auth.signin(values, actions, handleClose)
                     }}
 
                     render={({ values, errors, status, touched, isSubmitting }) => (

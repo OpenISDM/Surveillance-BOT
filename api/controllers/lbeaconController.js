@@ -1,19 +1,12 @@
 require('dotenv').config();
 require('moment-timezone')
 const moment = require('moment');
-const dbQueries = require('../db/dbQueries/lbeaconQueries')
-const pg = require('pg');
-const config = {
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
-}
+const dbQueries = require('../db/dbQueries/lbeaconQueries');
+const pool = require('../db/dev/connection');
 
-const pool = new pg.Pool(config)
+module.exports = {
 
-const getAllLbeacon= (request, response) => {
+    getAllLbeacon: (request, response) => {
 
     let { locale } = request.query;
 
@@ -29,36 +22,31 @@ const getAllLbeacon= (request, response) => {
         .catch(err => {
             console.log(`get lbeacon table failed ${err}`)
         })        
-}
+    },
 
-const deleteLBeacon = (request, response) => {
-    const { 
-        idPackage
-     } = request.body
-    pool.query(dbQueries.deleteLBeacon(idPackage))
-        .then(res => {
-            console.log('delete LBeacon record succeed')
-            response.status(200).json(res)
-        })
-        .catch(err => {
-            console.log(`delete LBeacon failed ${err}`)
-        })
-}
+    deleteLBeacon: (request, response) => {
+        const { 
+            idPackage
+        } = request.body
+        pool.query(dbQueries.deleteLBeacon(idPackage))
+            .then(res => {
+                console.log('delete LBeacon record succeed')
+                response.status(200).json(res)
+            })
+            .catch(err => {
+                console.log(`delete LBeacon failed ${err}`)
+            })
+    },
 
-const editLbeacon = (request, response) => {
-    const { formOption } = request.body
-    pool.query(dbQueries.editLbeacon(formOption))
-        .then(res => {
-            console.log('edit lbeacon succeed')
-            response.status(200).json(res)
-        })
-        .catch(err => {
-            console.log(`edit lbeacon failed ${err}`)
-        })
-}
-
-module.exports = {
-    getAllLbeacon,
-    deleteLBeacon,
-    editLbeacon
+    editLbeacon: (request, response) => {
+        const { formOption } = request.body
+        pool.query(dbQueries.editLbeacon(formOption))
+            .then(res => {
+                console.log('edit lbeacon succeed')
+                response.status(200).json(res)
+            })
+            .catch(err => {
+                console.log(`edit lbeacon failed ${err}`)
+            })
+    },
 }

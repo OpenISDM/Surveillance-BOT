@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import dataSrc from './dataSrc';
 import config from './config';
+import permissionsTable from './config/roles';
+
 
 class Auth extends React.Component {
 
@@ -13,13 +15,56 @@ class Auth extends React.Component {
         accessToken: ""
     }
 
-    signin = (userInfo) => {
-        Cookies.set('authenticated', true)
-        Cookies.set('user', userInfo)
+    signin = (userInfo, actions, callback) => {
+        let {
+            username,
+            password
+        } = userInfo;
 
-        this.setState({
-            authenticated: true,
-            user: userInfo
+        axios.post(dataSrc.auth.signin, {
+            username,
+            password,
+        })
+        .then(res => {
+            if (!res.data.authentication) { 
+                actions.setStatus(res.data.message)
+                actions.setSubmitting(false)
+            } else {
+                let {
+                    userInfo
+                } = res.data
+
+                if (userInfo.roles.includes("dev")) {
+                    userInfo.permissions = 
+                        Object.keys(permissionsTable).reduce((permissions, role) => {
+                            permissionsTable[role].permission.map(item => {
+                                if (!permissions.includes(item)) {
+                                    permissions.push(item)
+                                }
+                            })
+                            return permissions
+                        }, [])
+                } else {
+                    userInfo.permissions = 
+                        userInfo.roles.reduce((permissions, role) => {
+                            permissionsTable[role].permission.map(item => {
+                                if (!permissions.includes(item)) {
+                                    permissions.push(item)
+                                }
+                            })
+                            return permissions
+                        }, [])
+                }
+                Cookies.set('authenticated', true)
+                Cookies.set('user', userInfo)
+                // locale.reSetState(userInfo.locale)
+                this.setState({
+                    authenticated: true,
+                    user: userInfo
+                }, callback())
+            }
+        }).catch(error => {
+            console.log(error)
         })
     };
   
@@ -31,7 +76,7 @@ class Auth extends React.Component {
             user: config.defaultUser,
             accessToken: ""
         });
-    };
+    }; 
 
     signup = (values, callback) => {
         let { 
