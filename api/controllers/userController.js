@@ -52,7 +52,6 @@ module.exports = {
 
         })
 
-        console.log(request.sessionID)
         pool.query(dbQueries.addUser(signupPackage))
             .then(res => {
                 pool.query(dbQueries.insertUserData(name, roles, area_id))

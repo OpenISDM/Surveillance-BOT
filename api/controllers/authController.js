@@ -71,11 +71,9 @@ module.exports = {
                             userInfo
                         })
 
-                        console.log(`signin succeed: ${name}`)
-
-                        // pool.query(queryType.setVisitTimestamp(username))
-                        //     .then(res =>  console.log(`sign in success: ${name}`))
-                        //     .catch(err => console.log(`set visit timestamp fails ${err}`))
+                        pool.query(dbQueries.setVisitTimestamp(username))
+                            .then(res =>  console.log(`sign in success: ${name}`))
+                            .catch(err => console.log(`set visit timestamp fails ${err}`))
 
                     } else {
                         response.json({
@@ -85,6 +83,7 @@ module.exports = {
                     }
                 }
             })
+
             .catch(err => {
                 console.log(`sigin fails ${err}`)       
             })
