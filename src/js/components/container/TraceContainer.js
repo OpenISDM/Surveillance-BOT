@@ -384,7 +384,7 @@ class TraceContainer extends React.Component{
                         title: column.name
                     }
                 })
-                axios.post(dataSrc.exportCSV, {
+                axios.post(dataSrc.file.export.csv, {
                     data: this.state.data,
                     header,          
                     filePackage
@@ -419,7 +419,7 @@ class TraceContainer extends React.Component{
                     }
                 )  
 
-                axios.post(dataSrc.exportPDF, {
+                axios.post(dataSrc.file.export.pdf, {
                     userInfo: auth.user,
                     pdfPackage,
                 }).then(res => {

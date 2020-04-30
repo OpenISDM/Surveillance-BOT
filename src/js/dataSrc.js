@@ -21,11 +21,19 @@ module.exports = {
     area: `${domain}/data/area`,
 
     auth: {
-        signin: `${domain}/data/auth/signin`
+        signin: `${domain}/data/auth/signin`,
+        signout: `${domain}/data/auth/signout`,
     },
 
-    pdfUrl: function (path) {
-        return `${protocol}://${dataSrcIP}/${path}`
+    file: {
+        export: {
+            csv: `${domain}/data/file/export/csv`,
+            pdf: `${domain}/data/file/export/pdf`,
+        }
+    },
+
+    pdfUrl: path => {
+        return `${domain}/data/file/${path}`
     }
 }
 
