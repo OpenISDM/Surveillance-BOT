@@ -69,13 +69,21 @@ class Auth extends React.Component {
     };
   
     signout = () => {
-        Cookies.remove('authenticated')
-        Cookies.remove('user')
-        this.setState({
-            authenticated: false,
-            user: config.defaultUser,
-            accessToken: ""
-        });
+        axios.post(dataSrc.auth.signout, {
+            
+        })
+        .then(res => {
+            Cookies.remove('authenticated')
+            Cookies.remove('user')
+            this.setState({
+                authenticated: false,
+                user: config.defaultUser,
+                accessToken: ""
+            });
+        })
+        .catch(err => {
+            console.log(`signout failed ${err}`)
+        })
     }; 
 
     signup = (values, callback) => {

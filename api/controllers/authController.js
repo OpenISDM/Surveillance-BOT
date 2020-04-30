@@ -1,7 +1,6 @@
 require('dotenv').config();
 require('moment-timezone');
 const dbQueries = require('../db/dbQueries/authQueries');
-const session = require('express-session');
 const pg = require('pg');
 const config = {
     user: process.env.DB_USER,
