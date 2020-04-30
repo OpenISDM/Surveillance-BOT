@@ -69,9 +69,9 @@ class UserProfile extends React.Component{
             this.setState({
                 userInfo,
             })
-            axios.post(modifyUserInfo, {
+            axios.post(dataSrc.userInfo.maxSearchCount, {
                 info: userInfo,
-                username: userInfo['name']
+                username: userInfo.name
             }).then(res => {
                 auth.setUserInfo('freqSearchCount', value)
             }) 

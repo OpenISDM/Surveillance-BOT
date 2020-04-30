@@ -18,4 +18,7 @@ module.exports = app => {
     app.route('/data/user/password')
         .post(userController.editPassword)
 
+    app.route('/data/user/maxSearchCount')
+        .post(userController.editMaxSearchCount)
+
 }

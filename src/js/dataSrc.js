@@ -16,7 +16,8 @@ module.exports = {
         area: {
             secondary: `${domain}/data/user/area/secondary`,
         },
-        password: `${domain}/data/user/password`
+        password: `${domain}/data/user/password`,
+        maxSearchCount: `${domain}/data/user/maxSearchCount`
     },
 
     object: `${domain}/data/object`,
