@@ -20,6 +20,8 @@ module.exports = {
 
     area: `${domain}/data/area`,
 
+    role: `${domain}/data/role`,
+
     auth: {
         signin: `${domain}/data/auth/signin`,
         signout: `${domain}/data/auth/signout`,

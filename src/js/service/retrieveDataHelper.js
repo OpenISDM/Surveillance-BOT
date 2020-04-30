@@ -95,6 +95,10 @@ const retrieveDataHelper = {
             type
         })
     },
+
+    getAllRole: async function () {
+        return await axios.get(dataSrc.role)
+    }
 }
 
 

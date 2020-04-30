@@ -94,7 +94,7 @@ class AdminManagementContainer extends React.Component{
     }
 
     getRoleNameList = () => {
-        axios.post(getRoleNameList)
+        retrieveDataHelper.getAllRole()
             .then(res => {
                 let roleName = res.data.rows.filter(item => item.name !== "guest" )
                 this.setState({
