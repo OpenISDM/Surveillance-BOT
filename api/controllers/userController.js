@@ -92,5 +92,39 @@ module.exports = {
             .catch(err => {
                 console.log(`delete user failed ${err}`)
             })  
+    },
+
+    editSecondaryArea: (request, response) => {
+        const {
+            user
+        } = request.body
+        pool.query(dbQueries.editSecondaryArea(user))
+            .then(res => {
+                console.log(`set secondary area succeed`)
+                response.status(200).json(res)
+            })
+            .catch(err => {
+                console.log(`set secondary area failed ${err}`)
+            })
+    },
+
+    editPassword: (request, response) => {
+        const { 
+            user_id, 
+            password
+        } = request.body;    
+    
+        const saltRounds = 10;
+        const hash = bcrypt.hashSync(password, saltRounds);
+    
+        pool.query(dbQueries.editPassword(user_id,hash)) 
+            .then(res => {
+                console.log('edit Password success')
+                response.status(200).json(res)
+            })
+            .catch(err => {
+                console.log(`edit Password failer ${err}`)
+            })  
+     
     }
 }

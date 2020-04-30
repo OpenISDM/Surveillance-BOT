@@ -122,7 +122,7 @@ class Auth extends React.Component {
             ...this.state.user,
             areas_id
         }
-        axios.post(dataSrc.setUserSecondaryArea, {
+        axios.post(dataSrc.userInfo.area.secondary, {
             user
         })
         .then(res => {

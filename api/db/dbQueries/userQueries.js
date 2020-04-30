@@ -202,10 +202,52 @@ const deleteUser = (username) => {
 	return query
 }
 
+const editSecondaryArea = (user) => { 
+	return `
+		DELETE FROM user_area
+		WHERE user_id = ${user.id};
+
+		INSERT INTO user_area (
+			area_id,
+			user_id
+		)
+		VALUES
+		${user.areas_id.map(id => `(
+			${id},
+			${user.id}
+		)`)};
+	`
+}
+
+const editPassword = (user_id,password) => {
+	const text =
+		`
+		UPDATE user_table
+		SET 
+			password = $2
+		WHERE id = $1
+	`;
+
+	const values = [
+		user_id,
+		password
+	];
+
+	const query = {
+		text,
+		values
+	};
+
+	return query
+}
+
 module.exports = {
 	getAllUser,
 	addUser,
 	insertUserData,
 	editUserInfo,
 	deleteUser,
+
+	editSecondaryArea,
+	editPassword
 }

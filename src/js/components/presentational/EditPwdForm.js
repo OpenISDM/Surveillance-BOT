@@ -3,10 +3,9 @@ import { Modal, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { 
-    editPassword
-} from "../../dataSrc"
+import dataSrc from "../../dataSrc"
 import { AppContext } from '../../context/AppContext'; 
+
 
 class EditPwdForm extends React.Component {
 
@@ -66,7 +65,7 @@ class EditPwdForm extends React.Component {
 
                         onSubmit={(values, { setStatus, setSubmitting }) => {
                             
-                                axios.post(editPassword, {
+                                axios.post(dataSrc.userInfo.password, {
                                     user_id: auth.user.id,
                                     password : values.check_password
                                 })

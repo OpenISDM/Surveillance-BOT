@@ -12,6 +12,13 @@ module.exports = {
 
     user: `${domain}/data/user`,
 
+    userInfo: {
+        area: {
+            secondary: `${domain}/data/user/area/secondary`,
+        },
+        password: `${domain}/data/user/password`
+    },
+
     object: `${domain}/data/object`,
 
     importedObject: `${domain}/data/importedObject`,

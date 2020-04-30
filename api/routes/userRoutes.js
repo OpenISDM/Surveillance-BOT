@@ -12,4 +12,10 @@ module.exports = app => {
         .post(userController.addUser)
         .put(userController.editUserInfo)
 
+    app.route('/data/user/area/secondary')
+        .post(userController.editSecondaryArea)
+
+    app.route('/data/user/password')
+        .post(userController.editPassword)
+
 }
