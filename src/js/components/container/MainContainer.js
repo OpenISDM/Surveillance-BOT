@@ -13,8 +13,6 @@ import messageGenerator from '../../service/messageGenerator';
 import TabletMainContainer from '../platform/tablet/TabletMainContainer';
 import MobileMainContainer from '../platform/mobile/MobileMainContainer';
 import BrowserMainContainer from '../platform/browser/BrowserMainContainer';
-import axios from 'axios';
-import dataSrc from '../../dataSrc';
 
 class MainContainer extends React.Component{
 
@@ -27,14 +25,11 @@ class MainContainer extends React.Component{
         lastsearchKey: '',
         searchResult: [],
         colorPanel: null,
-        clearColorPanel: false,
         clearSearchResult: false,
         hasGridButton: false,
         isHighlightSearchPanel: false,
         authenticated: this.context.auth.authenticated,
         shouldUpdateTrackingData: true,
-        showPath: false,
-        pathMacAddress:'',
         display: true,
         showMobileMap: true,
     }
@@ -78,13 +73,18 @@ class MainContainer extends React.Component{
             areaId
         )
         .then(res => {
+
             /** dismiss error message when the database is connected */
             if (this.errorToast) {
                 this.errorToast = null;
                 toast.dismiss(this.errorToast)
             }
+
+            var trackingData;
+            if (res.data == 'permission denied') trackingData = []
+            else trackingData = res.data
             this.setState({
-                trackingData: res.data,
+                trackingData,
             }, callback)
         })
         .catch(err => {
@@ -97,47 +97,9 @@ class MainContainer extends React.Component{
         })
     }
 
-    // async function getTrackingData (searchKey) {
-    //     return await axios.post(dataSrc.trackingData, {
-    //         locale: locale.abbr,
-    //         user: auth.user,
-    //         areaId,
-    //         key: searchKey
-    //     })
-    // }
-
-
     /** Fired once the user click the item in object type list or in frequent seaerch */
     getSearchKey = searchKey => {
         this.getTrackingData(() => this.getResultBySearchKey(searchKey))
-        // let {
-        //     locale,
-        //     auth,
-        //     stateReducer
-        // } = this.context;
-
-        // let [{areaId}] = stateReducer;
-
-        // // let trackingData = await this.getTrackingData(searchKey);
-        // console.log(dataSrc.trackingData)
-
-        // console.log(searchKey)
-        // axios.post(dataSrc.trackingData, {
-        //     locale: locale.abbr,
-        //     user: auth.user,
-        //     areaId,
-        //     key: searchKey
-        // }).then(res => {
-        //     console.log(res);
-        //     this.setState({
-        //         searchResult: res.data,
-        //         hasSearchKey: true,
-        //         searchKey,
-        //     })
-        // })
-        // .catch(err => {
-        //     console.log(err)
-        // })
     }
 
     /** Process the search result by the search key.
@@ -156,7 +118,6 @@ class MainContainer extends React.Component{
         let {
             trackingData
         } = this.state
-
         let proccessedTrackingData = _.cloneDeep(trackingData) 
 
         if (searchKey == " ") {
