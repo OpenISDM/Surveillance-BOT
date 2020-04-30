@@ -6,7 +6,6 @@ import {
     ButtonToolbar
 } from 'react-bootstrap';
 import { AppContext } from '../../../context/AppContext';
-import config from '../../../config';
 import axios from 'axios';
 import {
     modifyUserInfo
@@ -14,7 +13,9 @@ import {
 import NumberPicker from '../NumberPicker';
 import EditAreasForm from '../../presentational/EditAreasForm'
 import retrieveDataHelper from '../../../service/retrieveDataHelper';
-import EditPwdForm from '../../presentational/EditPwdForm'
+import EditPwdForm from '../../presentational/EditPwdForm';
+import messageGenerator from '../../../service/messageGenerator';
+import dataSrc from '../../../dataSrc';
  
 
 class UserProfile extends React.Component{
@@ -23,7 +24,7 @@ class UserProfile extends React.Component{
 
     state= {
         show: false,
-        editpwd: false,
+        showEditPwd: false,
         locale: '',
         upadateAreaId: [],
         totalAreaId: [],
@@ -87,28 +88,56 @@ class UserProfile extends React.Component{
                 break;
             case "password":
                 this.setState({ 
-                    editpwd: true
+                    showEditPwd: true
                 })
                 break;
         }   
     }
 
-    handleCloseModal = () => {
+    handleClose = () => {
         this.setState({
             show: false,
-            editpwd:false
+            showEditPwd:false
         })
     }
 
-    handleSubmit = (areasId) => {
-        let {
-            auth
-        } = this.context
-        auth.setArea(areasId)
-        this.setState({
-            show: false,
-            editpwd:false
-        })
+    handleSubmit = (values) => {
+        let formIndex = [this.state.show, this.state.showEditPwd].indexOf(true);
+
+        let callback = () => messageGenerator.setSuccessMessage(
+            'save success'
+        ) 
+        var { auth } = this.context
+        switch(formIndex) {
+
+            case 0:
+
+                auth.setArea(values.areas_id)
+                this.setState({
+                    show: false,
+                    showEditPwd:false
+                }, callback)
+                break;
+
+            case 1:
+
+                axios.post(dataSrc.userInfo.password, {
+                    user_id: auth.user.id,
+                    password : values.check_password
+                })
+                .then(res => {
+                    this.setState({
+                        show: false,
+                        showEditPwd:false
+                    }, callback)
+                    
+                })
+                .catch(err => {
+                    console.log(err)
+                }) 
+                break;
+        }
+
     }
 
     render(){
@@ -123,7 +152,7 @@ class UserProfile extends React.Component{
 
         return(
             <div
-                className="text-capitalize d-flex flex-column"
+                className="d-flex flex-column"
             >
                 <ButtonToolbar
                     className="mb-2"
@@ -208,15 +237,14 @@ class UserProfile extends React.Component{
                 <hr/>
                 <EditAreasForm 
                     show={this.state.show} 
-                    handleClose={this.handleCloseModal}
+                    handleClose={this.handleClose}
                     handleSubmit={this.handleSubmit}
                     areaTable={this.state.areaTable}
                 />
-
                 <EditPwdForm
-                    show={this.state.editpwd} 
-                    handleClose={this.handleCloseModal}
-                    handleSubmit={this.handleCloseModalwithSave}
+                    show={this.state.showEditPwd} 
+                    handleClose={this.handleClose}
+                    handleSubmit={this.handleSubmit}
                 />
             </div>
         )

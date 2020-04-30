@@ -119,11 +119,11 @@ module.exports = {
     
         pool.query(dbQueries.editPassword(user_id,hash)) 
             .then(res => {
-                console.log('edit Password success')
+                console.log('edit password succeed')
                 response.status(200).json(res)
             })
             .catch(err => {
-                console.log(`edit Password failer ${err}`)
+                console.log(`edit password failed ${err}`)
             })  
      
     }

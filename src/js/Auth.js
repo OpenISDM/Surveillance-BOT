@@ -118,6 +118,8 @@ class Auth extends React.Component {
     }
 
     setArea = (areas_id, callback) => {
+        console.log(callback)
+        console.log(areas_id)
         let user = {
             ...this.state.user,
             areas_id
@@ -130,7 +132,7 @@ class Auth extends React.Component {
             this.setState({
                 ...this.state,
                 user, 
-            })
+            }, callback)
         })
         .catch(err => {
             console.log(`set secondary area failed ${err}`)

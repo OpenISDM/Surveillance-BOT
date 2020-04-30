@@ -42,8 +42,8 @@ const EditAreasForm = ({
                         areas_id: auth.user.areas_id
                     }}
                 
-                    onSubmit={(values, { setStatus, setSubmitting }) => {
-                        handleSubmit(values.areas_id)
+                    onSubmit={values => {
+                        handleSubmit(values)
                     }}
 
                     render={({ values, errors, status, touched, isSubmitting, setFieldValue}) => (
