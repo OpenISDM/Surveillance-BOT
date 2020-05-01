@@ -126,17 +126,4 @@ module.exports = {
                 console.log(`edit password failed ${err}`)
             })  
     },
-
-    editMaxSearchCount: (request, response) => {
-        const {username, info} = request.body
-        pool.query(dbQueries.editMaxSearchCount(username, info))
-            .then(res => {
-                console.log('edit max search count succeed')
-                response.status(200).send('ok')
-            })
-            .catch(err => {
-                console.log(`edit max search count failed ${err}`)
-            })
-        
-    }
 }

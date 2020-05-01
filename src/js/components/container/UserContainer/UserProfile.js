@@ -7,11 +7,8 @@ import {
 } from 'react-bootstrap';
 import { AppContext } from '../../../context/AppContext';
 import axios from 'axios';
-import {
-    modifyUserInfo
-} from "../../../dataSrc"
 import NumberPicker from '../NumberPicker';
-import EditAreasForm from '../../presentational/EditAreasForm'
+import EditAreasForm from '../../presentational/EditAreasForm';
 import retrieveDataHelper from '../../../helper/retrieveDataHelper';
 import EditPwdForm from '../../presentational/EditPwdForm';
 import messageGenerator from '../../../helper/messageGenerator';
@@ -57,36 +54,15 @@ class UserProfile extends React.Component{
             })
     }
 
-    /** set user's number of search history */
-    resetFreqSearchCount = (value) => {
-        const {
-            auth
-        } = this.context;
-        
-        if (value) {
-            let userInfo = auth.user
-            userInfo.freqSearchCount = value
-            this.setState({
-                userInfo,
-            })
-            axios.post(dataSrc.userInfo.maxSearchCount, {
-                info: userInfo,
-                username: userInfo.name
-            }).then(res => {
-                auth.setUserInfo('freqSearchCount', value)
-            }) 
-        }
-    }
-
     handleClick = (e) => {
         let name = e.target.name
         switch(name) {
-            case "secondaryArea":
+            case 'secondaryArea':
                 this.setState({
                     show: true
                 })
                 break;
-            case "password":
+            case 'password':
                 this.setState({ 
                     showEditPwd: true
                 })
@@ -152,38 +128,35 @@ class UserProfile extends React.Component{
 
         return(
             <div
-                className="d-flex flex-column"
+                className='d-flex flex-column'
             >
                 <ButtonToolbar
-                    className="mb-2"
+                    className='mb-2'
                 >
                     <Button 
-                        variant="outline-primary" 
+                        variant='outline-primary' 
                         className='text-capitalize mr-2'
-                        name="secondaryArea"
-                        size="sm"
+                        name='secondaryArea'
+                        size='sm'
                         onClick={this.handleClick}
                     >
                         {locale.texts.EDIT_SECONDARY_AREA}
                     </Button>
                     <Button 
-                        variant="outline-primary" 
+                        variant='outline-primary' 
                         className='text-capitalize mr-2'
-                        name="password"
-                        size="sm"
+                        name='password'
+                        size='sm'
                         onClick={this.handleClick}
                     >
                         {locale.texts.EDIT_PASSWORD}
                     </Button> 
                 </ButtonToolbar>
                 <div>
-                    <div className="title ">
+                    <div className='title '>
                         {locale.texts.ABOUT_YOU}
                     </div>
                     <div>
-                        <p>
-                            {locale.texts.ID}:{auth.user.id}
-                        </p>
                         <p>
                             {locale.texts.NAME}: {auth.user.name}
                         </p>
@@ -191,7 +164,7 @@ class UserProfile extends React.Component{
                 </div>
                 <hr/>
                 <div>
-                    <div className="title ">
+                    <div className='title '>
                         {locale.texts.YOUR_helper_AREAS}
                     </div>
                     <div>
@@ -214,25 +187,6 @@ class UserProfile extends React.Component{
                             }
                         </p>
                     </div>
-                </div>
-                <hr/>
-                <div>
-                    <div 
-                        className="title"
-                    >
-                        {locale.texts.PREFERENCE}
-                    </div>
-                    <div 
-                        className="d-flex justify-content-start align-items-center"
-                    >
-                        {locale.texts.NUMBER_OF_SEARCH_HISTORY}: 
-                        <NumberPicker
-                            name="numberPicker"
-                            value={auth.user.freqSearchCount}
-                            onChange={this.resetFreqSearchCount}
-                            length={10}
-                        />
-                    </div> 
                 </div>
                 <hr/>
                 <EditAreasForm 

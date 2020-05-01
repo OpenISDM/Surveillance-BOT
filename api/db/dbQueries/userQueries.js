@@ -241,18 +241,6 @@ const editPassword = (user_id,password) => {
 	return query
 }
 
-const editMaxSearchCount = (username, info) => {
-
-	const {
-		freqSearchCount
-	} = info
-	return `
-		UPDATE user_table 
-		SET max_search_history_count = ${freqSearchCount} 
-		WHERE name='${username}'
-	`
-}
-
 module.exports = {
 	getAllUser,
 	addUser,
@@ -262,5 +250,4 @@ module.exports = {
 
 	editSecondaryArea,
 	editPassword,
-	editMaxSearchCount
 }

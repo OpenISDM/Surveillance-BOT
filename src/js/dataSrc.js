@@ -1,5 +1,5 @@
 dataSrcIP = process.env.DATASRC_IP;
-domain = `http://${dataSrcIP}`;
+domain = `https://${dataSrcIP}`;
 
 module.exports = {
 
@@ -16,7 +16,6 @@ module.exports = {
             secondary: `${domain}/data/user/area/secondary`,
         },
         password: `${domain}/data/user/password`,
-        maxSearchCount: `${domain}/data/user/maxSearchCount`
     },
 
     object: `${domain}/data/object`,
