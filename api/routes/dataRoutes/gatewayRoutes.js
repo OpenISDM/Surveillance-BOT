@@ -1,4 +1,4 @@
-const gatewayController = require('../controllers/gatewayController');
+const gatewayController = require('../../controllers/gatewayController');
 const cors = require('cors');
 
 module.exports = app => {

@@ -1,4 +1,4 @@
-let lbeaconController = require('../controllers/lbeaconController');
+let lbeaconController = require('../../controllers/lbeaconController');
 let cors = require('cors')
 
 module.exports = app => {

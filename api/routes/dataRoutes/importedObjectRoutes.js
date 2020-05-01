@@ -1,4 +1,4 @@
-let importedObjectController = require('../controllers/importedObjectController');
+let importedObjectController = require('../../controllers/importedObjectController');
 let cors = require('cors')
 
 module.exports = app => {

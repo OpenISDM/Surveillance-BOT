@@ -1,4 +1,4 @@
-let fileController = require('../controllers/fileController');
+let fileController = require('../../controllers/fileController');
 
 module.exports = app => {
 

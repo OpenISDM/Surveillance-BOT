@@ -1,4 +1,4 @@
-let areaController = require('../controllers/areaController');
+let areaController = require('../../controllers/areaController');
 
 module.exports = app => {
 

@@ -1,4 +1,4 @@
-const objectController = require('../controllers/objectController');
+const objectController = require('../../controllers/objectController');
 let cors = require('cors');
 
 module.exports = app => {

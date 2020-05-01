@@ -1,6 +1,5 @@
 dataSrcIP = process.env.DATASRC_IP;
-protocol = 'http';
-domain = `${protocol}://${dataSrcIP}`;
+domain = `https://${dataSrcIP}`;
 
 module.exports = {
 

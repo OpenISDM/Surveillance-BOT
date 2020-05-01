@@ -1,4 +1,4 @@
-let roleController = require('../controllers/roleController');
+let roleController = require('../../controllers/roleController');
 let cors = require('cors');
 
 module.exports = app => {

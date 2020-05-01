@@ -1,4 +1,4 @@
-let userController = require('../controllers/userController');
+let userController = require('../../controllers/userController');
 let cors = require('cors');
 
 module.exports = app => {
