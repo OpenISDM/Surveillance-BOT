@@ -61,12 +61,10 @@ export const systemSettingModule = {
         {
             name: 'lbeacon',
             component: (props) => <LBeaconTable {...props}/>,
-            platform: ['browser', 'tablet', 'mobile']
         },
         {
             name: 'gateway',
             component: (props) => <GatewayTable {...props}/>,
-            platform: ['browser', 'tablet', 'mobile']
         }
     ]
 }

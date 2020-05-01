@@ -1,19 +1,14 @@
-import React from 'react'
+import React from 'react';
 import {
     Tab,
-    Nav,
     ListGroup
-} from 'react-bootstrap'
+} from 'react-bootstrap';
 import {
-    BOTContainer,
     PageTitle,
-    BOTNav,
-    BOTNavLink,
     BOTSideNavTitle,
     BOTSideNav
-} from '../../BOTComponent/styleComponent'
-import LocaleContext from '../../../context/LocaleContext'
-import AccessControl from '../../presentational/AccessControl'
+} from '../../BOTComponent/styleComponent';
+import LocaleContext from '../../../context/LocaleContext';
 
 const BrowserPageComponent = ({
     containerModule,

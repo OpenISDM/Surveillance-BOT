@@ -3,7 +3,7 @@ import SystemSetting from '../components/container/menuContainer/SystemSetting';
 import ObjectManagementContainer from '../components/container/menuContainer/ObjectManagementContainer';
 import UserContainer from '../components/container/menuContainer/UserContainer';
 import About from '../components/container/About';
-import TraceContainer from '../components/container/TraceContainer';
+import TraceContainer from '../components/container/menuContainer/TraceContainer';
 
 const routes = [
     {

@@ -225,7 +225,6 @@ class AdminManagementContainer extends React.Component{
                 <div className='d-flex justify-content-start'>
                     <AccessControl
                         renderNoAccess={() => null}
-                        platform={['browser', 'tablet']}
                     >     
                         <ButtonToolbar>
                             <PrimaryButton

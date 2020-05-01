@@ -218,10 +218,9 @@ class GatewayTable extends React.Component{
 
         return(
             <Fragment>  
-                <div className="d-flex justify-content-start">
+                <div className='d-flex justify-content-start'>
                     <AccessControl
                         renderNoAccess={() => null}
-                        platform={['browser', 'tablet']}
                     >            
                         <ButtonToolbar>
                             <PrimaryButton
@@ -248,7 +247,7 @@ class GatewayTable extends React.Component{
                         SelectInputComponent={BOTCheckbox}
                         {...styleConfig.reactTable}
                         ref={r => (this.selectTable = r)}
-                        className="-highlight"
+                        className='-highlight'
                         pageSize={this.state.data.length}
                         style={{maxHeight:'75vh'}}                     
                         onPageChange={(e) => {
@@ -286,7 +285,6 @@ class GatewayTable extends React.Component{
                     handleSubmit={this.deleteRecordGateway}
                 />
             </Fragment>
-
         )
     }
 }

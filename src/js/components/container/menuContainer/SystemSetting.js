@@ -17,7 +17,7 @@ import {
 } from 'body-scroll-lock';
 import MobilePageComponent from '../../platform/mobile/mobilePageComponent'
 import BrowserPageComponent from '../../platform/browser/BrowserPageComponent';
-import TabletPageComponent from '../../platform/tablet/TabletPageComponent'
+import TabletPageComponent from '../../platform/tablet/TabletPageComponent';
 
 class SystemSetting extends React.Component{
 

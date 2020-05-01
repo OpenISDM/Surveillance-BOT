@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { 
     ButtonToolbar 
 } from 'react-bootstrap';
@@ -220,11 +220,10 @@ class LbeaconTable extends React.Component{
         };
        
         return(
-            <div>  
-                <div className="d-flex justify-content-start">
+            <Fragment>  
+                <div className='d-flex justify-content-start'>
                     <AccessControl
                         renderNoAccess={() => null}
-                        platform={['browser', 'tablet']}
                     >                      
                         <ButtonToolbar>
                             <PrimaryButton
@@ -244,12 +243,12 @@ class LbeaconTable extends React.Component{
                 {this.state.data.length != 0 &&
                     <SelectTable
                         keyField='id'
-                        name="test"
+                        name='test'
                         data={this.state.data}
                         columns={this.state.columns}
                         {...styleConfig.reactTable}
                         ref={r => (this.selectTable = r)}
-                        className="-highlight"
+                        className='-highlight'
                         pageSize={this.state.data.length}
                         style={{maxHeight:'75vh'}}                       
                         onPageChange={(e) => {
@@ -283,8 +282,7 @@ class LbeaconTable extends React.Component{
                     handleClose={this.handleClose}
                     handleSubmit={this.deleteRecord}
                 />
-            </div>
-
+            </Fragment>
         )
     }
 }
