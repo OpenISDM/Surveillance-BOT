@@ -317,6 +317,7 @@ const en =  {
     ALEAST_CHOOSE_ONE_UUID:"aleast choose one uuid",
     ENTER_THE_RSSI:"Enter the RSSI",
     REQUIRED: "required",
+    ID_IS_NOT_FOUND: "ID is not found",
 
     /** placeholder */
     PLEASE_ENTER_OR_SCAN_MAC_ADDRESS: "please enter or scan mac address",

@@ -257,7 +257,7 @@ const tw = {
     NOT_STAY_ROOM_MONITOR: '房間監控',
     GEOFENCE_MONITOR: '電子圍籬監控',
     DISSOCIATION: '解除綁定',
-    ASSOCIATION: '綁定儀器',
+    ASSOCIATION: '綁定人員',
     EDIT_GEOFENCE_CONFIG: '編輯電子圍籬設定',
     ADD_GEOFENCE_CONFIG: '新增電子圍籬設定',
     WARNING: '警告',
@@ -319,6 +319,7 @@ const tw = {
     ALEAST_CHOOSE_ONE_UUID:'至少選擇一個UUID',
     ENTER_THE_RSSI:'請填入RSSI',
     REQUIRED: '必填',
+    ID_IS_NOT_FOUND: '沒有符合的人員編號',
 
     /** placeholder */
     PLEASE_ENTER_OR_SCAN_MAC_ADDRESS: '請輸入或掃描mac address',

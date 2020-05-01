@@ -666,7 +666,7 @@ class TraceContainer extends React.Component{
                                         onChange={(value) => {
                                             setFieldValue('endTime', moment(value).toDate())
                                         }}
-                                        placeholder={locale.texts.START_TIME}
+                                        placeholder={locale.texts.END_TIME}
                                     />
                                   
                                 </div>

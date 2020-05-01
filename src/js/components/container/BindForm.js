@@ -129,7 +129,7 @@ class BindForm extends React.Component {
                                 ) 
                                 .test(
                                     'acn', 
-                                    locale.texts.ASSET_CONTROL_NUMBER_IS_NOT_FOUND,
+                                    locale.texts.ID_IS_NOT_FOUND,
                                     value => {
                                         if (value != undefined){
                                             let findFlag = false
