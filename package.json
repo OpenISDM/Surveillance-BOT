@@ -109,7 +109,6 @@
     "react-widgets": "^4.5.0",
     "react-widgets-moment": "^4.0.20",
     "redux": "^4.0.1",
-    "semantic-ui-react": "^0.88.2",
     "styled-components": "^5.0.1",
     "url-loader": "^1.1.2",
     "xlsx": "^0.15.3",
