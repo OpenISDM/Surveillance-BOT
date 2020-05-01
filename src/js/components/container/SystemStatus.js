@@ -14,11 +14,11 @@ import {
 import {
     trackingTableColumn
 } from '../../config/tables'
-import retrieveDataHelper from '../../service/retrieveDataHelper'
+import retrieveDataHelper from '../../helper/retrieveDataHelper'
 import { toast } from 'react-toastify';
 import LBeaconTable from './LBeaconTable'
 import GatewayTable from './GatewayTable' 
-import messageGenerator from '../../service/messageGenerator';
+import messageGenerator from '../../helper/messageGenerator';
  
 
 class SystemStatus extends React.Component{

@@ -16,11 +16,11 @@ import EditPatientForm from '../container/EditPatientForm';
 import {
     PrimaryButton
 } from '../BOTComponent/styleComponent';
-import messageGenerator from '../../service/messageGenerator';
+import messageGenerator from '../../helper/messageGenerator';
 const SelectTable = selecTableHOC(ReactTable);
 import AccessControl from './AccessControl';
 import { patientTableColumn } from '../../config/tables';
-import retrieveDataHelper from '../../service/retrieveDataHelper';
+import retrieveDataHelper from '../../helper/retrieveDataHelper';
 import config from '../../config';
 import dataSrc from '../../dataSrc';
 

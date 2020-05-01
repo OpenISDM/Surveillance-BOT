@@ -30,7 +30,7 @@ import {
     PrimaryButton
 } from '../BOTComponent/styleComponent'
 import Loader from '../presentational/Loader'
-import retrieveDataHelper from '../../service/retrieveDataHelper';
+import retrieveDataHelper from '../../helper/retrieveDataHelper';
 import Select, {components} from 'react-select'
 import {
     PageTitle

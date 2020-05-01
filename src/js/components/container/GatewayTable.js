@@ -10,11 +10,11 @@ import {
     gatewayTableColumn
 } from '../../config/tables';
 import { AppContext } from '../../context/AppContext';
-import retrieveDataHelper from '../../service/retrieveDataHelper'
+import retrieveDataHelper from '../../helper/retrieveDataHelper'
 import DeleteConfirmationForm from '../presentational/DeleteConfirmationForm' 
 import BOTCheckbox from '../presentational/BOTCheckbox'
 import styleConfig from '../../config/styleConfig'
-import messageGenerator from '../../service/messageGenerator'
+import messageGenerator from '../../helper/messageGenerator'
 const SelectTable = selecTableHOC(ReactTable);
 import {
     PrimaryButton

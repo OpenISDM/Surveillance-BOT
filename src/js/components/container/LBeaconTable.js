@@ -14,13 +14,13 @@ import {
 } from '../../config/tables';
 import { AppContext } from '../../context/AppContext';
 import DeleteConfirmationForm from '../presentational/DeleteConfirmationForm';
-import retrieveDataHelper from '../../service/retrieveDataHelper';
+import retrieveDataHelper from '../../helper/retrieveDataHelper';
 import styleConfig from '../../config/styleConfig';
 import {
     PrimaryButton
 } from '../BOTComponent/styleComponent';
 import AccessControl from '../presentational/AccessControl';
-import messageGenerator from '../../service/messageGenerator';
+import messageGenerator from '../../helper/messageGenerator';
 
 const SelectTable = selecTableHOC(ReactTable);
 

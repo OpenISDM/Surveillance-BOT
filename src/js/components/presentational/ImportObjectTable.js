@@ -13,7 +13,7 @@ import {
     deleteImportData,
 } from "../../dataSrc"
 import styleConfig from '../../config/styleConfig';
-import messageGenerator from '../../service/messageGenerator'
+import messageGenerator from '../../helper/messageGenerator'
 import {
     PrimaryButton
 } from '../BOTComponent/styleComponent'

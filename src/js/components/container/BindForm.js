@@ -10,7 +10,7 @@ import {
 import { AppContext } from '../../context/AppContext';
 import Select from 'react-select';
 import config from '../../config'
-import messageGenerator from '../../service/messageGenerator';
+import messageGenerator from '../../helper/messageGenerator';
 import FormikFormGroup from '../presentational/FormikFormGroup';
 import {
     FormFieldName

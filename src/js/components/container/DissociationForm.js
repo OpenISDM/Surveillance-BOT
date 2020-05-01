@@ -16,7 +16,7 @@ import {
     deleteDevice
 } from "../../dataSrc"
 import { AppContext } from '../../context/AppContext';
-import messageGenerator from '../../service/messageGenerator'
+import messageGenerator from '../../helper/messageGenerator'
 
 class DissociationForm extends React.Component {
 

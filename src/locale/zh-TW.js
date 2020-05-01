@@ -84,7 +84,7 @@ const tw = {
     IMPORT_PATIENTS_DATA:'匯入病人',
     BATTERY_NOTIFICATION: '電量通知',
     ABOUT_YOU: '關於',
-    YOUR_SERVICE_AREAS: '服務區域',
+    YOUR_helper_AREAS: '服務區域',
     PREFERENCE: '偏好設定',
 
 

@@ -10,8 +10,8 @@ import EditUserForm from './EditUserForm';
 import { AppContext } from '../../../context/AppContext';
 import DeleteUserForm from './DeleteUserForm';
 import DeleteConfirmationForm from '../../presentational/DeleteConfirmationForm';
-import retrieveDataHelper from '../../../service/retrieveDataHelper';
-import messageGenerator from '../../../service/messageGenerator';
+import retrieveDataHelper from '../../../helper/retrieveDataHelper';
+import messageGenerator from '../../../helper/messageGenerator';
 import styleConfig from '../../../config/styleConfig';
 const Fragment = React.Fragment;
 import {

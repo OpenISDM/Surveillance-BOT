@@ -5,8 +5,8 @@ import { NavDropdown, Row, Dropdown, NavLink, DropdownButton } from 'react-boots
 import _ from 'lodash'
 import { AppContext } from '../../context/AppContext'
 import config from '../../config'
-import { getDescription } from '../../service/descriptionGenerator'
-import retrieveDataHelper from '../../service/retrieveDataHelper'
+import { getDescription } from '../../helper/descriptionGenerator'
+import retrieveDataHelper from '../../helper/retrieveDataHelper'
 
 class BatteryLevelNotification extends React.Component {
     

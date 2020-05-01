@@ -10,7 +10,7 @@ import selecTableHOC from 'react-table/lib/hoc/selectTable';
 import DeleteConfirmationForm from '../../presentational/DeleteConfirmationForm'
 const SelectTable = selecTableHOC(ReactTable);
 import { AppContext } from '../../../context/AppContext'
-import retrieveDataHelper from '../../../service/retrieveDataHelper'
+import retrieveDataHelper from '../../../helper/retrieveDataHelper'
 import styleConfig from '../../../config/styleConfig';
 import AccessControl from '../../presentational/AccessControl'
 import {

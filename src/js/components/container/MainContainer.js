@@ -8,8 +8,8 @@ import {
     TabletView
 } from 'react-device-detect';
 import { disableBodyScroll } from 'body-scroll-lock';
-import retrieveDataHelper from '../../service/retrieveDataHelper';
-import messageGenerator from '../../service/messageGenerator';
+import retrieveDataHelper from '../../helper/retrieveDataHelper';
+import messageGenerator from '../../helper/messageGenerator';
 import TabletMainContainer from '../platform/tablet/TabletMainContainer';
 import MobileMainContainer from '../platform/mobile/MobileMainContainer';
 import BrowserMainContainer from '../platform/browser/BrowserMainContainer';

@@ -19,9 +19,9 @@ import {
     PrimaryButton
 } from '../BOTComponent/styleComponent';
 import AccessControl from '../presentational/AccessControl';
-import messageGenerator from '../../service/messageGenerator';
+import messageGenerator from '../../helper/messageGenerator';
 import { objectTableColumn } from '../../config/tables';
-import retrieveDataHelper from '../../service/retrieveDataHelper';
+import retrieveDataHelper from '../../helper/retrieveDataHelper';
 import config from '../../config';
  
 

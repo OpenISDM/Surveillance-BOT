@@ -12,9 +12,9 @@ import {
 } from "../../../dataSrc"
 import NumberPicker from '../NumberPicker';
 import EditAreasForm from '../../presentational/EditAreasForm'
-import retrieveDataHelper from '../../../service/retrieveDataHelper';
+import retrieveDataHelper from '../../../helper/retrieveDataHelper';
 import EditPwdForm from '../../presentational/EditPwdForm';
-import messageGenerator from '../../../service/messageGenerator';
+import messageGenerator from '../../../helper/messageGenerator';
 import dataSrc from '../../../dataSrc';
  
 
@@ -192,7 +192,7 @@ class UserProfile extends React.Component{
                 <hr/>
                 <div>
                     <div className="title ">
-                        {locale.texts.YOUR_SERVICE_AREAS}
+                        {locale.texts.YOUR_helper_AREAS}
                     </div>
                     <div>
                         <p>

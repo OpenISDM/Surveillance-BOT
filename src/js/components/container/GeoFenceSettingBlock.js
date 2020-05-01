@@ -9,11 +9,11 @@ import config from "../../config"
 import ReactTable from 'react-table'
 import { geofenceConfigColumn } from '../../config/tables'
 import EditGeofenceConfig from '../presentational/EditGeofenceConfig'
-import retrieveDataHelper from '../../service/retrieveDataHelper'
+import retrieveDataHelper from '../../helper/retrieveDataHelper'
 import styleConfig from '../../config/styleConfig';
 import DeleteConfirmationForm from '../presentational/DeleteConfirmationForm'
 import selecTableHOC from 'react-table/lib/hoc/selectTable';
-import messageGenerator from '../../service/messageGenerator'
+import messageGenerator from '../../helper/messageGenerator'
 import {
     PrimaryButton
 } from '../BOTComponent/styleComponent'
