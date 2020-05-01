@@ -1,15 +1,7 @@
 require('dotenv').config();
 require('moment-timezone');
 const dbQueries = require('../db/dbQueries/authQueries');
-const pg = require('pg');
-const config = {
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
-}
-const pool = new pg.Pool(config);
+const pool = require('../db/dev/connection');
 const bcrypt = require('bcrypt');
 
 module.exports = {
@@ -19,7 +11,6 @@ module.exports = {
             password,
             username
         } = request.body
-
         username = username.toLowerCase()
 
         pool.query(dbQueries.signin(username))

@@ -50,7 +50,6 @@ const calculatePosition = (item) => {
 };
 
 const getTrackingData = (request, response) => {
-    console.log(request.sessionID)
     const locale = request.body.locale || 'en'
     let {
         user,
