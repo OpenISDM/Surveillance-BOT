@@ -1,5 +1,4 @@
 import React from 'react';
-import searchIcon from '../../../img/icon/search.png';
 import { Form, Button } from 'react-bootstrap';
 import {
     isMobileOnly
@@ -35,10 +34,10 @@ class BOTSearchbar extends React.Component {
 
         const style = {
             form: {
-                border: "2px solid rgba(227, 222, 222, 0.447)",
+                border: '2px solid rgba(227, 222, 222, 0.447)',
                 borderRadius : '25px',
                 fontSize: '0.8rem',
-                width:300,
+                width:400,
                 minHeight: '1.2rem',
                 position: 'relative'
             },
@@ -56,13 +55,14 @@ class BOTSearchbar extends React.Component {
             >
                 <Form.Group 
                     className='d-flex justify-content-center align-items-center mb-0 mx-1'
-                    style={{maxWidth: 250}}
+                    style={{minWidth: 380}}
                 >
                     <i 
-                        className="fas fa-search"
+                        className='fas fa-search'
                         style={{
                             color: 'black',
-                            fontSize: '1.2rem'
+                            fontSize: '1.2rem',
+                            marginLeft: 10,
                         }}
                     />
                     <Form.Control 
@@ -76,9 +76,9 @@ class BOTSearchbar extends React.Component {
 
                 </Form.Group>
                 <Button 
-                    type="submit" 
+                    type='submit' 
                     variant='link' 
-                    className="btn btn-link btn-sm bd-highlight"
+                    className='btn btn-link btn-sm bd-highlight'
                     style={{
                         width: 0,
                     }} 

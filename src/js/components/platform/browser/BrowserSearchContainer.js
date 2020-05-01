@@ -18,8 +18,8 @@ const BrowserSearchContainer = ({
             className="py-1" 
             onTouchMove={handleTouchMove}
         >
-            <Image src={config.logo} rounded />
-            <Row id='searchBar' className='d-flex justify-content-center align-items-center pb-2'>
+            <Image src={config.LOGO} rounded width={150}/>
+            <Row id='searchBar' className='d-flex justify-content-center align-items-center my-4'>
                 <BOTSearchbar
                     placeholder={searchKey}
                     getSearchKey={getSearchKey}

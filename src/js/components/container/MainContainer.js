@@ -82,7 +82,10 @@ class MainContainer extends React.Component{
 
             var trackingData;
             if (res.data == 'permission denied') trackingData = []
-            else trackingData = res.data
+            else trackingData = res.data.map(item => {
+                item.location_area = locale.texts[item.lbeacon_area.value]
+                return item
+            })
             this.setState({
                 trackingData,
             }, callback)
@@ -103,14 +106,11 @@ class MainContainer extends React.Component{
     }
 
     /** Process the search result by the search key.
-     *  The search key would be:
-     *  1. all devices
-     *  2. my devices
-     *  3. all patients
-     *  4. my patients
-     *  5. specific object term,
-     *  6. coordinate(disable now)
-     *  7. multiple selected object(gridbutton)(disable now)
+     *  Search field includes:
+     *  1. name
+     *  2. asset id
+     *  3. location description
+     *  4. location area
      */
     getResultBySearchKey = searchKey => {
         let searchResult = [];
@@ -119,18 +119,15 @@ class MainContainer extends React.Component{
             trackingData
         } = this.state
         let proccessedTrackingData = _.cloneDeep(trackingData) 
-
-        if (searchKey == " ") {
-            hasSearchKey = false
-        } else {
-            
+        if (/^ *$/.test(searchKey)) hasSearchKey = false
+        else {
             proccessedTrackingData
                 .map(item => {   
-                     if (
-                        item.type.toLowerCase().indexOf(searchKey.toLowerCase()) >= 0 ||
-                        item.asset_control_number.indexOf(searchKey) >= 0 ||
+                    if (
                         item.name.toLowerCase().indexOf(searchKey.toLowerCase()) >= 0 ||
-                        (item.location_description != null && item.location_description.indexOf(searchKey) >= 0)
+                        item.asset_control_number.toLowerCase().indexOf(searchKey.toLowerCase()) >= 0 ||
+                        (item.location_description != null && item.location_description.toLowerCase().indexOf(searchKey.toLowerCase()) >= 0) ||
+                        (item.location_area != null && item.location_area.toLowerCase().indexOf(searchKey.toLowerCase()) >= 0)
                     ) {
                         searchResult.push(item)
                     }
