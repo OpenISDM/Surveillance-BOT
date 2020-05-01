@@ -36,6 +36,13 @@ class SearchResult extends React.Component {
         } 
     }
 
+    handleToggleNotFound = (e) => {
+        e.preventDefault()
+        this.setState({ 
+            showNotFoundResult: !this.state.showNotFoundResult 
+        })
+    }
+
 
     render() {
         const { locale } = this.context;
