@@ -63,7 +63,7 @@ class AddUserForm extends React.Component {
                                 initialValues = {{
                                     username: '',
                                     password: '',
-                                    radioGroup: config.defaultRole
+                                    radioGroup: config.DEFAULT_ROLE
                                 }}
 
                                 validationSchema = {

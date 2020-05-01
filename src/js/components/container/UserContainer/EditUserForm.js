@@ -58,7 +58,7 @@ const EditUserForm = ({
                     initialValues = {{
                         name: selectedUser ? selectedUser.name : '',
                         password: '',
-                        roles: selectedUser ? selectedUser.role_type : config.defaultRole,
+                        roles: selectedUser ? selectedUser.role_type : config.DEFAULT_ROLE,
                         area: selectedUser ? selectedUser.main_area : '',
                     }}
 

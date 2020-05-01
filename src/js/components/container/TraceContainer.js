@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { DateTimePicker } from 'react-widgets';
 import momentLocalizer from 'react-widgets-moment';
-import dataSrc from "../../dataSrc"
+import dataSrc from '../../dataSrc';
 import axios from 'axios'; 
 import 'react-table/react-table.css'; 
 import { 
@@ -11,27 +11,26 @@ import * as Yup from 'yup';
 import { 
     Nav,
     Breadcrumb,
-    Button
 } from 'react-bootstrap';
-import styleConfig from '../../config/styleConfig'
+import styleConfig from '../../config/styleConfig';
 import 'react-tabs/style/react-tabs.css';
 import { AppContext } from '../../context/AppContext';
-import ReactTable from 'react-table'
+import ReactTable from 'react-table';
 import {
     locationHistoryByMacColumns,
     locationHistoryByUUIDColumns,
-} from '../../config/tables'
-import moment from 'moment'
+} from '../../config/tables';
+import moment from 'moment';
 import {
     BOTNavLink,
     BOTNav,
     NoDataFoundDiv,
     BOTContainer,
     PrimaryButton
-} from '../BOTComponent/styleComponent'
-import Loader from '../presentational/Loader'
+} from '../BOTComponent/styleComponent';
+import Loader from '../presentational/Loader';
 import retrieveDataHelper from '../../helper/retrieveDataHelper';
-import Select, {components} from 'react-select'
+import Select from 'react-select';
 import {
     PageTitle
 } from '../BOTComponent/styleComponent';
@@ -39,6 +38,7 @@ import IconButton from '../BOTComponent/IconButton';
 import styleSheet from '../../config/styleSheet';
 import ExportModal from '../presentational/ExportModal';
 import config from '../../config';
+import pdfPackageGenerator from '../../helper/pdfPackageGenerator';
 
 momentLocalizer()
 
@@ -61,7 +61,7 @@ class TraceContainer extends React.Component{
     }
     columns = [];
 
-    defaultActiveKey="name" 
+    defaultActiveKey='name' 
 
     statusMap = {
         LOADING: 'loading',
@@ -221,7 +221,7 @@ class TraceContainer extends React.Component{
                 return
             }
 
-            let prevUUID = "";
+            let prevUUID = '';
             let data = []
             switch(fields.mode) {
                 case 'mac':
@@ -243,7 +243,7 @@ class TraceContainer extends React.Component{
                         data[data.length - 1].residenceTime = moment(pt.record_timestamp).locale(locale.abbr).from(moment(data[data.length - 1].startTime), true)
                     })
                     break;
-                case "uuid":
+                case 'uuid':
                     data = res.data.rows.map((item, index) => {
                         item.id = index + 1
                         item.mode = fields.mode
@@ -372,7 +372,7 @@ class TraceContainer extends React.Component{
         switch(name) {
             case 'exportCSV':
 
-                let filePackage = config.pdfFormat.getPath(
+                let filePackage = pdfPackageGenerator.pdfFormat.getPath(
                     'trackingRecord',
                     {
                         extension: 'csv',
@@ -392,7 +392,7 @@ class TraceContainer extends React.Component{
                 .then(res => {
                     var link = document.createElement('a');
                     link.href = dataSrc.pdfUrl(filePackage.path)
-                    link.download = "";
+                    link.download = '';
                     link.click();
                 })
                 .catch(err => {
@@ -400,7 +400,7 @@ class TraceContainer extends React.Component{
                 })
                 break;
             case 'exportPDF':
-                let pdfPackage = config.getPdfPackage(
+                let pdfPackage = pdfPackageGenerator.getPdfPackage(
                     'trackingRecord', 
                     auth.user, 
                     {
@@ -471,15 +471,15 @@ class TraceContainer extends React.Component{
                     {this.state.data.length !== 0 &&
                         <div>
                             <IconButton
-                                iconName="fas fa-download"
-                                name="exportPDF"
+                                iconName='fas fa-download'
+                                name='exportPDF'
                                 onClick={this.handleClick}
                             >
                                 {locale.texts.EXPORT_PDF}
                             </IconButton>
                             <IconButton
-                                iconName="fas fa-download"
-                                name="exportCSV"
+                                iconName='fas fa-download'
+                                name='exportCSV'
                                 onClick={this.handleClick}
                             >
                                 {locale.texts.EXPORT_CSV}
@@ -511,7 +511,7 @@ class TraceContainer extends React.Component{
                                 //         locale.texts.MAC_ADDRESS_FORMAT_IS_NOT_CORRECT,
                                 //         value => {  
                                 //             if (value == undefined) return false
-                                //             let pattern = new RegExp("^[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}$");
+                                //             let pattern = new RegExp('^[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}$');
                                 //             return value.match(pattern)
                                 //         }
                                 //     )
@@ -523,7 +523,7 @@ class TraceContainer extends React.Component{
                                 //         locale.texts.LBEACON_FORMAT_IS_NOT_CORRECT,
                                 //         value => {  
                                 //             if (value == undefined) return false
-                                //             let pattern = new RegExp("^[0-9A-Fa-f]{8}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{12}$");
+                                //             let pattern = new RegExp('^[0-9A-Fa-f]{8}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{12}$');
                                 //             return value.value.match(pattern)
                                 //         }
                                 //     )
@@ -570,14 +570,14 @@ class TraceContainer extends React.Component{
                     }) => (
                         <Fragment>
                             <Breadcrumb 
-                                className="my-2"
+                                className='my-2'
                             >
                                 {this.state.histories.map((history, index) => {
                                     return (
                                         <Breadcrumb.Item
                                             key={index}
                                             active={this.state.breadIndex == index}
-                                            name="bread"
+                                            name='bread'
                                             onClick={(e) => {
                                                 setFieldValue('mode', history.mode)
                                                 setFieldValue('key', history.key)
@@ -613,18 +613,18 @@ class TraceContainer extends React.Component{
                                     )
                                 })}
                             </BOTNav>
-                            <div className="d-flex justify-content-between my-4">
-                                <div className="d-flex justify-content-start">
+                            <div className='d-flex justify-content-between my-4'>
+                                <div className='d-flex justify-content-start'>
                                     <div
-                                        className="mx-2"
+                                        className='mx-2'
                                         style={{
                                             position: 'relative'
                                         }}
                                     >
                                         <Select
-                                            name="key"
+                                            name='key'
                                             value={values.key}
-                                            className="float-right"
+                                            className='float-right'
                                             onChange={(value) => { 
                                                 setFieldValue('key', value)
                                             }}
@@ -637,7 +637,7 @@ class TraceContainer extends React.Component{
                                         />
                                         {errors.key && (
                                             <div 
-                                                className="text-left"
+                                                className='text-left'
                                                 style={{
                                                     fontSize: '0.6rem',
                                                     color: styleSheet.warning,
@@ -651,8 +651,8 @@ class TraceContainer extends React.Component{
                                         )}
                                     </div>
                                     <DateTimePicker 
-                                        name="startTime"
-                                        className="mx-2"
+                                        name='startTime'
+                                        className='mx-2'
                                         value={values.startTime}
                                         onChange={(value) => {
                                             setFieldValue('startTime', moment(value).toDate())
@@ -660,8 +660,8 @@ class TraceContainer extends React.Component{
                                         placeholder={locale.texts.START_TIME}
                                     />
                                     <DateTimePicker 
-                                        name="endTime"
-                                        className="mx-2"
+                                        name='endTime'
+                                        className='mx-2'
                                         value={values.endTime}
                                         onChange={(value) => {
                                             setFieldValue('endTime', moment(value).toDate())
@@ -672,10 +672,10 @@ class TraceContainer extends React.Component{
                                 </div>
                                 
                                 <div
-                                    className="d-flex align-items-center"
+                                    className='d-flex align-items-center'
                                 >
                                     <PrimaryButton
-                                        type="button" 
+                                        type='button' 
                                         disabled={this.state.done}
                                         onClick={submitForm}
                                     >
@@ -691,7 +691,7 @@ class TraceContainer extends React.Component{
                                         keyField='id'
                                         data={this.state.data}
                                         columns={this.state.columns}
-                                        className="-highlight mt-4"
+                                        className='-highlight mt-4'
                                         style={{maxHeight: '65vh'}} 
                                         pageSize={this.state.data.length}
                                         {...styleConfig.reactTable}

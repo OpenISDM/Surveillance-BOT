@@ -10,7 +10,7 @@ const About = () => {
         <Container fluid className="mt-5">
             Build 
             &nbsp;
-            {config.version}
+            {config.VERSION}
         </Container>
     )
     

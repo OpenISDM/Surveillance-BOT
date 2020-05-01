@@ -12,7 +12,6 @@ import GeoFenceSettingBlock from '../components/container/GeoFenceSettingBlock'
 import TrackingTable from '../components/container/TrackingTable'
 import TrackingHistory from '../components/container/TrackingHistory'
 import ObjectEditedRecord from '../components/container/UserContainer/ObjectEditedRecord'
-import ShiftChangeRecord from '../components/container/UserContainer/ShiftChangeRecord'
 import config from '../config'
 
 export const navbarNavList = [
