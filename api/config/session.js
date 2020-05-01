@@ -12,7 +12,7 @@ const sessionOptions = {
     resave: true,
     saveUninitialized: true,
     cookie: {
-        maxAge: process.env.COOKIE_MAX_AGE_IN_MILLISEC
+        maxAge: parseInt(process.env.COOKIE_MAX_AGE_IN_MILLISEC)
     }
 }
 
