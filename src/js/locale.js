@@ -1,13 +1,13 @@
 import tw from '../locale/zh-TW';
 import en from '../locale/en-US';
-import siteModuleLocaleEn from '../../site_module/locale/en-US'
-import siteModuleLocaleTw from '../../site_module/locale/zh-TW'
-import React from 'react'
-import LocaleContext from './context/LocaleContext'
+import siteModuleLocaleEn from '../../site_module/locale/en-US';
+import siteModuleLocaleTw from '../../site_module/locale/zh-TW';
+import React from 'react';
+import LocaleContext from './context/LocaleContext';
 import config from './config';
 import { 
     setLocaleID,
-} from "../js/dataSrc"
+} from '../js/dataSrc';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -36,9 +36,9 @@ const supportedLocale = {
 class Locale extends React.Component {
 
     state = {
-        lang:  Cookies.get('authenticated') ? JSON.parse(Cookies.get('user')).locale : config.locale.defaultLocale,
-        texts: Cookies.get('authenticated') ? supportedLocale[JSON.parse(Cookies.get('user')).locale].texts : supportedLocale[config.locale.defaultLocale].texts,
-        abbr:  Cookies.get('authenticated') ? supportedLocale[JSON.parse(Cookies.get('user')).locale].abbr : supportedLocale[config.locale.defaultLocale].abbr,
+        lang:  Cookies.get('authenticated') ? JSON.parse(Cookies.get('user')).locale : config.DEFAULT_LOCALE,
+        texts: Cookies.get('authenticated') ? supportedLocale[JSON.parse(Cookies.get('user')).locale].texts : supportedLocale[config.DEFAULT_LOCALE].texts,
+        abbr:  Cookies.get('authenticated') ? supportedLocale[JSON.parse(Cookies.get('user')).locale].abbr : supportedLocale[config.DEFAULT_LOCALE].abbr,
     }
 
     changeTexts = (lang) => {
