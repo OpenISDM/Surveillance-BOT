@@ -1,102 +1,54 @@
-import BOT_LOGO from "../img//logo/BOT_LOGO_RED.png";
-import moment from 'moment'
-import siteConfig from '../../site_module/siteConfig';
-import customizeConfig from '../../config/config';
+import BOT_LOGO from '../img//logo/BOT_LOGO_RED.png';
+import moment from 'moment';
 
 const config = {
 
-    version: "v1.1 b.1869",
+    version: 'v1.1 b.1869',
 
-    ...customizeConfig,
+    TRACING_INTERVAL_UNIT: 'minutes',
+
+    TRACING_INTERVAL_VALUE: 30,
+
+    DEFAULT_AREA_ID: 1,
     
-    defaultUser: {
-        roles: "guest",
+    DEFAULT_USER: {
+        roles: 'guest',
         areas_id: [0],
         permissions:[
-            "form:view",
+            'form:view',
         ],
         locale: 'tw',
         main_area: 0,
     },
 
-    /** Reserved Object interval time in minutes */
-    reservedInterval: 30,
+    DEFAULT_LOCALE: 'tw' ,
 
-    /** Extend object reserved time in minutes  */
-    reservedDelayTime: 10,
-
-    ACNOmitsymbol: 'XXXXXX',
-
-    defaultLocale: 'tw' ,
-
-    logo: BOT_LOGO,
-
-    systemAdmin: {
-
-        openGlobalStateMonitor: !true,
-
-        refreshSearchResult: true,
-
-    },
-
+    LOGO: BOT_LOGO,
 
     getLbeaconDataIntervalTime: process.env.GET_LBEACON_DATA_INTERVAL_TIME_IN_MILLI_SEC || 3600000,
 
     getGatewayDataIntervalTime: process.env.GET_GATEWAY_DATA_INTERVAL_TIME_IN_MILLI_SEC || 3600000,
 
-    searchResult:{
-        showImage: false,
-        style: "list",
-        displayMode: "showAll",
+    FOLDER_PATH: {
+
+        trackingRecord: `tracking_record`
     },
 
-    searchResultProportion: '32vh',
+    TIME_FORMAT: 'lll',
 
-    folderPath: {
+    defaultRole: ['care_provider'], 
 
-        broken: `/edit_object_record`,
-
-        transferred: `/edit_object_record`,
-
-        shiftChange: `/shift_record`,
-
-        searchResult: `/search_result`,
-
-        patientRecord: `/patient_record`,
-
-        trackingRecord: `/tracking_record`
-    },
-
-    shiftRecordFileNameTimeFormat: "MM_DD_YYYY",
-    shiftRecordPdfContentTimeoFrmat: "MM/DD/YYYY",
-    geoFenceViolationTimeFormat: "H:mm MM/DD",
-    confirmFormTimeFormat: "LLLL",
-    shiftChangeRecordTimeFormat: "LLL",
-    pdfFileContentTimeFormat: "LLL",
-    pdfFileNameTimeFormat: "YYYY-MM-Do_hh_mm_ss",
-    regularTimeFormat: "lll",
-
-    roles: [
-        "guest",
-        "care_provider",
-        "system_admin"
-    ],
-
-    defaultRole: ["care_provider"], 
-
-    mobileWindowWidth: 600,
-
-    healthStatusMap: {
+    HEALTH_STATUS_MAP: {
         0: 'normal',
         9999: 'n/a',
     },
 
-    productVersionMap: {
+    PRODUCT_VERSION_MAP: {
         9999: 'n/a',
     },
 
-    toastProps: {
-        position: "bottom-right",
+    TOAST_PROPS: {
+        position: 'bottom-right',
         autoClose: false,
         newestOnTop: false,
         closeOnClick: true,
@@ -105,14 +57,7 @@ const config = {
         draggable: true
     },
 
-    toastMonitorMap: {
-        1: "warn",
-        2: "error",
-        4: "error",
-        8: "error",
-    },
-
-    getShift: () => {
+    GET_SHIFT: () => {
         const hour = moment().hours()
         if (hour < 17 && hour > 8){
             return config.shiftOption[0]
@@ -150,24 +95,24 @@ const config = {
 
         getTitle: (option, locale) => {
             return `
-                <h3 style="text-transform: capitalize;">
+                <h3 style='text-transform: capitalize;'>
                     ${locale.texts[config.pdfFormat.pdfTitle[option]].toUpperCase()}
                 </h3>
             `
         },
     
         pdfTitle: {
-            broken: "REQUEST_FOR_DEVICE_REPARIE",
-            transferred: "DEVICE_TRANSFER_RECORD",
-            shiftChange: "SHIFT_CHANGE_RECORD",
-            searchResult: "SEARCH_RESULT",
-            patientRecord: "PATIENT_RECORD",
-            trackingRecord: "TRACKING_RECORD",
+            broken: 'REQUEST_FOR_DEVICE_REPARIE',
+            transferred: 'DEVICE_TRANSFER_RECORD',
+            shiftChange: 'SHIFT_CHANGE_RECORD',
+            searchResult: 'SEARCH_RESULT',
+            patientRecord: 'PATIENT_RECORD',
+            trackingRecord: 'TRACKING_RECORD',
         },
     
 
         getPath: (option, additional) =>{
-            let directory = config.folderPath[option]
+            let directory = config.FOLDER_PATH[option]
             let name = config.pdfFormat.getFileName[option](option, additional)
             let path = `${directory}/${name}`
             return {
@@ -201,7 +146,7 @@ const config = {
     
         getBody: {
             broken: (data, locale) => {
-                let title = config.pdfFormat.getBodyItem.getBodyTitle("broken device list", locale)
+                let title = config.pdfFormat.getBodyItem.getBodyTitle('broken device list', locale)
                 let list = config.pdfFormat.getBodyItem.getDataContent(data, locale)
                 let notes = config.pdfFormat.getBodyItem.getNotes(data, locale)
                 return title + list + notes
@@ -209,8 +154,8 @@ const config = {
             transferred: (data, locale, user, location,signature) => {
 
                 let area = data[0].transferred_location_label
-                let signature_title = config.pdfFormat.getBodyItem.getBodyTitle("transferred to", locale, area)
-                let list_title = config.pdfFormat.getBodyItem.getBodyTitle("transferred device list", locale)
+                let signature_title = config.pdfFormat.getBodyItem.getBodyTitle('transferred to', locale, area)
+                let list_title = config.pdfFormat.getBodyItem.getBodyTitle('transferred device list', locale)
                 let signatureName = config.pdfFormat.getBodyItem.getSignature(locale,signature)
                 let list = config.pdfFormat.getBodyItem.getDataContent(data, locale,signature)
                 let notes = config.pdfFormat.getBodyItem.getNotes(data, locale,signature)
@@ -220,7 +165,7 @@ const config = {
             shiftChange: (data, locale, user) => {
                 let area =  locale.texts[config.mapConfig.areaOptions[parseInt(user.areas_id[0])]]
                 let foundTitle = config.pdfFormat.getBodyItem.getBodyTitle(
-                    "devices found", 
+                    'devices found', 
                     locale, 
                     area,
                     data.searchResult.foundResult.length !== 0
@@ -230,7 +175,7 @@ const config = {
                     locale
                 )
                 let notFoundTitle = config.pdfFormat.getBodyItem.getBodyTitle(
-                    "devices not found", 
+                    'devices not found', 
                     locale, 
                     area,
                     data.searchResult.notFoundResult.length !== 0
@@ -240,7 +185,7 @@ const config = {
                     locale
                 )
                 let patientFoundTitle  = config.pdfFormat.getBodyItem.getBodyTitle(
-                    "patients found", 
+                    'patients found', 
                     locale, 
                     area,
                     data.patients.foundPatients.length !== 0
@@ -252,7 +197,7 @@ const config = {
                 )
 
                 let patientNotFoundTitle  = config.pdfFormat.getBodyItem.getBodyTitle(
-                    "patients not found", 
+                    'patients not found', 
                     locale, 
                     area,
                     data.patients.notFoundPatients.length !== 0
@@ -278,14 +223,14 @@ const config = {
             searchResult: (data, locale, user, location) => {
                 let area =  locale.texts[config.mapConfig.areaOptions[parseInt(user.areas_id[0])]]
                 let foundTitle = config.pdfFormat.getBodyItem.getBodyTitle(
-                    "devices found", 
+                    'devices found', 
                     locale, 
                     area, 
                     data.foundResult.length !== 0
                 )
                 let foundResultList = config.pdfFormat.getBodyItem.getDataContent(data.foundResult, locale)
                 let notFoundTitle = config.pdfFormat.getBodyItem.getBodyTitle(
-                    "devices not found", 
+                    'devices not found', 
                     locale, 
                     area,
                     data.notFoundResult.length !== 0
@@ -296,7 +241,7 @@ const config = {
 
             patientRecord: (data, locale, user) => {
                 let title = config.pdfFormat.getBodyItem.getBodyTitle(
-                    "patient historical record", 
+                    'patient historical record', 
                     locale, 
                     '',
                     true
@@ -326,11 +271,11 @@ const config = {
             getBodyTitle: (title, locale, area, hasTitle = true) => {
                 return hasTitle 
                     ?   `
-                        <h4 style="
+                        <h4 style='
                             text-transform: capitalize;
                             margin-bottom: 5px; 
                             padding-bottom: 5px;
-                            border-bottom: 1px solid black;"
+                            border-bottom: 1px solid black;'
                         >
                             ${locale.texts[title.toUpperCase().replace(/ /g, '_')].toUpperCase()}
                             ${area ? area : ''}
@@ -342,7 +287,7 @@ const config = {
             getDataContent: (data, locale) => {
                 return data.map((item, index) => {
                     return `
-                        <div style="margin-bottom: 10px;" key=${index}>
+                        <div style='margin-bottom: 10px;' key=${index}>
                             ${index + 1}. 
                             &nbsp;
                             ${item.name}, 
@@ -351,13 +296,13 @@ const config = {
                             ${item.residence_time}
                         </div>
                     `
-                }).join(" ")
+                }).join(' ')
             },
 
             getLocationHistoryByName: (data, locale) => {
                 return data.map((item, index) => {
                     return `
-                        <div style="margin-bottom: 10px;" key=${index}>
+                        <div style='margin-bottom: 10px;' key=${index}>
                             ${index + 1}. 
                             &nbsp;
                             ${item.area}, 
@@ -366,7 +311,7 @@ const config = {
                             ${item.residence_time}
                         </div>
                     `
-                }).join(" ")
+                }).join(' ')
             },
 
             getLocationHistoryByNameAsTable: (dataObject, locale) => {
@@ -378,15 +323,15 @@ const config = {
                 let headers = columns.map(field => {
                     return `
                         <th 
-                            style="text-align: left"
+                            style='text-align: left'
                         >
                             ${field.Header}
                         </th>
                     `
-                }).join(" ")
+                }).join(' ')
                 return `
                     <table 
-                        style="width:100%; font-size: 0.8rem;"
+                        style='width:100%; font-size: 0.8rem;'
                     >
                         ${headers}
                         ${data.map((item, index) => {
@@ -413,15 +358,15 @@ const config = {
                 let headers = columns.map(field => {
                     return `
                         <th
-                            style="text-align: left"
+                            style='text-align: left'
                         >
                             ${field.Header}
                         </th>
                     `
-                }).join(" ")
+                }).join(' ')
                 return `
                     <table 
-                        style="width:100%; font-size: 0.8rem;"
+                        style='width:100%; font-size: 0.8rem;'
                     >
                         ${headers}
                         ${data.map((item, index) => {
@@ -442,7 +387,7 @@ const config = {
             getPatientContent: (data, locale) => {
                 return data.map((item, index) => {
                     return `
-                        <div style="margin-bottom: 10px;" key=${index}>
+                        <div style='margin-bottom: 10px;' key=${index}>
                             ${index + 1}. 
                             &nbsp;
                             ${item.name}, 
@@ -451,86 +396,86 @@ const config = {
                             ${item.residence_time}
                         </div>
                     `
-                }).join(" ")
+                }).join(' ')
             },
 
             getPatientData: (data, locale) => {
                 return data.records.map((item, index) => {
                     return `
-                        <div style="margin-bottom: 15px;" key=${index}>
+                        <div style='margin-bottom: 15px;' key=${index}>
                             <div 
-                                style="margin-bottom: 5px; margin-top: 0px;"
+                                style='margin-bottom: 5px; margin-top: 0px;'
                             >
                                 &bull;
                                 <div
-                                    style="display: inline-block"
+                                    style='display: inline-block'
                                 >
                                     ${item.recorded_user}
                                 </div>
                                 &nbsp;
-                                <div style="font-size: 0.8em;display: inline-block;">
+                                <div style='font-size: 0.8em;display: inline-block;'>
                                     ${moment(item.created_timestamp).locale(locale.abbr).format('lll')}
                                 </div>
                             </div>
                             <div 
-                                style="text-align: justify;text-justify:inter-ideograph;font-size: 0.8em"
-                                class="text-muted"
+                                style='text-align: justify;text-justify:inter-ideograph;font-size: 0.8em'
+                                class='text-muted'
                             >
                                 ${item.record}
                             </div>
                         </div>
                     `
-                }).join(" ")
+                }).join(' ')
             },
     
             getNotes: (data, locale) => {
                 return `
-                    <h3 style="text-transform: capitalize; margin-bottom: 5px; font-weight: bold">
+                    <h3 style='text-transform: capitalize; margin-bottom: 5px; font-weight: bold'>
                         ${data[0].notes ? `${locale.texts.NOTE}:` : ''}
                     </h3>
-                    <div style="margin: 10px;">
-                        ${data[0].notes ? data[0].notes : ""}
+                    <div style='margin: 10px;'>
+                        ${data[0].notes ? data[0].notes : ''}
                     </div>
                 `
             },
 
             getSignature: (locale,signature) => {
                 return `
-                    <div style="text-transform: capitalize; margin: 10px width: 200px;">
-                        <div style="text-transform: capitalize; margin: 10px width: 100%;">
-                            <p style="display: inline">${locale.texts.RECEIVER_ID}:</p>
+                    <div style='text-transform: capitalize; margin: 10px width: 200px;'>
+                        <div style='text-transform: capitalize; margin: 10px width: 100%;'>
+                            <p style='display: inline'>${locale.texts.RECEIVER_ID}:</p>
                             <input 
-                                style="
+                                style='
                                     width: 100%; 
                                     border-bottom: 1px solid black; 
                                     border-top: 0;
                                     border-left: 0;
                                     border-right: 0;
-                                    display: inline-block"
+                                    display: inline-block'
                             />
                         </div>
-                        <div style="text-transform: capitalize; margin: 10px width: 100%;">
-                            <p style="display: inline">${locale.texts.RECEIVER_NAME}:</p>
+                        <div style='text-transform: capitalize; margin: 10px width: 100%;'>
+                            <p style='display: inline'>${locale.texts.RECEIVER_NAME}:</p>
                             <input 
-                                style="
+                                style='
                                     width: 100%; 
                                     border-bottom: 1px solid black; 
                                     border-top: 0;
                                     border-left: 0;
                                     border-right: 0;
-                                    display: inline-block"
+                                    display: inline-block'
                             />   
                         </div>
-                        <div style="text-transform: capitalize; margin: 10px width: 100%;">
-                            <p style="display: inline">${locale.texts.RECEIVER_SIGNATURE}:</p>
+                        <div style='text-transform: capitalize; margin: 10px width: 100%;'>
+                            <p style='display: inline'>${locale.texts.RECEIVER_SIGNATURE}:</p>
                             <input 
-                                style="
+                                style='
                                     width: 100%; 
                                     border-bottom: 1px solid black; 
                                     border-top: 0;
                                     border-left: 0;
                                     border-right: 0;
-                                    display: inline-block";
+                                    display: inline-block';
                                     value = ${signature}
                             />                  
                         </div>
@@ -544,18 +489,18 @@ const config = {
                 let timestamp = config.pdfFormat.getTimeStamp(locale)
 
                 const lastShiftIndex = (config.shiftOption.indexOf(shiftOption.value) + 2) % config.shiftOption.length
-                const lastShift = locale.texts[config.shiftOption[lastShiftIndex].toUpperCase().replace(/ /g, "_")]
+                const lastShift = locale.texts[config.shiftOption[lastShiftIndex].toUpperCase().replace(/ /g, '_')]
                 const thisShift = shiftOption.label
-                let shift = `<div style="text-transform: capitalize;">
+                let shift = `<div style='text-transform: capitalize;'>
                         ${locale.texts.SHIFT}: ${lastShift} ${locale.texts.SHIFT_TO} ${thisShift}
                     </div>`
-                let confirmedBy = `<div style="text-transform: capitalize;">
+                let confirmedBy = `<div style='text-transform: capitalize;'>
                     ${locale.abbr == 'en' 
                         ? `${locale.texts.CONFIRMED_BY} ${signature}`
                         : `${locale.texts.CONFIRMED_BY}: ${signature}`
                     }
                 </div>`
-                let checkby = `<div style="text-transform: capitalize;">
+                let checkby = `<div style='text-transform: capitalize;'>
                         ${locale.texts.DEVICE_LOCATION_STATUS_CHECKED_BY}: ${user.name}, ${shiftOption.label}
                     </div>`
                 return timestamp + confirmedBy + shift + checkby
@@ -605,42 +550,42 @@ const config = {
         getSubTitleInfo: {
             username: (locale, user) => {
                 return `
-                    <div style="text-transform: capitalize;">
+                    <div style='text-transform: capitalize;'>
                         ${locale.texts.USERNAME}: ${user.name}
                     </div>
                 `
             },
             patientName: (locale, object) => {
                 return `
-                    <div style="text-transform: capitalize;">
+                    <div style='text-transform: capitalize;'>
                         ${locale.texts.PATIENT_NAME}: ${object.name}
                     </div>
                 `
             },
             patientID: (locale, object) => {
                 return `
-                    <div style="text-transform: capitalize;">
+                    <div style='text-transform: capitalize;'>
                         ${locale.texts.PATIENT_NUMBER}: ${object.asset_control_number}
                     </div>
                 `
             },
             providerName: (locale, object) => {
                 return `
-                    <div style="text-transform: capitalize;">
+                    <div style='text-transform: capitalize;'>
                         ${locale.texts.PHYSICIAN_NAME}: ${object.physician_name}
                     </div>
                 `
             },
             startTime: (locale, value) => {
                 return `
-                    <div style="text-transform: capitalize;">
+                    <div style='text-transform: capitalize;'>
                         ${locale.texts.START_TIME}: ${value}
                     </div>
                 `
             },
             field: (locale, key, value) => {
                 return `
-                    <div style="text-transform: capitalize;">
+                    <div style='text-transform: capitalize;'>
                         ${locale.texts[key]}: ${value}
                     </div>
                 `
@@ -649,15 +594,15 @@ const config = {
 
         /** The pdf option setting in html-pdf */
         pdfOptions: {
-            "format": "A4",
-            "orientation": "portrait",
-            "border": "1cm",
-            "timeout": "12000"
+            'format': 'A4',
+            'orientation': 'portrait',
+            'border': '1cm',
+            'timeout': '12000'
         },
 
         getTimeStamp: (locale) => {
             return `
-                <div style="text-transform: capitalize;">
+                <div style='text-transform: capitalize;'>
                     ${locale.texts.DATE_TIME}: ${moment().locale(locale.abbr).format('LLL')}
                 </div>
             `

@@ -16,7 +16,7 @@ const App = () => {
                     {renderRoutes(routes)}
                 </Switch>
             </Router>
-            <ToastContainer {...config.toastProps} />
+            <ToastContainer {...config.TOAST_PROPS} />
         </CombinedContext>
     );
 };

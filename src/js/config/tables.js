@@ -42,13 +42,13 @@ const lbeaconTableColumn = [
         accessor: "health_status",
         width: 100,
         style: style.textRight,
-        Cell: props => config.healthStatusMap[props.value] ? config.healthStatusMap[props.value] : props.value
+        Cell: props => config.HEALTH_STATUS_MAP[props.value] ? config.HEALTH_STATUS_MAP[props.value] : props.value
     },
     {
         Header: "product_version",
         accessor: "product_version",
         width: 150,
-        Cell: props => config.productVersionMap[props.value] ?  config.productVersionMap[props.value] : props.value
+        Cell: props => config.PRODUCT_VERSION_MAP[props.value] ?  config.PRODUCT_VERSION_MAP[props.value] : props.value
     },
     {
         Header: "UUID",
@@ -92,13 +92,13 @@ const gatewayTableColumn = [
         accessor: "health_status",
         style: style.textRight,
         width: 100,
-        Cell: props => config.healthStatusMap[props.value] ? config.healthStatusMap[props.value] : props.value
+        Cell: props => config.HEALTH_STATUS_MAP[props.value] ? config.HEALTH_STATUS_MAP[props.value] : props.value
     },
     {
         Header: "product_version",
         accessor: "product_version",
         width: 170,
-        Cell: props => config.productVersionMap[props.value] ?  config.productVersionMap[props.value] : props.value
+        Cell: props => config.PRODUCT_VERSION_MAP[props.value] ?  config.PRODUCT_VERSION_MAP[props.value] : props.value
     },
     {
         Header: "IP Address",

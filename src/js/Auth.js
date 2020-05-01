@@ -11,7 +11,7 @@ class Auth extends React.Component {
 
     state = {
         authenticated: Cookies.get('authenticated') ? true : false,
-        user: Cookies.get('user') ? {...JSON.parse(Cookies.get('user'))} : config.defaultUser,
+        user: Cookies.get('user') ? {...JSON.parse(Cookies.get('user'))} : config.DEFAULT_USER,
         accessToken: ""
     }
 
@@ -77,7 +77,7 @@ class Auth extends React.Component {
             Cookies.remove('user')
             this.setState({
                 authenticated: false,
-                user: config.defaultUser,
+                user: config.DEFAULT_USER,
                 accessToken: ""
             });
         })

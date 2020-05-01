@@ -28,7 +28,7 @@ const SiginForm = ({
         >
             <Modal.Body>
                 <div className='d-flex justify-content-center'>
-                    <Image src={config.logo} rounded width={50} height={50} ></Image>
+                    <Image src={config.LOGO} rounded width={50} height={50} ></Image>
                 </div>
                 <div className='d-flex justify-content-center'>
                     <div className="title my-1">{locale.texts.SIGN_IN}</div>

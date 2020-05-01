@@ -96,7 +96,7 @@ class NavbarContainer extends React.Component {
                     >
                         <Image
                             alt=''
-                            src={config.logo}
+                            src={config.LOGO}
                             width={50}
                             className='d-inline-block align-top px-1'
                         />

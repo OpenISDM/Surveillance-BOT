@@ -183,7 +183,7 @@ class ConfirmForm extends React.Component {
                                     </Row>
                                     <Row>
                                         <Col className='d-flex justify-content-center'>
-                                            <h6>{moment().locale(locale.abbr).format(config.confirmFormTimeFormat)}</h6>    
+                                            <h6>{moment().locale(locale.abbr).format(config.TIME_FORMAT)}</h6>    
                                         </Col>
                                     </Row>
 

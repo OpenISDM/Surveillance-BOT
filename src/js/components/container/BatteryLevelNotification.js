@@ -27,7 +27,7 @@ class BatteryLevelNotification extends React.Component {
     }
 
     componentDidMount = () => {
-        this.getTrackingData();
+        // this.getTrackingData();
     }
 
     getTrackingData = () => {

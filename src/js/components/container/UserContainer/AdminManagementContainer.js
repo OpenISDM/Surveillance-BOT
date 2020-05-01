@@ -2,18 +2,13 @@ import React from 'react';
 import { 
     ButtonToolbar,
 } from 'react-bootstrap';
-import ReactTable from 'react-table'
+import ReactTable from 'react-table';
 import axios from 'axios';
-import {
-    getUserList,
-    getRoleNameList,
-    deleteUser,
-} from "../../../dataSrc";
 import dataSrc from '../../../dataSrc';
-import { userInfoTableColumn } from '../../../config/tables'
+import { userInfoTableColumn } from '../../../config/tables';
 import EditUserForm from './EditUserForm';
 import { AppContext } from '../../../context/AppContext';
-import DeleteUserForm from './DeleteUserForm'
+import DeleteUserForm from './DeleteUserForm';
 import DeleteConfirmationForm from '../../presentational/DeleteConfirmationForm';
 import retrieveDataHelper from '../../../service/retrieveDataHelper';
 import messageGenerator from '../../../service/messageGenerator';
@@ -21,8 +16,8 @@ import styleConfig from '../../../config/styleConfig';
 const Fragment = React.Fragment;
 import {
     PrimaryButton 
-} from '../../BOTComponent/styleComponent'
-import AccessControl from '../../presentational/AccessControl'
+} from '../../BOTComponent/styleComponent';
+import AccessControl from '../../presentational/AccessControl';
 
 class AdminManagementContainer extends React.Component{
 
@@ -50,7 +45,7 @@ class AdminManagementContainer extends React.Component{
 
     componentDidMount = () => {
         this.getUserList()
-        this.getRoleNameList()
+        this.getAllRole()
         this.getAreaTable()
     }
 
@@ -93,10 +88,10 @@ class AdminManagementContainer extends React.Component{
         })
     }
 
-    getRoleNameList = () => {
+    getAllRole = () => {
         retrieveDataHelper.getAllRole()
             .then(res => {
-                let roleName = res.data.rows.filter(item => item.name !== "guest" )
+                let roleName = res.data.rows.filter(item => item.name !== 'guest' )
                 this.setState({
                     roleName,
                 })
@@ -201,14 +196,14 @@ class AdminManagementContainer extends React.Component{
     handleClick = (e, value) => {
 
         switch (e.target.name) {
-            case "add user":
+            case 'add user':
                 this.setState({
                     showAddUserForm: true,
                     title: 'add user',
                     api: 'signup',
                 })
                 break;
-            case "delete user":
+            case 'delete user':
                 this.setState({
                     showDeleteUserForm:true
                 })
@@ -227,7 +222,7 @@ class AdminManagementContainer extends React.Component{
 
         return (
             <Fragment>
-                <div className="d-flex justify-content-start">
+                <div className='d-flex justify-content-start'>
                     <AccessControl
                         renderNoAccess={() => null}
                         platform={['browser', 'tablet']}
@@ -235,14 +230,14 @@ class AdminManagementContainer extends React.Component{
                         <ButtonToolbar>
                             <PrimaryButton
                                 className='mb-1 mr-1'
-                                name="add user"
+                                name='add user'
                                 onClick={this.handleClick}    
                             >
                                 {locale.texts.ADD}
                             </PrimaryButton>
                             <PrimaryButton
                                 className='mb-1'
-                                name="delete user"
+                                name='delete user'
                                 onClick={this.handleClick}    
                             >
                                 {locale.texts.DELETE}
@@ -255,8 +250,8 @@ class AdminManagementContainer extends React.Component{
                     <ReactTable 
                         data={this.state.data} 
                         columns={this.state.columns} 
-                        noDataText="No Data Available"
-                        className="-highlight text-none"
+                        noDataText='No Data Available'
+                        className='-highlight text-none'
                         pageSize={this.state.data.length}
                         style={{maxHeight:'85vh'}}                               
                         {...styleConfig.reactTable}

@@ -46,7 +46,7 @@ class ShiftChangeRecord extends React.Component{
             locale
         } = this.context
 
-        retrieveDataHelper.getShiftChangeRecord(locale.abbr)
+        retrieveDataHelper.GET_SHIFTChangeRecord(locale.abbr)
             .then(res => {
                 let columns = _.cloneDeep(shiftChangeRecordTableColumn)
                 columns.map(field => {

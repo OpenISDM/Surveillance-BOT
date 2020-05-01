@@ -78,8 +78,8 @@ const retrieveDataHelper = {
         })
     },
 
-    getShiftChangeRecord: async function(locale) {
-        return await axios.post(dataSrc.getShiftChangeRecord,{
+    GET_SHIFTChangeRecord: async function(locale) {
+        return await axios.post(dataSrc.GET_SHIFTChangeRecord,{
             locale
         })
     },
