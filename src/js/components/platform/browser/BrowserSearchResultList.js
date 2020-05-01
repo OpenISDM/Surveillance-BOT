@@ -33,7 +33,6 @@ const BrowserSearchResultList = ({
 }) => {
 
     let locale = React.useContext(LocaleContext);
-
     return (
         <Fragment>
             <Row className='d-flex justify-content-center' style={style.titleText}>

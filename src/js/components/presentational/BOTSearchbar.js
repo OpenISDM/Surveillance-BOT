@@ -1,8 +1,5 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
-import {
-    isMobileOnly
-} from 'react-device-detect';
 
 class BOTSearchbar extends React.Component {
     
@@ -21,7 +18,6 @@ class BOTSearchbar extends React.Component {
     handleSubmit = (e) => { 
         e.preventDefault();
         this.props.getSearchKey(this.state.value);
-        if (isMobileOnly) this.props.handleShowResultListForMobile();
     }
 
     handleChange = (e) => {
@@ -37,7 +33,7 @@ class BOTSearchbar extends React.Component {
                 border: '2px solid rgba(227, 222, 222, 0.447)',
                 borderRadius : '25px',
                 fontSize: '0.8rem',
-                width:400,
+                width: 250,
                 minHeight: '1.2rem',
                 position: 'relative'
             },
@@ -55,7 +51,7 @@ class BOTSearchbar extends React.Component {
             >
                 <Form.Group 
                     className='d-flex justify-content-center align-items-center mb-0 mx-1'
-                    style={{minWidth: 380}}
+                    style={{minWidth: 200}}
                 >
                     <i 
                         className='fas fa-search'

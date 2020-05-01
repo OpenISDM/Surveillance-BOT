@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { DateTimePicker } from 'react-widgets';
 import momentLocalizer from 'react-widgets-moment';
-import dataSrc from '../../dataSrc';
+import dataSrc from '../../../dataSrc';
 import axios from 'axios'; 
 import 'react-table/react-table.css'; 
 import { 
@@ -12,14 +12,14 @@ import {
     Nav,
     Breadcrumb,
 } from 'react-bootstrap';
-import styleConfig from '../../config/styleConfig';
+import styleConfig from '../../../config/styleConfig';
 import 'react-tabs/style/react-tabs.css';
-import { AppContext } from '../../context/AppContext';
+import { AppContext } from '../../../context/AppContext';
 import ReactTable from 'react-table';
 import {
     locationHistoryByMacColumns,
     locationHistoryByUUIDColumns,
-} from '../../config/tables';
+} from '../../../config/tables';
 import moment from 'moment';
 import {
     BOTNavLink,
@@ -27,18 +27,18 @@ import {
     NoDataFoundDiv,
     BOTContainer,
     PrimaryButton
-} from '../BOTComponent/styleComponent';
-import Loader from '../presentational/Loader';
-import retrieveDataHelper from '../../helper/retrieveDataHelper';
+} from '../../BOTComponent/styleComponent';
+import Loader from '../../presentational/Loader';
+import retrieveDataHelper from '../../../helper/retrieveDataHelper';
 import Select from 'react-select';
 import {
     PageTitle
-} from '../BOTComponent/styleComponent';
-import IconButton from '../BOTComponent/IconButton';
-import styleSheet from '../../config/styleSheet';
-import ExportModal from '../presentational/ExportModal';
-import config from '../../config';
-import pdfPackageGenerator from '../../helper/pdfPackageGenerator';
+} from '../../BOTComponent/styleComponent';
+import IconButton from '../../BOTComponent/IconButton';
+import styleSheet from '../../../config/styleSheet';
+import ExportModal from '../../presentational/ExportModal';
+import config from '../../../config';
+import pdfPackageGenerator from '../../../helper/pdfPackageGenerator';
 
 momentLocalizer()
 
@@ -84,7 +84,6 @@ class TraceContainer extends React.Component{
     componentDidMount = () => {
         this.getObjectTable();
         this.getLbeaconTable();
-
         if (this.props.location.state) {
             let { state } = this.props.location
             let now = moment();

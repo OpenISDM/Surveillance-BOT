@@ -1,49 +1,33 @@
 import React from 'react';
 import {
     Row,
-    Col
+    Image
 } from 'react-bootstrap';
-import Searchbar from '../../presentational/Searchbar';
-import TabletObjectTypeList from '../tablet/TabletObjectTypeList';
+import BOTSearchbar from '../../presentational/BOTSearchbar';
+import config from '../../../config';
 
 const MobileSearchContainer = ({
     searchKey,
-    objectTypeList,
     getSearchKey,
     handleTouchMove,
     clearSearchResult,
-    hasGridButton,
-    handleShowResultListForMobile
 }) => {
-    const style = {    
-        textForMobile: {
-            fontSize: '2rem'
-        }
-    }
     return (
-        <div id='searchContainer' className="py-1" onTouchMove={handleTouchMove}>
-            <Row id='searchBar' className='d-flex justify-content-center align-items-center pb-2'>
-                <Searchbar 
+        <div 
+            id='searchContainer' 
+            className="py-1" 
+            onTouchMove={handleTouchMove}
+        >
+            <Image src={config.LOGO} rounded width={100}/>
+            <Row id='searchBar' className='d-flex justify-content-center align-items-center my-4'>
+                <BOTSearchbar
                     placeholder={searchKey}
                     getSearchKey={getSearchKey}
-                    clearSearchResult={clearSearchResult}
-                    handleShowResultListForMobile={handleShowResultListForMobile}    
+                    clearSearchResult={clearSearchResult}    
                 />
             </Row>
-            <div id='searchOption' className="pt-2" style={style.textForMobile}>
-                <Row>
-                    <Col className='px-0'>
-                        <TabletObjectTypeList
-                            getSearchKey={getSearchKey}  
-                            clearSearchResult={clearSearchResult}   
-                            hasGridButton={hasGridButton} 
-                            objectTypeList={objectTypeList}
-                            handleShowResultListForMobile={handleShowResultListForMobile}   
-                        />                            
-                    </Col>
-                </Row>
-            </div>
         </div>
     )
 }
+
 export default MobileSearchContainer

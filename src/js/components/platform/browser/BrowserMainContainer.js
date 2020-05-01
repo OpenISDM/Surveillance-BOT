@@ -1,12 +1,10 @@
 import React from 'react';
-import MapContainer from '../../container/MapContainer';
 import SearchResultList from '../../presentational/SearchResultList';
 import SearchContainer from '../../container/SearchContainer';
 import {
     Row,
     Col
 } from 'react-bootstrap';
-import InfoPrompt from '../../presentational/InfoPrompt'
 import AuthenticationContext from '../../../context/AuthenticationContext';
 
 const BrowserMainContainer = ({ 
@@ -49,19 +47,12 @@ const BrowserMainContainer = ({
         searchResultDiv: {
             display: hasSearchKey ? null : 'none',
         },
-        
-        searchPanel: {
-            zIndex: isHighlightSearchPanel ? 1060 : 1,
-            background: 'white',
-            borderRadius: 10,
-            // height: '90vh'
-        },
 
         searchResultList: {
             dispaly: hasSearchKey ? null : 'none',
             maxHeight: '28vh'
         },
-    }
+    } 
 
     return (
         <div 
@@ -74,12 +65,7 @@ const BrowserMainContainer = ({
                 className='d-flex w-100 justify-content-around mx-0' 
                 style={style.container}
             >
-                <Col 
-                    id='searchPanel' 
-                    // xs={12} sm={5} md={3} lg={6} xl={6} 
-                    className="w-100 px-2" 
-                    style={style.searchPanel}
-                >
+                <Col>
                     <SearchContainer 
                         hasSearchKey={hasSearchKey}
                         clearSearchResult={clearSearchResult}
