@@ -15,7 +15,7 @@ import BrowserTraceContainer from '../../platform/browser/BrowserTraceContainer'
 import MobileTraceContainer from '../../platform/mobile/MobileTraceContainer';
 import TabletTraceContainer from '../../platform/tablet/TabletTraceContainer';
 
-class UserSettingContainer extends React.Component{
+class TraceContainer extends React.Component{
 
     componentDidMount = () => {
         /** set the scrollability in body disabled */
@@ -27,8 +27,6 @@ class UserSettingContainer extends React.Component{
         let targetElement = document.querySelector('body')
         disableBodyScroll(targetElement);
     }
-
-    containerModule = userContainerModule
     
     render(){
 
@@ -54,4 +52,4 @@ class UserSettingContainer extends React.Component{
     }
 }
 
-export default UserSettingContainer
+export default TraceContainer
