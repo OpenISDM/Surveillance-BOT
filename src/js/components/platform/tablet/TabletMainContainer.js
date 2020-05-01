@@ -1,10 +1,13 @@
 import React from 'react';
-import MapContainer from '../../container/MapContainer';
-import SearchResultList from '../../presentational/SearchResultList'
-import SearchContainer from '../../container/SearchContainer'
+import SearchResultList from '../../presentational/SearchResultList';
+import SearchContainer from '../../container/SearchContainer';
+import {
+    Row,
+    Col
+} from 'react-bootstrap';
 import AuthenticationContext from '../../../context/AuthenticationContext';
 
-const TabletMainContainer = ({
+const TabletMainContainer = ({  
     handleClearButton,
     getSearchKey,
     setMonitor,
@@ -13,13 +16,11 @@ const TabletMainContainer = ({
     handleShowPath,
     lbeaconPosition,
     geofenceConfig,
-    authenticated,
     searchedObjectType,
     showedObjects,
     highlightSearchPanel,
     showMobileMap,
     clearSearchResult,
-    hasGridButton,
     searchKey,
     searchResult,
     trackingData,
@@ -27,49 +28,54 @@ const TabletMainContainer = ({
     hasSearchKey,
     setShowedObjects,
     pathMacAddress,
-
+    isHighlightSearchPanel,
+    locationMonitorConfig
 }) => {
 
-    let auth = React.useContext(AuthenticationContext);
-    
+    let auth = React.useContext(AuthenticationContext)
+
     const style = {
         noResultDiv: {
             color: 'grey',
             fontSize: '1rem',
         },
-        titleText: {
-            color: 'rgb(80, 80, 80, 0.9)',
-        }, 
 
-    }
+        pageWrap: {
+            overflow: "hidden hidden",
+        },
+
+        searchResultDiv: {
+            display: hasSearchKey ? null : 'none',
+        },
+
+        searchResultList: {
+            dispaly: hasSearchKey ? null : 'none',
+            maxHeight: '28vh'
+        },
+    } 
 
     return (
-        <div id="page-wrap" className='d-flex flex-column w-100' style={{height: "90vh"}}>
-            <div id="mainContainer" className='d-flex flex-row h-100 w-100'>
-                <div className='d-flex flex-column' style={style.MapAndResult}>
-                    <div className="d-flex" style={style.MapAndQrcode}>
-                        <MapContainer
-                            pathMacAddress={pathMacAddress} 
-                            proccessedTrackingData={proccessedTrackingData.length === 0 ? trackingData : proccessedTrackingData}
-                            hasSearchKey={hasSearchKey}
-                            searchResult={searchResult}
-                            handleClearButton={handleClearButton}
-                            getSearchKey={getSearchKey}
-                            setMonitor={setMonitor}
-                            lbeaconPosition={lbeaconPosition}
-                            geofenceConfig={geofenceConfig}
-                            clearAlerts={clearAlerts}
-                            searchKey={searchKey}
-                            authenticated={authenticated}
-                            handleClosePath={handleClosePath}
-                            handleShowPath={handleShowPath}
-                            searchedObjectType={searchedObjectType}
-                            showedObjects={showedObjects}
-                            setShowedObjects={setShowedObjects}
-                        />
-                    </div>
-
-                    <div id="searchResult" className="d-flex" style={{justifyContent: 'center'}}>
+        <div 
+            id="page-wrap" 
+            className='mx-1 my-2 overflow-hidden' 
+            style={style.pageWrap} 
+        >
+            <Row 
+                id="mainContainer" 
+                className='d-flex w-100 justify-content-around mx-0' 
+                style={style.container}
+            >
+                <Col>
+                    <SearchContainer 
+                        hasSearchKey={hasSearchKey}
+                        clearSearchResult={clearSearchResult}
+                        auth={auth}
+                        getSearchKey={getSearchKey}
+                    />                        
+                    <div 
+                        id='searchResult' 
+                        style={style.searchResultDiv} 
+                    >
                         <SearchResultList
                             searchResult={searchResult} 
                             searchKey={searchKey}
@@ -78,17 +84,8 @@ const TabletMainContainer = ({
                             showMobileMap={showMobileMap}
                         />
                     </div>
-                </div>
-                <div id='searchPanel' className="h-100" style={style.searchPanelForTablet}>
-                    <SearchContainer
-                        hasSearchKey={hasSearchKey}
-                        clearSearchResult={clearSearchResult}
-                        hasGridButton={hasGridButton}
-                        auth={auth}
-                        getSearchKey={getSearchKey}
-                    />
-                </div>
-            </div>
+                </Col>
+            </Row>
         </div>
     )
 }

@@ -1,42 +1,33 @@
 import React from 'react';
 import {
     Row,
-    Col
+    Image
 } from 'react-bootstrap';
-import Searchbar from '../../presentational/Searchbar';
-import TabletObjectTypeList from './TabletObjectTypeList';
+import BOTSearchbar from '../../presentational/BOTSearchbar';
+import config from '../../../config';
 
 const TabletSearchContainer = ({
     searchKey,
-    objectTypeList,
     getSearchKey,
     handleTouchMove,
     clearSearchResult,
-    hasGridButton,
-}) => {    
-
+}) => {
     return (
-        <div id='searchContainer' className="py-1" onTouchMove={handleTouchMove}>
-            <Row id='searchBar' className='d-flex justify-content-center align-items-center pb-2'>
-                <Searchbar 
+        <div 
+            id='searchContainer' 
+            className="py-1" 
+            onTouchMove={handleTouchMove}
+        >
+            <Image src={config.LOGO} rounded width={150}/>
+            <Row id='searchBar' className='d-flex justify-content-center align-items-center my-4'>
+                <BOTSearchbar
                     placeholder={searchKey}
                     getSearchKey={getSearchKey}
                     clearSearchResult={clearSearchResult}    
                 />
             </Row>
-            <div id='searchOption' className="pt-2">
-                <Row>
-                    <Col className='px-0'>
-                        <TabletObjectTypeList
-                            getSearchKey={getSearchKey}  
-                            clearSearchResult={clearSearchResult}   
-                            hasGridButton={hasGridButton} 
-                            objectTypeList={objectTypeList}
-                        />                            
-                    </Col>
-                </Row>
-            </div>
         </div>
     )
 }
+
 export default TabletSearchContainer

@@ -25,7 +25,7 @@ const SearchContainer = ({
     return (
         <Fragment>
             <BrowserView>                   
-                <BrowserSearchContainer
+                <BrowserSearchContainer 
                     {...propsGroup}
                 />
             </BrowserView>

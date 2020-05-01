@@ -42,7 +42,7 @@ import pdfPackageGenerator from '../../../helper/pdfPackageGenerator';
 
 momentLocalizer()
 
-class MobileTraceContainer extends React.Component{
+class TabletTraceContainer extends React.Component{
 
     static contextType = AppContext
     
@@ -612,79 +612,88 @@ class MobileTraceContainer extends React.Component{
                                     )
                                 })}
                             </BOTNav>
-                            <div className='d-flex flex-column'>
-                                <div
-                                    className='m-2'
-                                    style={{
-                                        position: 'relative'
-                                    }}
-                                >
-                                    <Select
-                                        name='key'
-                                        value={values.key}
-                                        className='float-right w-100'
-                                        onChange={(value) => { 
-                                            setFieldValue('key', value)
+                            <div className='d-flex justify-content-between my-4'>
+                                <div className='d-flex justify-content-start'>
+                                    <div
+                                        className='mx-2'
+                                        style={{
+                                            position: 'relative'
                                         }}
-                                        isClearable={true}
-                                        isSearchable={true}
-                                        options={this.state.options[values.mode]}
-                                        styles={{
-                                            control: (provided) => ({
-                                                ...provided,
-                                                fontSize: '1rem',
-                                                minHeight: '3rem',
-                                                position: 'none',
-                                                borderRadius: 0                                
-                                            }),
-                                            valueContainer: base => ({
-                                                ...base,
-                                                paddingLeft: 35
-                                            }),
-                                        }}
-                                        components={styleConfig.reactSelectSearchComponent}         
-                                        placeholder={locale.texts[`SEARCH_FOR_${values.mode.toUpperCase()}`]}                           
-                                    />
-                                    {errors.key && (
-                                        <div 
-                                            className='text-left'
-                                            style={{
-                                                fontSize: '0.6rem',
-                                                color: styleSheet.warning,
-                                                position: 'absolute',
-                                                left: 0,
-                                                bottom: -18,
+                                    >
+                                        <Select
+                                            name='key'
+                                            value={values.key}
+                                            className='float-right'
+                                            onChange={(value) => { 
+                                                setFieldValue('key', value)
                                             }}
-                                        >
-                                            {errors.key}
-                                        </div>
-                                    )}
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            styles={{
+                                                control: (provided) => ({
+                                                    ...provided,
+                                                    fontSize: '1rem',
+                                                    minHeight: '3rem',
+                                                    position: 'none',
+                                                    width: '300px',
+                                                    borderRadius: 0                                
+                                                }),
+                                                valueContainer: base => ({
+                                                    ...base,
+                                                    paddingLeft: 35
+                                                }),
+                                            }}
+                                            options={this.state.options[values.mode]}
+                                            components={styleConfig.reactSelectSearchComponent}         
+                                            placeholder={locale.texts[`SEARCH_FOR_${values.mode.toUpperCase()}`]}                           
+                                        />
+                                        {errors.key && (
+                                            <div 
+                                                className='text-left'
+                                                style={{
+                                                    fontSize: '0.6rem',
+                                                    color: styleSheet.warning,
+                                                    position: 'absolute',
+                                                    left: 0,
+                                                    bottom: -18,
+                                                }}
+                                            >
+                                                {errors.key}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <DateTimePicker 
+                                        name='startTime'
+                                        className='mx-2'
+                                        value={values.startTime}
+                                        onChange={(value) => {
+                                            setFieldValue('startTime', moment(value).toDate())
+                                        }}
+                                        placeholder={locale.texts.START_TIME}
+                                    />
+                                    <DateTimePicker 
+                                        name='endTime'
+                                        className='mx-2'
+                                        value={values.endTime}
+                                        onChange={(value) => {
+                                            setFieldValue('endTime', moment(value).toDate())
+                                        }}
+                                        placeholder={locale.texts.END_TIME}
+                                    />
+                                  
                                 </div>
-                                <DateTimePicker 
-                                    name='startTime'
-                                    className='m-2'
-                                    value={values.startTime}
-                                    onChange={(value) => {
-                                        setFieldValue('startTime', moment(value).toDate())
-                                    }}
-                                    placeholder={locale.texts.START_TIME}
-                                />
-                                <DateTimePicker 
-                                    name='endTime'
-                                    className='m-2'
-                                    value={values.endTime}
-                                    onChange={(value) => {
-                                        setFieldValue('endTime', moment(value).toDate())
-                                    }}
-                                    placeholder={locale.texts.END_TIME}
-                                />
-                                <PrimaryButton
-                                    type='button' 
-                                    disabled={this.state.done}
-                                    onClick={submitForm}
+                                
+                                <div
+                                    className='d-flex align-items-center'
                                 >
-                                    {locale.texts.SEARCH}
-                                </PrimaryButton>
+                                    <PrimaryButton
+                                        type='button' 
+                                        disabled={this.state.done}
+                                        onClick={submitForm}
+                                    >
+                                        {locale.texts.SEARCH}
+                                    </PrimaryButton>
+                                </div>
                             </div>
                             {status == this.statusMap.LOADING && <Loader />}
                             <hr/>
@@ -714,4 +723,4 @@ class MobileTraceContainer extends React.Component{
     }
 }
 
-export default MobileTraceContainer
+export default TabletTraceContainer

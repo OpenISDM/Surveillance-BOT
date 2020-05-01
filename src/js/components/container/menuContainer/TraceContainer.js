@@ -11,9 +11,9 @@ import {
 import {
     userContainerModule
 } from '../../../config/pageModules';
-import TabletPageComponent from '../../platform/tablet/TabletPageComponent';
 import BrowserTraceContainer from '../../platform/browser/BrowserTraceContainer';
 import MobileTraceContainer from '../../platform/mobile/MobileTraceContainer';
+import TabletTraceContainer from '../../platform/tablet/TabletTraceContainer';
 
 class UserSettingContainer extends React.Component{
 
@@ -40,9 +40,9 @@ class UserSettingContainer extends React.Component{
                     /> 
                 </BrowserView>
                 <TabletView>
-                    <TabletPageComponent
-                        containerModule={this.containerModule}
-                    />
+                    <TabletTraceContainer
+                        location={this.props.location}
+                    /> 
                 </TabletView>
                 <MobileOnlyView>
                     <MobileTraceContainer
