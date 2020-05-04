@@ -111,7 +111,7 @@ class BindForm extends React.Component {
                         validationSchema = {
                             Yup.object().shape({
                                 acn: Yup.string() 
-                                .required(locale.texts.ASSET_CONTROL_NUMBER_IS_REQUIRED)
+                                .required(locale.texts.REQUIRED) 
                                 .test(
                                     'acn', 
                                     locale.texts.THE_ID_IS_ALREADY_ASSOCIATED,
