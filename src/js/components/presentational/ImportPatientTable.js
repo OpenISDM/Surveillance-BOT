@@ -248,8 +248,8 @@ class ImportPatientTable extends React.Component{
                             item.type = 'patient'
                     }) 
 
-                axios.post(objectImport, {
-                    locale: locale.abbr ,
+                axios.post(dataSrc.importedObject, {
+                    locale: locale.abbr,
                     newData
                 })
                 .then(res => {

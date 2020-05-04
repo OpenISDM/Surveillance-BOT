@@ -28,6 +28,19 @@ module.exports = {
             .catch(err => {
                 console.log(`delete imported object failed ${err}`)
             })
-    }
+    },
+
+    addImportedObject: (request, response) => {
+
+        const idPackage = request.body.newData
+            pool.query(dbQueries.addImportedObject(idPackage))
+            .then(res => {
+                console.log("add imported objects succeed");
+                response.status(200).json(res)
+            })
+            .catch(err => {
+                console.log(`add imported objects failed ${err}`)
+            })   
+    },
 }
 

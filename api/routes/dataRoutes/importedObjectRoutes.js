@@ -9,6 +9,7 @@ module.exports = app => {
     app.route('/data/importedObject')
         .get(importedObjectController.getImportedObject)
         .delete(importedObjectController.deleteImportedObject)
+        .post(importedObjectController.addImportedObject)
 
 
     
