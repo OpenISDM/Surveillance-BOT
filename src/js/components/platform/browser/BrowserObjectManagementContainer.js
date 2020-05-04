@@ -9,7 +9,6 @@ import {
 import 'react-tabs/style/react-tabs.css';
 import { AppContext } from '../../../context/AppContext';
 import AccessControl from '../../presentational/AccessControl';
-import PatientTable from '../../presentational/PatientTable';
 import ImportPatientTable from '../../presentational/ImportPatientTable';
 import {
     BOTContainer,

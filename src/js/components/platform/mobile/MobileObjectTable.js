@@ -398,6 +398,7 @@ class MobileObjectTable extends React.Component{
             selectType
         };
 
+        console.log(this.state.objectTable)
         return(
             <Fragment> 
                 <div className='d-flex justify-content-start'>                    

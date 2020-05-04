@@ -432,7 +432,7 @@ class BrowserObjectTable extends React.Component{
                                 }}
                                 options={this.state.filterSelection.areaSelection}
                                 isClearable={true}
-                                isSearchable={false}
+                                isSearchable={true}
                                 placeholder={locale.texts.SELECT_AREA}
                             />
                         </AccessControl>

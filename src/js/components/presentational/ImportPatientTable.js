@@ -9,9 +9,6 @@ import XLSX from 'xlsx';
 import InputFiles from 'react-input-files';
 import axios from 'axios';
 import DeleteConfirmationForm from '../presentational/DeleteConfirmationForm';
-import { 
-    objectImport,
-} from '../../dataSrc';
 import styleConfig from '../../config/styleConfig';
 import messageGenerator from '../../helper/messageGenerator';
 import {
@@ -335,7 +332,7 @@ class ImportPatientTable extends React.Component{
                     ref={r => (this.selectTable = r)}
                     className='-highlight'
                     style={{maxHeight:'75vh'}} 
-                    pageSize={this.state.data.length}
+                    pageSize={5}
                     onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                     {...extraProps}
                     {...styleConfig.reactTable}

@@ -220,26 +220,20 @@ class MobileTraceContainer extends React.Component{
                 return
             }
 
-            let prevUUID = '';
-            let data = []
+            let data;
+            
             switch(fields.mode) {
                 case 'mac':
                 case 'name':
-                    res.data.rows
-                    .map(pt => {
-                        if (pt.uuid != prevUUID) {
-                            data.push({
-                                uuid: pt.uuid,
-                                startTime:  moment(pt.record_timestamp).format(timeValidatedFormat),
-                                description: pt.description,
-                                mode: fields.mode,
-                                area_original: pt.area,
-                                area: locale.texts[pt.area]
-                            })
-                            prevUUID = pt.uuid
-                        }
-                        data[data.length - 1].endTime = moment(pt.record_timestamp).locale(locale.abbr).format(timeValidatedFormat)
-                        data[data.length - 1].residenceTime = moment(pt.record_timestamp).locale(locale.abbr).from(moment(data[data.length - 1].startTime), true)
+                    data = res.data.rows.map((item, index) => {
+                        item.residenceTime = moment.duration(item.duration).locale(locale.abbr).humanize();
+                        item.startTime = moment(item.start_time).format(timeValidatedFormat);
+                        item.endTime = moment(item.end_time).format(timeValidatedFormat);
+                        item.description = item.beacon_description;
+                        item.mode = fields.mode;
+                        item.area_original = item.area_name;
+                        item.area = locale.texts[item.area_name];
+                        return item
                     })
                     break;
                 case 'uuid':
