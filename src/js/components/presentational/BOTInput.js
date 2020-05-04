@@ -23,6 +23,14 @@ class BOTInput extends React.Component {
         this.props.getSearchKey(e.target.value);
     }
 
+    handleKeyPress = (e) => { 
+
+        /* Disable key press 'Enter' event */
+        if (e.which == 13) {
+            e.preventDefault()
+        }
+    }
+
     render() {
 
         const { value } = this.state;
@@ -69,6 +77,7 @@ class BOTInput extends React.Component {
                             value={value} 
                             onChange={this.handleChange}
                             placeholder={placeholder}
+                            onKeyPress={this.handleKeyPress}
                             style={{
                                 border: 'none',
                                 background: 'unset',
