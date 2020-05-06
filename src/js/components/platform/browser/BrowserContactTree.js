@@ -206,7 +206,17 @@ class TraceContainer extends React.Component{
         var parents = [];
         let level = 0;
 
-        let contactTree = this.getContactTree(
+        // let contactTree = this.getContactTree(
+        //     {}, 
+        //     fields.key.value,
+        //     parents,
+        //     lastday,
+        //     now,
+        //     1
+        // )
+        // console.log(contactTree)
+
+        let contactTree = this.getTree(
             {}, 
             fields.key.value,
             parents,
@@ -214,7 +224,6 @@ class TraceContainer extends React.Component{
             now,
             1
         )
-        // console.log(contactTree)
 
         function asyncThing(asyncParam) {  // something async returning a promise
 
@@ -354,12 +363,29 @@ class TraceContainer extends React.Component{
         // })
     }
 
+    getTree = (node, name, parents, startTime, endTime, level) => {
+        node.name = name;
+        node.level = level;
+        this.getNode(
+            name,
+            parents,
+            startTime,
+            endTime
+        )
+        .then(res => {
+            console.log(res.data.rows)
+        })
+
+    }
+
     getContactTree = (node, name, parents, startTime, endTime, level) =>{
         node.name = name;
         node.level = level;
 
         if (level == 3) return node;
         else {
+
+
 
             this.getNode(
                 name,
