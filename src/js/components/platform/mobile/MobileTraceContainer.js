@@ -204,7 +204,7 @@ class MobileTraceContainer extends React.Component{
             return field
         })
 
-        axios.post(dataSrc.locationHistory, {
+        axios.post(dataSrc.trace.locationHistory, {
             key,
             startTime: moment(fields.startTime).format(), 
             endTime: moment(fields.endTime).format(),
