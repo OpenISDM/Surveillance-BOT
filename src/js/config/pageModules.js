@@ -28,6 +28,11 @@ export const navbarNavList = [
         path: '/page/systemSetting',
         permission: 'route:systemSetting',
     },
+    {
+        name: 'contact tree',
+        alias: 'contactTree',
+        path: '/page/contactTree',
+    },
 ]
 
 export const userContainerModule = {

@@ -7,6 +7,7 @@ const en =  {
     HEALTH_REPORT: "health report",
     DEVICE_MONITOR: "device monitor",
     SYSTEM_SETTING: "system setting",
+    CONTACT_TREE: "contact tree",
     MONITOR_MANAGEMENT: "monitor management",
     GEOFENCE: "geofence",
     OBJECT_MANAGEMENT: "object management",
@@ -433,7 +434,7 @@ const en =  {
     SAVE_SUCCESS: "save success",
     SELECT_ROLE:"select role",
 
-    /** User Roles */
+    /** user roles */
     CARE_PROVIDER: "care provider",
     SYSTEM_ADMIN: "system admin",
     DEV: "dev",

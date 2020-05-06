@@ -7,6 +7,7 @@ const tw = {
     HEALTH_REPORT: 'Health Report',
     DEVICE_MONITOR: '偵測裝置',
     SYSTEM_SETTING: '系統設定',
+    CONTACT_TREE: "匡列對象",
     MONITOR_MANAGEMENT: '偵測裝置管理',
     GEOFENCE: 'Geofence',
     OBJECT_MANAGEMENT: '追蹤項目管理',
@@ -435,7 +436,7 @@ const tw = {
     SAVE_SUCCESS: '儲存成功',
     SELECT_ROLE:'選擇權限',
 
-    /** User Roles */
+    /** user roles */
     CARE_PROVIDER: '護理人員',
     SYSTEM_ADMIN: '系統管理員',
     DEV: '開發人員',
