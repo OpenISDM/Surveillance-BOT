@@ -126,4 +126,20 @@ module.exports = {
                 console.log(`edit password failed ${err}`)
             })  
     },
+
+    setLocale: (request, response) => {
+        const userID = request.body.userID
+        const lang = request.body.lang
+    
+        pool.query(dbQueries.setLocale(userID,lang))
+            .then(res => {
+                console.log("set locale succeed");
+                response.status(200).json(res)
+            })
+            .catch(err => {
+                console.log(`set locale failed ${err}`)
+            })
+    }
+
+
 }

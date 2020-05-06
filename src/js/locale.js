@@ -5,9 +5,7 @@ import siteModuleLocaleTw from '../../site_module/locale/zh-TW';
 import React from 'react';
 import LocaleContext from './context/LocaleContext';
 import config from './config';
-import { 
-    setLocaleID,
-} from '../js/dataSrc';
+import dataSrc from '../js/dataSrc';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -62,7 +60,7 @@ class Locale extends React.Component {
     changeLocale = (e,auth) => {
         const nextLang = this.toggleLang().nextLang
 
-        axios.post(setLocaleID, {
+        axios.post(dataSrc.userInfo.locale, {
             userID: auth.user.id,
             lang: nextLang
         })
