@@ -1,5 +1,6 @@
 dataSrcIP = process.env.DATASRC_IP;
-domain = `http://${dataSrcIP}`;
+dataSrcProtocol = process.env.DATASRC_PROTOCOL || 'https'
+domain = `${dataSrcProtocol}://${dataSrcIP}`;
 
 module.exports = {
 
@@ -16,13 +17,18 @@ module.exports = {
             secondary: `${domain}/data/user/area/secondary`,
         },
         password: `${domain}/data/user/password`,
+        locale: `${domain}/data/user/locale`,
     },
 
     object: `${domain}/data/object`,
 
     importedObject: `${domain}/data/importedObject`,
 
-    locationHistory: `${domain}/data/locationHistory`,
+    trace: {
+        locationHistory: `${domain}/data/trace/locationHistory`,
+       
+        contactTree: `${domain}/data/trace/contactTree`,
+    },
 
     area: `${domain}/data/area`,
 
