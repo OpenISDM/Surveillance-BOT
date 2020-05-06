@@ -44,6 +44,7 @@ const rules = {
             "route:bigScreen",
             "route:management",
             "route:systemSetting",
+            "route:contactTree",
 
             "user:mydevice",
             "user:mypatient",
@@ -75,6 +76,7 @@ const rules = {
             "route:report",
             "route:management",
             "route:systemSetting",
+            "route:contactTree",
 
 
             "user:mydevice",
