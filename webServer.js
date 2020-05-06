@@ -22,9 +22,10 @@ app.use(function(req, res, next) {
 
 app.use(session(sessionOptions))
 
-app.use(express.static(path.join(__dirname,'dist')));
 
 // setInterval(db.clearSearchHistory, 86400*process.env.CLEAR_SEARCH_HISTORY_INTERVAL)
+
+app.use(express.static(path.join(__dirname,'dist')));
 
 app.get(/^\/page\/(.*)/, validation.pageChecker, (req, res) => {
     res.sendFile(path.join(__dirname, 'dist','index.html'));
@@ -33,7 +34,7 @@ app.get(/^\/page\/(.*)/, validation.pageChecker, (req, res) => {
 authRoutes(app);
 
 /** Access control of data retrieving from database by session */
-app.use(validation.authChecker);
+// app.use(validation.authChecker);
 
 /** Data retrieving routes */
 dataRoutes(app)
@@ -64,5 +65,7 @@ const httpsServer = https.createServer(credentials, app)
 httpsServer.listen(httpsPort, () => {
     console.log(`HTTPS Server running on PORT ${httpsPort}`)
 })
+
+
 
 

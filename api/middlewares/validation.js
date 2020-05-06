@@ -3,13 +3,17 @@ module.exports = {
         if (req.session.user) {
             next()
         } else {
-            res.send('permission denied')
+            res.redirect('/'); 
         }
     },
 
     pageChecker: (req, res, next) => {
         if (req.session.user) next();
-        else res.redirect('/');    
+        else {
+            res.clearCookie('authenticated');
+            res.clearCookie('user');
+            res.redirect('/');    
+        }
     }
 }
 
