@@ -11,6 +11,8 @@ import * as Yup from 'yup';
 import { 
     Nav,
     Breadcrumb,
+    Row,
+    Col
 } from 'react-bootstrap';
 import styleConfig from '../../../config/styleConfig';
 import 'react-tabs/style/react-tabs.css';
@@ -39,7 +41,6 @@ import styleSheet from '../../../config/styleSheet';
 import ExportModal from '../../presentational/ExportModal';
 import config from '../../../config';
 import pdfPackageGenerator from '../../../helper/pdfPackageGenerator';
-import Tree from 'rc-tree';
 
 momentLocalizer()
 
@@ -59,6 +60,7 @@ class TraceContainer extends React.Component{
         locale: this.context.locale.abbr,
         histories: [],
         breadIndex: -1,
+        result: {},
     }
     columns = [];
 
@@ -172,7 +174,7 @@ class TraceContainer extends React.Component{
             })
         })
     }
-    getLocationHistory = (fields, breadIndex) => {
+    async getLocationHistory (fields, breadIndex){
 
         const {
             locale
@@ -216,7 +218,16 @@ class TraceContainer extends React.Component{
         // )
         // console.log(contactTree)
 
-        let contactTree = this.getTree(
+        // let contactTree = this.getNode(
+        //     fields.key.value,
+        //     parents,
+        //     lastday,
+        //     now,
+        //     1
+        // )
+        // console.log(contactTree.then(res => console.log(res)))
+
+        let contactTree = this.getContactTree(
             {}, 
             fields.key.value,
             parents,
@@ -224,6 +235,17 @@ class TraceContainer extends React.Component{
             now,
             1
         )
+
+        let result = await contactTree
+
+        console.log('in the context')
+        console.log(result)
+
+        this.setState({
+            result,
+        })
+        this.formikRef.current.setStatus(this.statusMap.SUCCESS)
+
 
         function asyncThing(asyncParam) {  // something async returning a promise
 
@@ -378,26 +400,25 @@ class TraceContainer extends React.Component{
 
     }
 
-    getContactTree = (node, name, parents, startTime, endTime, level) =>{
+    async getContactTree (node, name, parents, startTime, endTime, level) {
+
         node.name = name;
         node.level = level;
 
         if (level == 3) return node;
         else {
-
-
-
-            this.getNode(
-                name,
+            const getChildren = axios.post(dataSrc.trace.contactTree, {
+                child: name,
                 parents,
                 startTime,
-                endTime
-            )
+                endTime,
+            })
             .then(res => {
                 level++
-                node.children = res.data.rows.map(child => {
-                    console.log('in children')
-                    console.log(level)
+                if (!parents.includes(name)) parents.push(name)
+                return res.data.rows.map(child => {
+                    if (!parents.includes(child.child)) parents.push(child.child)
+
                     return this.getContactTree(
                         {},
                         child.child,
@@ -407,11 +428,43 @@ class TraceContainer extends React.Component{
                         level
                     )
                 })
-                console.log('out of children')
-                console.log(node)
-                return node
+
+            })
+            let children = await getChildren
+
+            node.children = await Promise.all(children).then(res => {
+                return res
             })
 
+            return node
+
+
+
+
+            // this.getNode(
+            //     name,
+            //     parents,
+            //     startTime,
+            //     endTime
+            // )
+            // .then(res => {
+            //     level++
+            //     node.children = res.data.rows.map(child => {
+
+            //         return this.getContactTree(
+            //             {},
+            //             child.child,
+            //             parents,
+            //             child.start_time,
+            //             child.end_time,
+            //             level
+            //         )
+            //     })
+
+            //     console.log(node)
+
+            //     return node
+            // })
         }
     }
 
@@ -601,7 +654,7 @@ class TraceContainer extends React.Component{
         const timeValidatedFormat = 'YYYY/MM/DD HH:mm:ss'
 
         let initialValues = this.getInitialValues()
-
+        console.log(this.state.result)
         return (
             <BOTContainer>
                 <div className='d-flex justify-content-between'>
@@ -781,21 +834,31 @@ class TraceContainer extends React.Component{
                             </div>
                             {status == this.statusMap.LOADING && <Loader />}
                             <hr/>
-                            {this.state.data.length != 0 ? 
-                                (
-                                    <ReactTable
-                                        keyField='id'
-                                        data={this.state.data}
-                                        columns={this.state.columns}
-                                        className='-highlight mt-4'
-                                        style={{maxHeight: '65vh'}} 
-                                        pageSize={this.state.data.length}
-                                        {...styleConfig.reactTable}
-                                        getTrProps={this.onRowClick}
-                                    />
+                            Level 1
+                            {Object.values(this.state.result).length != 0 
+                                ?   (
+                                    <Row>
+                                        <Col>
+                                            {this.state.result.name}
+                                        </Col>
+                                        <Col
+                                            className='d-flex-column'
+                                        >
+                                            {this.state.result.children.map(child => {
+                                                return (
+                                                    <div>
+                                                        {child.name}
+                                                    </div>
+
+                                                )
+                                            })}
+                                        </Col>
+                                    </Row>
                                 )
-                                :   <NoDataFoundDiv>{locale.texts[status.toUpperCase().replace(/ /g, '_')]}</NoDataFoundDiv>
-                            }         
+                                : ""
+                            
+                            }
+        
                         </Fragment>
                     )}
                 />

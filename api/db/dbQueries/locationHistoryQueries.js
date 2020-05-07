@@ -329,10 +329,11 @@ module.exports = {
 			AND children.record_timestamp >= parent.start_time
 			AND children.record_timestamp <= parent.end_time
 			AND children.mac_address::text != parent.mac_address::text
-			${parents.length != 0 ? `AND children.mac_address::text NOT IN (${parents.map(mac => `'${mac}'`)})` : ""}
 
 			LEFT JOIN object_table 
 			ON children.mac_address = object_table.mac_address
+
+			${parents.length != 0 ? `WHERE object_table.name NOT IN (${parents.map(name => `'${name}'`)})` : ""}
 
 			GROUP BY 
 				child, 
