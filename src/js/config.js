@@ -35,6 +35,13 @@ const config = {
 
     TIME_FORMAT: 'lll',
 
+    AJAX_STATUS_MAP: {
+        LOADING: 'loading',
+        SUCCESS: 'succcess',
+        NO_RESULT: 'not result',
+        WAIT_FOR_SEARCH: 'wait for search',
+    },
+
     PDF_FILENAME_TIME_FORMAT: "YYYY-MM-Do_hh_mm_ss",
 
     
