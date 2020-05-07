@@ -200,7 +200,6 @@ module.exports = {
 				parent.name AS parent,
 				parent.beacon_description,
 				object_table.name AS child,
-				parent.mac_address AS parent_mac,
 				MIN(children.record_timestamp) AS start_time,
 				MAX(children.record_timestamp) AS end_time
 
@@ -220,8 +219,7 @@ module.exports = {
 			GROUP BY 
 				child, 
 				parent.beacon_description,
-				parent,
-				parent_mac
+				parent
 
 			ORDER BY 
 				parent.beacon_description DESC, 
