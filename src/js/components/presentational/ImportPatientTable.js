@@ -30,7 +30,8 @@ class ImportPatientTable extends React.Component{
         filetext:'',
         data: [],
         columns: [],
-        locale: this.context.locale.abbr
+        locale: this.context.locale.abbr,
+        disable:true,
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -84,7 +85,7 @@ class ImportPatientTable extends React.Component{
 
     toggleSelection = (key, shift, row) => {
         let selection = [...this.state.selection];
-
+        selection != '' ? this.setState({disable : true}) :  this.setState({disable : false}) 
 
         let splitKey =''
         if (key.split('-')[1]){
@@ -130,6 +131,7 @@ class ImportPatientTable extends React.Component{
         }else{
             selection = [];
         } 
+        selection == '' ? this.setState({disable : true}) :  this.setState({disable : false}) 
          this.setState({ selectAll, selection });
 
     };
@@ -322,6 +324,7 @@ class ImportPatientTable extends React.Component{
                                 className='text-capitalize mr-2 mb-1'
                                 name='delete'
                                 onClick={this.handleClickButton}
+                                disabled = {this.state.disable}
                             >
                                 {locale.texts.DELETE}
                             </PrimaryButton>

@@ -35,7 +35,8 @@ class GatewayTable extends React.Component{
         showEdit: false,
         selection:[],
         selectAll :false,
-        selectType:''
+        selectType:'',
+        disable:true,
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -111,9 +112,9 @@ class GatewayTable extends React.Component{
         })
     }
 
-    toggleSelection = (key, shift, row) => {
-         
+    toggleSelection = (key, shift, row) => { 
         let selection = [...this.state.selection];
+        selection != '' ? this.setState({disable : true}) :  this.setState({disable : false}) 
         key = key.split('-')[1] ? key.split('-')[1] : key
         const keyIndex = selection.indexOf(key);
         if (keyIndex >= 0) {
@@ -149,6 +150,7 @@ class GatewayTable extends React.Component{
         }else{
             selection = [];
         }
+        selection == '' ? this.setState({disable : true}) :  this.setState({disable : false}) 
          this.setState({ selectAll, selection });
 
     };
@@ -231,6 +233,7 @@ class GatewayTable extends React.Component{
                                         showDeleteConfirmation: true
                                     })
                                 }}
+                                disabled = {this.state.disable}
                             >
                                 {locale.texts.DELETE}
                             </PrimaryButton>
