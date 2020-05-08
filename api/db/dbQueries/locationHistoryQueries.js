@@ -2,9 +2,8 @@ module.exports = {
 
 
 	getLocationHistory: (key, startTime, endTime, mode) => {
-		let query = null
-
-		switch(mode) {
+		let query = null 
+		switch(mode) { 
 			case 'name':
 				query = `
 					WITH ranges AS (

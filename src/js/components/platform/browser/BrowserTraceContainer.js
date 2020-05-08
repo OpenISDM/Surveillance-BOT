@@ -43,7 +43,7 @@ import pdfPackageGenerator from '../../../helper/pdfPackageGenerator';
 momentLocalizer()
 
 class TraceContainer extends React.Component{
-
+  
     static contextType = AppContext
     
     formikRef = React.createRef()
@@ -73,6 +73,7 @@ class TraceContainer extends React.Component{
             mode: 'uuid'
         }
     ]
+
 
     componentDidMount = () => {
         this.getObjectTable();
@@ -130,7 +131,7 @@ class TraceContainer extends React.Component{
                     label: item.name,
                     description: item.name,
                 }
-            })
+            }) 
             this.setState({
                 options: {
                     ...this.state.options,
@@ -164,8 +165,7 @@ class TraceContainer extends React.Component{
             })
         })
     }
-    getLocationHistory = (fields, breadIndex) => {
-
+    getLocationHistory = (fields, breadIndex) => { 
         const {
             locale
         } = this.context
@@ -209,7 +209,7 @@ class TraceContainer extends React.Component{
                 this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.NO_RESULT)
                 this.setState({
                     data: [],
-                })
+                }) 
                 return
             }
 
@@ -307,7 +307,6 @@ class TraceContainer extends React.Component{
                             value: rowInfo.original.uuid,
                             label: rowInfo.original.uuid,
                             description: rowInfo.original.description
-
                         };
                         startTime = moment(rowInfo.original.startTime).toDate()
                         endTime = moment(rowInfo.original.endTime).toDate()
@@ -355,7 +354,7 @@ class TraceContainer extends React.Component{
             auth,
             locale
         } = this.context
-        let values = this.formikRef.current.state.values;
+        let values = this.formikRef.current.state.values; 
         switch(name) {
             case 'exportCSV':
 
@@ -539,7 +538,7 @@ class TraceContainer extends React.Component{
                                 ),
                     })}
 
-                    onSubmit={(values) => {
+                    onSubmit={(values) => {   
                         this.getLocationHistory({
                             ...values,
                             description: values.key.description
@@ -559,8 +558,8 @@ class TraceContainer extends React.Component{
                             <Breadcrumb 
                                 className='my-2'
                             >
-                                {this.state.histories.map((history, index) => {
-                                    return (
+                                {this.state.histories.map((history, index) => { 
+                                    return ( 
                                         <Breadcrumb.Item
                                             key={index}
                                             active={this.state.breadIndex == index}
@@ -608,6 +607,7 @@ class TraceContainer extends React.Component{
                                             position: 'relative'
                                         }}
                                     >
+                                    
                                         <Select
                                             name='key'
                                             value={values.key}
@@ -637,22 +637,29 @@ class TraceContainer extends React.Component{
                                             </div>
                                         )}
                                     </div>
+                                
                                     <DateTimePicker 
                                         name='startTime'
                                         className='mx-2'
-                                        value={values.startTime}
-                                        onChange={(value) => {
+                                        value={values.startTime} 
+                                        onkeydown="return false"
+                                        onChange={(value) => { 
+                                            value != null ?
                                             setFieldValue('startTime', moment(value).toDate())
-                                        }}
-                                        placeholder={locale.texts.START_TIME}
+                                            : null
+                                        }}  
+                                     
+                                        placeholder={locale.texts.START_TIME} 
                                     />
                                     <DateTimePicker 
                                         name='endTime'
                                         className='mx-2'
                                         value={values.endTime}
-                                        onChange={(value) => {
+                                        onChange={(value) => { 
+                                            value != null ?
                                             setFieldValue('endTime', moment(value).toDate())
-                                        }}
+                                            : null
+                                        }} 
                                         placeholder={locale.texts.END_TIME}
                                     />
                                   
@@ -671,6 +678,7 @@ class TraceContainer extends React.Component{
                                 </div>
                             </div>
                             {status == config.AJAX_STATUS_MAP.LOADING && <Loader />}
+
                             <hr/>
                             {this.state.data.length != 0 ? 
                                 (
@@ -680,12 +688,12 @@ class TraceContainer extends React.Component{
                                         columns={this.state.columns}
                                         className='-highlight mt-4'
                                         style={{maxHeight: '65vh'}} 
-                                        pageSize={this.state.data.length}
+                                        pageSize={this.state.data.length} 
                                         {...styleConfig.reactTable}
                                         getTrProps={this.onRowClick}
                                     />
                                 )
-                                :   <NoDataFoundDiv>{locale.texts[status.toUpperCase().replace(/ /g, '_')]}</NoDataFoundDiv>
+                                :   <NoDataFoundDiv>{[locale.texts[status.toUpperCase().replace(/ /g, '_')]]}</NoDataFoundDiv>
                             }         
                         </Fragment>
                     )}

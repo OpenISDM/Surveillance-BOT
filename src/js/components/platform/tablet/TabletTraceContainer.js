@@ -545,7 +545,7 @@ class TabletTraceContainer extends React.Component{
                                 ),
                     })}
 
-                    onSubmit={(values) => {
+                    onSubmit={(values) => { 
                         this.getLocationHistory({
                             ...values,
                             description: values.key.description

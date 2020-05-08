@@ -441,7 +441,7 @@ class TraceContainer extends React.Component{
 
                     })}
 
-                    onSubmit={(values) => {
+                    onSubmit={(values) => { 
                         this.getLocationHistory({
                             ...values,
                         })

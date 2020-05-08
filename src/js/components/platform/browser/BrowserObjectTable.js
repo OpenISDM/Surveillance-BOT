@@ -509,7 +509,7 @@ class BrowserObjectTable extends React.Component{
                     disableASN = {this.state.disableASN}
                     areaTable={this.state.areaTable}
                 />  
-                <BindForm
+                <BindForm 
                     show = {this.state.isShowBind} 
                     bindCase = {this.state.bindCase}
                     title={this.state.formTitle} 
