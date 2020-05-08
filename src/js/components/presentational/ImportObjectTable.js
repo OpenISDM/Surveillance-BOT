@@ -43,7 +43,7 @@ class ImportObjectTable extends React.Component{
         axios.post(getImportTable, {
             locale: locale.abbr
         })
-        .then(res => {
+        .then(res => { 
             let columns = _.cloneDeep(importTableColumn)
             columns.map(field => {
                 field.Header = locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
@@ -254,8 +254,9 @@ class ImportObjectTable extends React.Component{
                 .catch(err => {
                     console.log(err)
                     
-                })
+                }) 
             this.handleSubmitForm()
+            
 
             } catch (e) {
                 // 這裡可以拋出文件類型錯誤不正確的相關提示

@@ -28,8 +28,8 @@ class BindForm extends React.Component {
         objectType:'',
         alertText:'',
         bindData:'', 
-    };
-  
+    }; 
+
     handleClose = (callback) => {
         this.setState({
             mac:'',

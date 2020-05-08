@@ -35,12 +35,12 @@ class ImportPatientTable extends React.Component{
 
     componentDidUpdate = (prevProps, prevState) => {
         if (this.context.locale.abbr !== prevState.locale) {
-            this.getData()
+            this.getData() 
         }
     }
 
     componentDidMount = () =>{
-        this.getData()
+        this.getData() 
     }
 
     getData = () => {
@@ -50,12 +50,11 @@ class ImportPatientTable extends React.Component{
                 locale: locale.abbr
             }
         })
-        .then(res => {
+        .then(res => { 
             let columns = _.cloneDeep(importTableColumn)
             columns.map(field => {
                 field.Header = locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
-            })
-            
+            }) 
             this.setState({
                 data: res.data.rows,
                 columns,
@@ -250,13 +249,18 @@ class ImportPatientTable extends React.Component{
                     newData
                 })
                 .then(res => {
-                    this.handleSubmitForm()
+                    this.handleSubmitForm()  
+                    let callback = () => messageGenerator.setSuccessMessage(
+                        'save success'
+                    )
+                    callback() 
+                    setTimeout(() => {
+                        window.location.reload();
+                     }, 1000); 
                 })
                 .catch(err => {
-                    console.log(err)
-                    
-                })
-
+                    console.log(err) 
+                })  
             } catch (e) {
                 // 這裡可以拋出文件類型錯誤不正確的相關提示
                 alert(e);
@@ -324,7 +328,7 @@ class ImportPatientTable extends React.Component{
                         </ButtonToolbar>
                     </AccessControl>
                 </div>
-                <hr/>
+                <hr/> 
                 <SelectTable
                     keyField='asset_control_number'
                     data={this.state.data}
@@ -332,7 +336,7 @@ class ImportPatientTable extends React.Component{
                     ref={r => (this.selectTable = r)}
                     className='-highlight'
                     style={{maxHeight:'75vh'}} 
-                    pageSize={5}
+                    pageSize={this.state.data.length}
                     onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                     {...extraProps}
                     {...styleConfig.reactTable}
