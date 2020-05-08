@@ -122,7 +122,6 @@ class TraceContainer extends React.Component{
     filterDuplicated = (data) => {
         let duplicated = []
         Object.keys(data)
-            .filter(level => level != 0)
             .map(level => {
                 Object.keys(data[level]).map(parent => {
                     data[level][parent] = data[level][parent]
@@ -310,24 +309,23 @@ class TraceContainer extends React.Component{
         let values = this.formikRef.current.state.values;
         switch(name) {
             case 'exportPDF':
-                let pdfPackage = pdfPackageGenerator.getPdfPackage(
-                    'trackingRecord', 
-                    auth.user, 
-                    {
-                        columns: this.state.columns.filter(column => column.accessor != 'uuid'),
-                        data: this.state.data
-                    },
-                    locale,
-                    null,
-                    {
-                        extension: 'pdf',
-                        key: values.key.label,
-                        startTime: moment(values.startTime).format('lll'),
-                        endTime: moment(values.endTime).format('lll'),
-                        type: values.mode
 
-                    }
-                )  
+                const pdfOptions = {
+                    format: 'A4',
+                    orientation: 'landscape',
+                    border: '1cm',
+                    timeout: '12000'
+                }
+
+                let pdfPackage = pdfPackageGenerator.getPdfPackage({
+                    option: 'contactTree',
+                    user: auth.user,
+                    data: this.state.final,
+                    locale,
+                    signature: null,
+                    additional:
+                    pdfOptions,
+                })
 
                 axios.post(dataSrc.file.export.pdf, {
                     userInfo: auth.user,
@@ -346,50 +344,55 @@ class TraceContainer extends React.Component{
             locale
         } = this.context
         return (
-            Object.keys(data)
-                .filter(level => level != 0)
-                .map((level, index) => {
-                    return (
-                        <div
-                            key={index}
-                        >
-                            <div>
-                                {locale.texts.LEVEL} {level}
-                            </div>
-                            <div>
-                                {Object.keys(data[level]).map((parent, index) => {
-                                    return (
-                                        <Row
-                                            key={index}
-                                        >
-                                            <Col>
-                                                {parent}
-                                            </Col>
-                                            <Col>
-                                                ->
-                                            </Col>
-                                            <Col
-                                                className='d-flex-column'
-                                            >
-                                                {data[level][parent].map((child, index) => {
-                                                    return (
-                                                        <div
-                                                            key={index}
-                                                        >
-                                                            {child}
-                                                        </div>
-                                                    )
-                                                })}
-                                            </Col>
-                                        </Row>
-                                    )
-                                })}
-
-                            </div>
-            
-                        </div>
-                    )
-                })
+            <Row>
+                {Object.keys(data)
+                    .filter(level => {
+                        return level != 0 && Object.values(data[level].length != 0)
+                    })
+                    .map((level, index) => {
+                        return (
+                            <Col
+                                key={index}
+                                lg={2}
+                            >
+                                {Object.keys(data[level])
+                                    .filter(parent => data[level][parent].length != 0)
+                                    .map((parent, index) => {
+                                        return (
+                                            <div>
+                                                <div>
+                                                    {locale.texts.LEVEL} {level}
+                                                </div>
+                                                <Row
+                                                    key={index}
+                                                >
+                                                    <Col>
+                                                        {parent}
+                                                    </Col>
+                                                    <Col>
+                                                        <i class="fas fa-arrow-right"></i>                                                    
+                                                    </Col>
+                                                    <Col
+                                                        className='d-flex-column'
+                                                    >
+                                                        {data[level][parent].map((child, index) => {
+                                                            return (
+                                                                <div
+                                                                    key={index}
+                                                                >
+                                                                    {child}
+                                                                </div>
+                                                            )
+                                                        })}
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        )
+                                })}                
+                            </Col>
+                        )
+                    })}
+            </Row>
         )
     }
  
@@ -417,7 +420,6 @@ class TraceContainer extends React.Component{
                 </div>
                 <Formik     
                     initialValues={{
-                        mode: this.defaultActiveKey,
                         key: null,
                         level: null,
                     }}
@@ -475,7 +477,7 @@ class TraceContainer extends React.Component{
                                             options={this.state.options}
                                             styles={styleConfig.reactSelectSearch}
                                             components={styleConfig.reactSelectSearchComponent}         
-                                            placeholder={locale.texts[`SEARCH_FOR_${values.mode.toUpperCase()}`]}                           
+                                            placeholder={locale.texts.SEARCH}                           
                                         />
                                         {errors.key && (
                                             <div 

@@ -387,24 +387,24 @@ class TraceContainer extends React.Component{
                 })
                 break;
             case 'exportPDF':
-                let pdfPackage = pdfPackageGenerator.getPdfPackage(
-                    'trackingRecord', 
-                    auth.user, 
-                    {
+            
+                let pdfPackage = pdfPackageGenerator.getPdfPackage({
+                    option: 'trackingRecord',
+                    user: auth.user,
+                    data: {
                         columns: this.state.columns.filter(column => column.accessor != 'uuid'),
                         data: this.state.data
                     },
                     locale,
-                    null,
-                    {
+                    signature: null,
+                    additional: {
                         extension: 'pdf',
                         key: values.key.label,
                         startTime: moment(values.startTime).format('lll'),
                         endTime: moment(values.endTime).format('lll'),
                         type: values.mode
-
                     }
-                )  
+                })
 
                 axios.post(dataSrc.file.export.pdf, {
                     userInfo: auth.user,
