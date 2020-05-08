@@ -41,10 +41,9 @@ import config from '../../../config';
 import pdfPackageGenerator from '../../../helper/pdfPackageGenerator';
 
 momentLocalizer()
- 
 
 class TraceContainer extends React.Component{
-
+  
     static contextType = AppContext
     
     formikRef = React.createRef()
@@ -645,22 +644,29 @@ class TraceContainer extends React.Component{
                                             </div>
                                         )}
                                     </div>
+                                
                                     <DateTimePicker 
                                         name='startTime'
                                         className='mx-2'
-                                        value={values.startTime}
-                                        onChange={(value) => {
+                                        value={values.startTime} 
+                                        onkeydown="return false"
+                                        onChange={(value) => { 
+                                            value != null ?
                                             setFieldValue('startTime', moment(value).toDate())
-                                        }}
-                                        placeholder={locale.texts.START_TIME}
+                                            : null
+                                        }}  
+                                     
+                                        placeholder={locale.texts.START_TIME} 
                                     />
                                     <DateTimePicker 
                                         name='endTime'
                                         className='mx-2'
                                         value={values.endTime}
-                                        onChange={(value) => {
+                                        onChange={(value) => { 
+                                            value != null ?
                                             setFieldValue('endTime', moment(value).toDate())
-                                        }}
+                                            : null
+                                        }} 
                                         placeholder={locale.texts.END_TIME}
                                     />
                                   
