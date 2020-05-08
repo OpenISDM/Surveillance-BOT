@@ -174,8 +174,7 @@ class TraceContainer extends React.Component{
             })
         })
     }
-    async getLocationHistory (fields, breadIndex){
-
+    async getLocationHistory (fields, breadIndex){ 
         const {
             locale
         } = this.context
@@ -745,7 +744,7 @@ class TraceContainer extends React.Component{
                             //     ),
                     })}
 
-                    onSubmit={(values) => {
+                    onSubmit={(values) => { 
                         this.getLocationHistory({
                             ...values,
                             description: values.key.description

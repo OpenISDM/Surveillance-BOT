@@ -41,6 +41,7 @@ import config from '../../../config';
 import pdfPackageGenerator from '../../../helper/pdfPackageGenerator';
 
 momentLocalizer()
+ 
 
 class TraceContainer extends React.Component{
 
@@ -66,7 +67,7 @@ class TraceContainer extends React.Component{
     statusMap = {
         LOADING: 'loading',
         SUCCESS: 'succcess',
-        NO_RESULT: 'not result',
+        NO_RESULT: 'no result',
         WAIT_FOR_SEARCH: 'wait for search',
     }
 
@@ -80,6 +81,7 @@ class TraceContainer extends React.Component{
             mode: 'uuid'
         }
     ]
+
 
     componentDidMount = () => {
         this.getObjectTable();
@@ -137,7 +139,7 @@ class TraceContainer extends React.Component{
                     label: item.name,
                     description: item.name,
                 }
-            })
+            }) 
             this.setState({
                 options: {
                     ...this.state.options,
@@ -171,8 +173,7 @@ class TraceContainer extends React.Component{
             })
         })
     }
-    getLocationHistory = (fields, breadIndex) => {
-
+    getLocationHistory = (fields, breadIndex) => { 
         const {
             locale
         } = this.context
@@ -182,7 +183,7 @@ class TraceContainer extends React.Component{
         
         /** Set formik status as 0. Would render loading page */
         this.formikRef.current.setStatus(this.statusMap.LOADING)
-
+      
         switch(fields.mode) {
             case 'name':
                 key = fields.key.value;
@@ -216,7 +217,7 @@ class TraceContainer extends React.Component{
                 this.formikRef.current.setStatus(this.statusMap.NO_RESULT)
                 this.setState({
                     data: [],
-                })
+                }) 
                 return
             }
 
@@ -269,7 +270,7 @@ class TraceContainer extends React.Component{
                 columns,
                 histories,
                 breadIndex,
-            }, this.formikRef.current.setStatus(this.statusMap.SUCCESS))
+            }, this.formikRef.current.setStatus(this.statusMap.SUCCESS)) 
 
         })
         .catch(err => {
@@ -314,7 +315,6 @@ class TraceContainer extends React.Component{
                             value: rowInfo.original.uuid,
                             label: rowInfo.original.uuid,
                             description: rowInfo.original.description
-
                         };
                         startTime = moment(rowInfo.original.startTime).toDate()
                         endTime = moment(rowInfo.original.endTime).toDate()
@@ -362,7 +362,7 @@ class TraceContainer extends React.Component{
             auth,
             locale
         } = this.context
-        let values = this.formikRef.current.state.values;
+        let values = this.formikRef.current.state.values; 
         switch(name) {
             case 'exportCSV':
 
@@ -546,7 +546,7 @@ class TraceContainer extends React.Component{
                                 ),
                     })}
 
-                    onSubmit={(values) => {
+                    onSubmit={(values) => {   
                         this.getLocationHistory({
                             ...values,
                             description: values.key.description
@@ -566,8 +566,8 @@ class TraceContainer extends React.Component{
                             <Breadcrumb 
                                 className='my-2'
                             >
-                                {this.state.histories.map((history, index) => {
-                                    return (
+                                {this.state.histories.map((history, index) => { 
+                                    return ( 
                                         <Breadcrumb.Item
                                             key={index}
                                             active={this.state.breadIndex == index}
@@ -615,6 +615,7 @@ class TraceContainer extends React.Component{
                                             position: 'relative'
                                         }}
                                     >
+                                    
                                         <Select
                                             name='key'
                                             value={values.key}
@@ -677,7 +678,7 @@ class TraceContainer extends React.Component{
                                     </PrimaryButton>
                                 </div>
                             </div>
-                            {status == this.statusMap.LOADING && <Loader />}
+                            {status == this.statusMap.LOADING && <Loader/>}  
                             <hr/>
                             {this.state.data.length != 0 ? 
                                 (
@@ -687,12 +688,12 @@ class TraceContainer extends React.Component{
                                         columns={this.state.columns}
                                         className='-highlight mt-4'
                                         style={{maxHeight: '65vh'}} 
-                                        pageSize={this.state.data.length}
+                                        pageSize={this.state.data.length} 
                                         {...styleConfig.reactTable}
                                         getTrProps={this.onRowClick}
                                     />
                                 )
-                                :   <NoDataFoundDiv>{locale.texts[status.toUpperCase().replace(/ /g, '_')]}</NoDataFoundDiv>
+                                :   <NoDataFoundDiv>{[locale.texts[status.toUpperCase().replace(/ /g, '_')]]}</NoDataFoundDiv>
                             }         
                         </Fragment>
                     )}

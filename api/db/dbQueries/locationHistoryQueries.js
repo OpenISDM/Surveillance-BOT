@@ -2,9 +2,8 @@ module.exports = {
 
 
 	getLocationHistory: (key, startTime, endTime, mode) => {
-		let query = null
-
-		switch(mode) {
+		let query = null 
+		switch(mode) { 
 			case 'test':
 				query = `
 					WITH RECURSIVE tree AS (
@@ -41,8 +40,8 @@ module.exports = {
 
 								WHERE 
 									object_table.name = 'joe chou'
-									AND record_timestamp >= '2020-05-05 03:00:00'
-									AND record_timestamp <= NOW()
+									AND record_timestamp >= '${startTime}'
+									AND record_timestamp <= '${endTime}'
 
 							) AS raw_data
 						)
@@ -158,8 +157,8 @@ module.exports = {
 
 							WHERE 
 								object_table.name = 'joe chou'
-								AND record_timestamp >= '2020-05-04 08:00:00'
-								AND record_timestamp <= NOW()
+								AND record_timestamp >= '${startTime}'
+								AND record_timestamp <= '${endTime}'
 
 						) AS raw_data
 					)
