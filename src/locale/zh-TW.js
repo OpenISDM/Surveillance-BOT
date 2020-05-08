@@ -233,6 +233,7 @@ const tw = {
     ADD_NEW_RECORD: '新增紀錄',
     FOLD:'折疊',
     COMMENT: '註記',
+    SELECT_LEVEL: '選擇階層',
 
     /** form title */
     EDIT_LBEACON: '編輯 lbeacon',
@@ -274,7 +275,7 @@ const tw = {
     EDIT_SECONDARY_AREAS: '編輯次要區域',
     NEW_PASSWORD:'新密碼',
     CHECK_PASSWORD:'確認新密碼',
-    LEVEL:'等級',
+    LEVEL:'階層',
     ADD_COMMENT: '新增註記',
 
     /** error message */

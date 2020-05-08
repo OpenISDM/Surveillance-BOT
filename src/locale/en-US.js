@@ -232,6 +232,7 @@ const en =  {
     ADD_NEW_RECORD: "add new record",
     FOLD:"fold",
     COMMENT: "comment",
+    SELECT_LEVEL: "select level",
 
     /** form title */
     EDIT_LBEACON: "edit lbeacon",
