@@ -87,7 +87,6 @@
         font-size: 16px;
     }
     #navbar {
-        height: 55px;
         font-size: 14px;
     }
 
@@ -95,10 +94,6 @@
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1600px) {
-    
-    #navbar {
-        height: 65px;
-    }
 
     #searchPanel {
         height: 90vh;
