@@ -1,9 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { AppContext } from '../../context/AppContext';
 
 const defaultButton = props => <button {...props}>{props.children}</button>;
 
 export default class Pagination extends React.Component {
+
+    static contextType = AppContext
     constructor(props) {
         super();
 
@@ -60,7 +63,7 @@ export default class Pagination extends React.Component {
         const visiblePages = this.getVisiblePages(page, this.props.pages);
 
         this.setState({
-        visiblePages: this.filterPages(visiblePages, this.props.pages)
+            visiblePages: this.filterPages(visiblePages, this.props.pages)
         });
 
         this.props.onPageChange(page - 1);
@@ -68,56 +71,78 @@ export default class Pagination extends React.Component {
 
     render() {
 
-        const { PageButtonComponent = defaultButton } = this.props;
+        const { 
+            PageButtonComponent = defaultButton 
+        } = this.props;
+
         const { visiblePages } = this.state;
         const activePage = this.props.page + 1;
 
+        const {
+            locale
+        } = this.context
+
         return (
             <div 
-                className="Table__pagination d-flex justify-content-center"    
+                className='Table__pagination d-flex justify-content-between'    
             >
-                <div className="Table__prevPageWrapper">
-                    <PageButtonComponent
-                        className="Table__pageButton"
-                        onClick={() => {
-                        if (activePage === 1) return;
-                            this.changePage(activePage - 1);
-                            }}
-                        disabled={activePage === 1}
+                <div
+                    className='d-flex text-capitalize'
+                >   
+                    <div
+                        className='font-weight-bold'
                     >
-                        {this.props.previousText}
-                    </PageButtonComponent>
+                        {this.props.data.length}
+                    </div>
+                    &nbsp;
+                    {locale.texts.RESULTS}
                 </div>
-
-                <div className="Table__visiblePagesWrapper">
-                {visiblePages.map((page, index, array) => {
-                    return (
+                <div
+                    className='d-flex'
+                >
+                    <div className='Table__prevPageWrapper'>
                         <PageButtonComponent
-                            key={page}
-                            className={
-                            activePage === page
-                                ? "Table__pageButton Table__pageButton--active"
-                                : "Table__pageButton"
-                            }
-                            onClick={this.changePage.bind(null, page)}
+                            className='Table__pageButton'
+                            onClick={() => {
+                            if (activePage === 1) return;
+                                this.changePage(activePage - 1);
+                                }}
+                            disabled={activePage === 1}
                         >
-                            {array[index - 1] + 2 < page ? `...${page}` : page}
+                            {this.props.previousText}
                         </PageButtonComponent>
-                    );
-                })}
-                </div>
+                    </div>
 
-                <div className="Table__nextPageWrapper">
-                    <PageButtonComponent
-                        className="Table__pageButton"
-                        onClick={() => {
-                            if (activePage === this.props.pages) return;
-                                this.changePage(activePage + 1);
-                            }}
-                        disabled={activePage === this.props.pages}
-                    >
-                        {this.props.nextText}
-                    </PageButtonComponent>
+                    <div className='Table__visiblePagesWrapper'>
+                    {visiblePages.map((page, index, array) => {
+                        return (
+                            <PageButtonComponent
+                                key={page}
+                                className={
+                                activePage === page
+                                    ? 'Table__pageButton Table__pageButton--active'
+                                    : 'Table__pageButton'
+                                }
+                                onClick={this.changePage.bind(null, page)}
+                            >
+                                {array[index - 1] + 2 < page ? `...${page}` : page}
+                            </PageButtonComponent>
+                        );
+                    })}
+                    </div>
+
+                    <div className='Table__nextPageWrapper'>
+                        <PageButtonComponent
+                            className='Table__pageButton'
+                            onClick={() => {
+                                if (activePage === this.props.pages) return;
+                                    this.changePage(activePage + 1);
+                                }}
+                            disabled={activePage === this.props.pages}
+                        >
+                            {this.props.nextText}
+                        </PageButtonComponent>
+                    </div>
                 </div>
             </div>
         );

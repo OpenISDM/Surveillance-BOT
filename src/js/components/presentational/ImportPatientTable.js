@@ -339,7 +339,7 @@ class ImportPatientTable extends React.Component{
                     ref={r => (this.selectTable = r)}
                     className='-highlight'
                     style={{maxHeight:'75vh'}} 
-                    pageSize={this.state.data.length}
+                    // pageSize={this.state.data.length}
                     onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                     {...extraProps}
                     {...styleConfig.reactTable}

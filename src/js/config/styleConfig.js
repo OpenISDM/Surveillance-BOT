@@ -188,9 +188,17 @@ const styleConfig = {
 
         SelectInputComponent: BOTCheckbox,
 
-        // PaginationComponent: BOTPagination,
-        // showPaginationTop: true,
-        showPagination: false
+        PaginationComponent: BOTPagination,
+
+        showPaginationTop: true,
+
+        showPaginationBottom: false,
+
+        showPagination: true,
+
+        previousText: <i class="fas fa-chevron-left"></i>,
+
+        nextText: <i class="fas fa-chevron-right"></i>,
 
     },
     checkbox: {
