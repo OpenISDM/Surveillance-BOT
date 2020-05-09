@@ -39,9 +39,6 @@ class TraceContainer extends React.Component{
     state = {
         options: [],
         locale: this.context.locale.abbr,
-        histories: [],
-        breadIndex: -1,
-        result: {},
         final: {},
     }
 
@@ -406,7 +403,7 @@ class TraceContainer extends React.Component{
                     <PageTitle>                                            
                         {locale.texts.CONTACT_TREE}
                     </PageTitle>
-                    {this.state.result.length !== 0 &&
+                    {Object.keys(this.state.final).length !== 0 &&
                         <div>
                             <IconButton
                                 iconName='fas fa-download'
