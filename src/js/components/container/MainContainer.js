@@ -24,14 +24,10 @@ class MainContainer extends React.Component{
         searchKey: '',
         lastsearchKey: '',
         searchResult: [],
-        colorPanel: null,
         clearSearchResult: false,
-        hasGridButton: false,
-        isHighlightSearchPanel: false,
         authenticated: this.context.auth.authenticated,
-        shouldUpdateTrackingData: true,
         display: true,
-        showMobileMap: true,
+        locale: this.context.locale.abbr
     }
 
     errorToast = null
@@ -53,6 +49,9 @@ class MainContainer extends React.Component{
                 hasSearchKey: false,
             })
         } 
+        if (this.context.locale.abbr !== prevState.locale) {   
+            this.getSearchKey(this.state.searchKey);
+        }
 
     }
 
@@ -118,6 +117,9 @@ class MainContainer extends React.Component{
         let {
             trackingData
         } = this.state
+        let {
+            locale
+        } = this.context;
         let proccessedTrackingData = _.cloneDeep(trackingData) 
         if (/^ *$/.test(searchKey)) hasSearchKey = false
         else {
@@ -140,6 +142,7 @@ class MainContainer extends React.Component{
             searchResult,
             hasSearchKey,
             searchKey,
+            locale: locale.abbr
         })
     }
 
@@ -153,7 +156,6 @@ class MainContainer extends React.Component{
             searchResult,
             searchKey,
             authenticated,
-            showMobileMap,
             clearSearchResult,
             showPath,
             display,
@@ -181,7 +183,6 @@ class MainContainer extends React.Component{
             handleClosePath,
             handleShowPath,
             authenticated,
-            showMobileMap,
             clearSearchResult,
             searchKey,
             searchResult,

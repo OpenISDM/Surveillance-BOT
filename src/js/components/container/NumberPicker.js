@@ -9,24 +9,22 @@ class NumberPicker extends React.Component {
     static contextType = AppContext
 
     state = {
-        value: {
-            value: this.props.value,
-            label: this.props.value
-        }
+        value: this.props.value 
+            ?   {
+                value: this.props.value,
+                label: this.props.value
+            }
+            :   null
     }
 
     onChange = (value) => {
-        this.props.onChange(value.value)
+        this.props.onChange(parseInt(value.value));
         this.setState({
             value,
         })
     }
 
     render() {
-
-        let {
-            locale
-        } = this.context
 
         let options = Array.from(Array(this.props.length).keys())
             .map(index => {
@@ -35,20 +33,30 @@ class NumberPicker extends React.Component {
                     label: `${index + 1}`
                 }
             })
-
+        let {
+            placeholder
+        } = this.props
         return (
             <Select
-                placeholder={locale.texts.SELECT_TIME}
                 value={this.state.value}
-                className="ml-2"
+                className="ml-2 text-capitalize"
                 onChange={value => this.onChange(value)}
                 options={options}
                 isSearchable={false}
-                styles={styleConfig.reactSelect}
-                controlHeigh={20}
-                components={{
-                    IndicatorSeparator: () => null
+                styles={{
+                    control: (provided) => ({
+                        ...provided,
+                        fontSize: '1rem',
+                        minHeight: '3rem',
+                        position: 'none',
+                        width: '160px',
+                        borderRadius: 0                                
+                    }),
                 }}
+                components={{
+                    IndicatorSeparator: () => null,
+                }}     
+                placeholder={placeholder}    
             />
         )
     }

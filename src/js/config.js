@@ -4,9 +4,13 @@ const config = {
 
     VERSION: 'v1.0 b.1872',
 
-    TRACING_INTERVAL_UNIT: 'minutes',
+    TRACING_INTERVAL_UNIT: 'days',
 
-    TRACING_INTERVAL_VALUE: 30,
+    TRACING_INTERVAL_VALUE: 1,
+
+    DEFAULT_CONTACT_TREE_INTERVAL_UNIT: 'days',
+
+    DEFAULT_CONTACT_TREE_INTERVAL_VALUE: 2,
 
     DEFAULT_AREA_ID: 1,
     
@@ -34,6 +38,13 @@ const config = {
     },
 
     TIME_FORMAT: 'lll',
+
+    AJAX_STATUS_MAP: {
+        LOADING: 'loading',
+        SUCCESS: 'succcess',
+        NO_RESULT: 'not result',
+        WAIT_FOR_SEARCH: 'wait for search',
+    },
 
     PDF_FILENAME_TIME_FORMAT: "YYYY-MM-Do_hh_mm_ss",
 

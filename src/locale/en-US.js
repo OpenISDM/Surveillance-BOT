@@ -30,6 +30,7 @@ const en =  {
     GATEWAY: "gateway",
     SEARCH_RESULT: "search results",
     NO_RESULT: "no result",
+    RESULTS: "results",
     FREQUENT_SEARCH: "frequent searches",
     FOUND: "found",
     NOT_FOUND: "not found",
@@ -232,6 +233,7 @@ const en =  {
     ADD_NEW_RECORD: "add new record",
     FOLD:"fold",
     COMMENT: "comment",
+    SELECT_LEVEL: "select level",
 
     /** form title */
     EDIT_LBEACON: "edit lbeacon",
@@ -454,21 +456,8 @@ const en =  {
     MINUTES: "minutes",
     IS_RESERVED_FOR:"is reserved for",
     POUND_SIGN: "#",
-
     // BEING_HERE: "being here",
 
-    DEVICE_FOUND: function (length){
-        return length.toString()+" devices are found"
-    },
-    DEVICE_NOT_FOUND: function (length){
-        return length.toString()+" devices are not found"
-    },
-
-    genderSelect :[
-        "machine",
-        "male",
-        "female"
-    ],
 }
 
 export default en;

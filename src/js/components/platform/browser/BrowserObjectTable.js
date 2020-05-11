@@ -23,6 +23,11 @@ import { patientTableColumn } from '../../../config/tables';
 import retrieveDataHelper from '../../../helper/retrieveDataHelper';
 import config from '../../../config';
 import dataSrc from '../../../dataSrc';
+import {
+    BrowserView,
+    MobileOnlyView,
+    TabletView
+} from 'react-device-detect';
 
 
 class BrowserObjectTable extends React.Component{
@@ -61,7 +66,8 @@ class BrowserObjectTable extends React.Component{
 
     componentDidUpdate = (prevProps, prevState) => {
         if (this.context.locale.abbr !== prevState.locale) {
-            this.getData()
+            this.getData();
+            this.getAreaTable();
         }
     }
 
@@ -401,7 +407,141 @@ class BrowserObjectTable extends React.Component{
 
         return(
             <Fragment> 
+                <BrowserView>
+                    <div className='d-flex justify-content-between my-4'>
+                        <div className='d-flex justify-content-start'>                    
+                            <BOTInput
+                                className='mx-2'
+                                placeholder={locale.texts.SEARCH}
+                                getSearchKey={(key) => {
+                                    this.addObjectFilter(
+                                        key, 
+                                        ['name', 'area', 'macAddress', 'acn'], 
+                                        'search bar'
+                                    )
+                                }}
+                                clearSearchResult={null}                                        
+                            />
+                            <AccessControl
+                                renderNoAccess={() => null}
+                                platform={['browser']}
+                            >
+                                <Select
+                                    name='Select Area Patient'
+                                    className='mx-2'
+                                    styles={styleConfig.reactSelectFilter}
+                                    onChange={(value) => {
+                                        if(value){
+                                            this.addObjectFilter(value.label, ['area'], 'area select')
+                                        }else{
+                                            this.removeObjectFilter('area select')
+                                        }
+                                    }}
+                                    options={this.state.filterSelection.areaSelection}
+                                    isClearable={true}
+                                    isSearchable={true}
+                                    placeholder={locale.texts.SELECT_AREA}
+                                />
+                            </AccessControl>
+                        </div>
+                        <AccessControl
+                            renderNoAccess={() => null}
+                            platform={['browser', 'tablet']} 
+                        >
+                            <ButtonToolbar>
+                                <PrimaryButton
+                                    className='text-capitalize mr-2 mb-1'
+                                    name='associate'
+                                    onClick={this.handleClickButton}
+                                >
+                                    {locale.texts.ASSOCIATE}
+                                </PrimaryButton>
+                                <PrimaryButton
+                                    className='text-capitalize mr-2 mb-1'
+                                    onClick={this.handleClick}
+                                >
+                                    {locale.texts.ADD}
+                                </PrimaryButton>
+                                <PrimaryButton
+                                    className='text-capitalize mr-2 mb-1'
+                                    name='delete'
+                                    onClick={this.handleClickButton}
+                                    disabled={this.state.selection.length == 0}
+                                >
+                                    {locale.texts.DELETE}
+                                </PrimaryButton>
+                            </ButtonToolbar>
+                        </AccessControl>
+                    </div>
+                </BrowserView>
+                <TabletView>
                 <div className='d-flex justify-content-between my-4'>
+                        <div className='d-flex justify-content-start'>                    
+                            <BOTInput
+                                className='mx-2'
+                                placeholder={locale.texts.SEARCH}
+                                getSearchKey={(key) => {
+                                    this.addObjectFilter(
+                                        key, 
+                                        ['name', 'area', 'macAddress', 'acn'], 
+                                        'search bar'
+                                    )
+                                }}
+                                clearSearchResult={null}                                        
+                            />
+                            <AccessControl
+                                renderNoAccess={() => null}
+                                platform={['browser']}
+                            >
+                                <Select
+                                    name='Select Area Patient'
+                                    className='mx-2'
+                                    styles={styleConfig.reactSelectFilter}
+                                    onChange={(value) => {
+                                        if(value){
+                                            this.addObjectFilter(value.label, ['area'], 'area select')
+                                        }else{
+                                            this.removeObjectFilter('area select')
+                                        }
+                                    }}
+                                    options={this.state.filterSelection.areaSelection}
+                                    isClearable={true}
+                                    isSearchable={true}
+                                    placeholder={locale.texts.SELECT_AREA}
+                                />
+                            </AccessControl>
+                        </div>
+                        <AccessControl
+                            renderNoAccess={() => null}
+                            platform={['browser', 'tablet']} 
+                        >
+                            <ButtonToolbar>
+                                <PrimaryButton
+                                    className='text-capitalize mr-2 mb-1'
+                                    name='associate'
+                                    onClick={this.handleClickButton}
+                                >
+                                    {locale.texts.ASSOCIATE}
+                                </PrimaryButton>
+                                <PrimaryButton
+                                    className='text-capitalize mr-2 mb-1'
+                                    onClick={this.handleClick}
+                                >
+                                    {locale.texts.ADD}
+                                </PrimaryButton>
+                                <PrimaryButton
+                                    className='text-capitalize mr-2 mb-1'
+                                    name='delete'
+                                    onClick={this.handleClickButton}
+                                    disabled={this.state.selection.length == 0}
+                                >
+                                    {locale.texts.DELETE}
+                                </PrimaryButton>
+                            </ButtonToolbar>
+                        </AccessControl>
+                    </div>
+                </TabletView>
+                <MobileOnlyView>
                     <div className='d-flex justify-content-start'>                    
                         <BOTInput
                             className='mx-2'
@@ -432,40 +572,37 @@ class BrowserObjectTable extends React.Component{
                                 }}
                                 options={this.state.filterSelection.areaSelection}
                                 isClearable={true}
-                                isSearchable={true}
+                                isSearchable={false}
                                 placeholder={locale.texts.SELECT_AREA}
                             />
                         </AccessControl>
                     </div>
-                    <AccessControl
-                        renderNoAccess={() => null}
-                        platform={['browser', 'tablet']}
-                    >
-                        <ButtonToolbar>
-                            <PrimaryButton
-                                className='text-capitalize mr-2 mb-1'
-                                name='associate'
-                                onClick={this.handleClickButton}
-                            >
-                                {locale.texts.ASSOCIATE}
-                            </PrimaryButton>
-                            <PrimaryButton
-                                className='text-capitalize mr-2 mb-1'
-                                onClick={this.handleClick}
-                            >
-                                {locale.texts.ADD}
-                            </PrimaryButton>
-                            <PrimaryButton
-                                className='text-capitalize mr-2 mb-1'
-                                name='delete'
-                                onClick={this.handleClickButton}
-                                disabled={this.state.selection.length == 0}
-                            >
-                                {locale.texts.DELETE}
-                            </PrimaryButton>
-                        </ButtonToolbar>
-                    </AccessControl>
-                </div>
+
+                    <ButtonToolbar>
+                        <PrimaryButton
+                            className='text-capitalize mr-2 mb-1'
+                            name='associate'
+                            onClick={this.handleClickButton}
+                        >
+                            {locale.texts.ASSOCIATE}
+                        </PrimaryButton>
+                        <PrimaryButton
+                            className='text-capitalize mr-2 mb-1'
+                            onClick={this.handleClick}
+                        >
+                            {locale.texts.ADD}
+                        </PrimaryButton>
+                        <PrimaryButton
+                            className='text-capitalize mr-2 mb-1'
+                            name='delete'
+                            onClick={this.handleClickButton}
+                            disabled={this.state.selection.length == 0}
+                        >
+                            {locale.texts.DELETE}
+                        </PrimaryButton>
+                    </ButtonToolbar>
+
+                </MobileOnlyView>
                 <hr/>
                 <SelectTable
                     keyField='id'

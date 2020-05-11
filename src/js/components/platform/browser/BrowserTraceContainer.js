@@ -63,13 +63,6 @@ class TraceContainer extends React.Component{
 
     defaultActiveKey='name' 
 
-    statusMap = {
-        LOADING: 'loading',
-        SUCCESS: 'succcess',
-        NO_RESULT: 'no result',
-        WAIT_FOR_SEARCH: 'wait for search',
-    }
-
     navList = [
         {
             name: 'name',
@@ -88,11 +81,11 @@ class TraceContainer extends React.Component{
         if (this.props.location.state) {
             let { state } = this.props.location
             let now = moment();
-            let lastday = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT);
+            let lastPoint = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT);
             let field = {
                 mode: state.mode,
                 key: state.key,
-                startTime: lastday,
+                startTime: lastPoint,
                 endTime: now,
                 description: state.key.label
             }
@@ -181,8 +174,8 @@ class TraceContainer extends React.Component{
         let timeValidatedFormat = 'YYYY/MM/DD HH:mm:ss'
         
         /** Set formik status as 0. Would render loading page */
-        this.formikRef.current.setStatus(this.statusMap.LOADING)
-      
+        this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.LOADING)
+
         switch(fields.mode) {
             case 'name':
                 key = fields.key.value;
@@ -213,7 +206,7 @@ class TraceContainer extends React.Component{
         .then(res => {
             /** Condition handler when no result */
             if (res.data.rowCount == 0) {
-                this.formikRef.current.setStatus(this.statusMap.NO_RESULT)
+                this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.NO_RESULT)
                 this.setState({
                     data: [],
                 }) 
@@ -269,7 +262,7 @@ class TraceContainer extends React.Component{
                 columns,
                 histories,
                 breadIndex,
-            }, this.formikRef.current.setStatus(this.statusMap.SUCCESS)) 
+            }, this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.SUCCESS))
 
         })
         .catch(err => {
@@ -393,24 +386,24 @@ class TraceContainer extends React.Component{
                 })
                 break;
             case 'exportPDF':
-                let pdfPackage = pdfPackageGenerator.getPdfPackage(
-                    'trackingRecord', 
-                    auth.user, 
-                    {
+            
+                let pdfPackage = pdfPackageGenerator.getPdfPackage({
+                    option: 'trackingRecord',
+                    user: auth.user,
+                    data: {
                         columns: this.state.columns.filter(column => column.accessor != 'uuid'),
                         data: this.state.data
                     },
                     locale,
-                    null,
-                    {
+                    signature: null,
+                    additional: {
                         extension: 'pdf',
                         key: values.key.label,
                         startTime: moment(values.startTime).format('lll'),
                         endTime: moment(values.endTime).format('lll'),
                         type: values.mode
-
                     }
-                )  
+                })
 
                 axios.post(dataSrc.file.export.pdf, {
                     userInfo: auth.user,
@@ -436,7 +429,7 @@ class TraceContainer extends React.Component{
                 setFieldValue('endTime', null)
                 setErrors({})
                 setTouched({})
-                setStatus(this.statusMap.WAIT_FOR_SEARCH)
+                setStatus(config.AJAX_STATUS_MAP.WAIT_FOR_SEARCH)
                 this.setState({
                     data: [],
                     columns: [],
@@ -485,7 +478,7 @@ class TraceContainer extends React.Component{
 
                     ref={this.formikRef}
 
-                    initialStatus={this.statusMap.WAIT_FOR_SEARCH}
+                    initialStatus={config.AJAX_STATUS_MAP.WAIT_FOR_SEARCH}
                     
                     validateOnChange={false}
 
@@ -684,7 +677,8 @@ class TraceContainer extends React.Component{
                                     </PrimaryButton>
                                 </div>
                             </div>
-                            {status == this.statusMap.LOADING && <Loader/>}  
+                            {status == config.AJAX_STATUS_MAP.LOADING && <Loader />}
+
                             <hr/>
                             {this.state.data.length != 0 ? 
                                 (

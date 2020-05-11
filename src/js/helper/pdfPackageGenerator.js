@@ -5,16 +5,27 @@ const pdfPackageGenerator = {
         /** Create pdf package, including header, body and the pdf path
      * options include shiftChange, searchResult, broken report, transffered report
      */
-    getPdfPackage: (option, user, data, locale, signature, additional) => {
-        const header = pdfPackageGenerator.pdfFormat.getHeader(user, locale, option, signature, additional, data, )
+    getPdfPackage: (raw) => {
+        let {
+            option,
+            user,
+            data,
+            locale,
+            signature,
+            additional,
+            pdfOptions
+        } = raw
+        const header = pdfPackageGenerator.pdfFormat.getHeader(user, locale, option, signature, additional, data)
+        console.log(header)
         const body = pdfPackageGenerator.pdfFormat.getBody[option](data, locale, user, location, signature, additional)
+        console.log(body)
         const path = pdfPackageGenerator.pdfFormat.getPath(option, additional).path
         const pdf = header + body
         
         return {
             pdf,
             path,
-            options: pdfPackageGenerator.pdfFormat.pdfOptions
+            options: pdfOptions || pdfPackageGenerator.pdfFormat.pdfOptions
         }
     },
 
@@ -30,7 +41,9 @@ const pdfPackageGenerator = {
 
         patientRecord: `patient_record`,
 
-        trackingRecord: `tracking_record`
+        trackingRecord: `tracking_record`,
+
+        contactTree: `contact_tree`,
     },
 
     /** Pdf format pdfPackageGenerator */
@@ -57,6 +70,7 @@ const pdfPackageGenerator = {
             searchResult: 'SEARCH_RESULT',
             patientRecord: 'PATIENT_RECORD',
             trackingRecord: 'TRACKING_RECORD',
+            contactTree: 'CONTACT_TREE'
         },
     
 
@@ -89,7 +103,10 @@ const pdfPackageGenerator = {
             },
             trackingRecord: (option, additional) => {
                 return `${option}_${moment().format(pdfPackageGenerator.PDF_FILENAME_TIME_FORMAT)}.${additional.extension}`
-            }
+            },
+            contactTree: (option, additional) => {
+                return `${option}_${moment().format(pdfPackageGenerator.PDF_FILENAME_TIME_FORMAT)}.pdf`
+            },
             
         },
     
@@ -213,6 +230,69 @@ const pdfPackageGenerator = {
                         table = pdfPackageGenerator.pdfFormat.getBodyItem.getLocationHistoryByUUIDAsTable(data, locale)
                 }                
                 return table
+            },
+
+            contactTree: (data, locale, user, location) => {
+                console.log(data)
+                Object.keys(data).map(le)
+                // let foundTitle = pdfPackageGenerator.pdfFormat.getBodyItem.getBodyTitle(
+                //     'devices found', 
+                //     locale, 
+                //     area, 
+                //     data.foundResult.length !== 0
+                // )
+                // let foundResultList = pdfPackageGenerator.pdfFormat.getBodyItem.getDataContent(data.foundResult, locale)
+
+                
+                    {Object.keys(data)
+                        .filter(level => {
+                            return level != 0 && Object.values(data[level].length != 0)
+                        })
+                        .map((level, index) => {
+                            return (
+                                <Col
+                                    key={index}
+                                    lg={2}
+                                >
+                                    {Object.keys(data[level])
+                                        .filter(parent => data[level][parent].length != 0)
+                                        .map((parent, index) => {
+                                            return (
+                                                <div>
+                                                    <div>
+                                                        {locale.texts.LEVEL} {level}
+                                                    </div>
+                                                    <Row
+                                                        key={index}
+                                                    >
+                                                        <Col>
+                                                            {parent}
+                                                        </Col>
+                                                        <Col>
+                                                            <i class="fas fa-arrow-right"></i>                                                    
+                                                        </Col>
+                                                        <Col
+                                                            className='d-flex-column'
+                                                        >
+                                                            {data[level][parent].map((child, index) => {
+                                                                return (
+                                                                    <div
+                                                                        key={index}
+                                                                    >
+                                                                        {child}
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </Col>
+                                                    </Row>
+                                                </div>
+                                            )
+                                    })}                
+                                </Col>
+                            )
+                        })}
+                
+                return 'test'
             },
         },
         getBodyItem: {
@@ -493,7 +573,12 @@ const pdfPackageGenerator = {
                 endTime = pdfPackageGenerator.pdfFormat.getSubTitleInfo.field(locale, 'END_TIME', endTime)
 
                 return timestamp + key + startTime + endTime
-            }
+            },
+
+            contactTree: (locale, user, name, additional, data) => {
+                let timestamp = pdfPackageGenerator.pdfFormat.getTimeStamp(locale)
+                return timestamp;
+            },
         },
     
         getSubTitleInfo: {

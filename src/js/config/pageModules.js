@@ -28,13 +28,13 @@ export const navbarNavList = [
         path: '/page/systemSetting',
         permission: 'route:systemSetting',
     },
-    // {
-    //     name: 'contact tree',
-    //     alias: 'contactTree',
-    //     path: '/page/contactTree',
-    //     permission: 'route:contactTree',
+    {
+        name: 'contact tree',
+        alias: 'contactTree',
+        path: '/page/contactTree',
+        permission: 'route:contactTree',
 
-    // },
+    },
 ]
 
 export const userContainerModule = {

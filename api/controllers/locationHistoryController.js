@@ -29,7 +29,6 @@ module.exports = {
             startTime,
             endTime,
         } = request.body
-        console.log(parents)
         pool.query(dbQueries.getContactTree(child, parents, startTime, endTime))
         .then(res => {
             console.log(`get contact tree succeed`)
