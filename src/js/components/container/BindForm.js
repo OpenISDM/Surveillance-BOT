@@ -28,7 +28,16 @@ class BindForm extends React.Component {
         objectType:'',
         alertText:'',
         bindData:'', 
+        importData:'',
     }; 
+
+ 
+    componentDidUpdate = (prevProps, prevState) => {
+        if (this.context.locale.abbr !== prevState.locale) {
+            this.getImportedData() 
+        }
+    }
+
 
     handleClose = (callback) => {
         this.setState({
@@ -50,6 +59,24 @@ class BindForm extends React.Component {
             objectType:'',
             selectData: {},
         },  this.props.handleSubmit(formOption))
+    }
+ 
+    getImportedData = () => {
+        let { locale } = this.context
+        axios.get(dataSrc.importedObject, {
+            params: {
+                locale: locale.abbr
+            }
+        })
+        .then(res => {   
+            this.setState({
+                importData: res.data.rows,
+            }) 
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    
     }
  
     render() {
@@ -132,13 +159,8 @@ class BindForm extends React.Component {
                                     locale.texts.ID_IS_NOT_FOUND,
                                     value => {
                                         if (value != undefined){
-                                            let findFlag = false
-                                            let DeviceOrPatient= ''
-                                            this.props.bindCase == 1 ? DeviceOrPatient =this.props.ImportData :  DeviceOrPatient =this.props.PatientImportData
-                                            //等於１就是儀器 所以只拿object的data
-                                            //等於２就是病人 拿patient的data 
-                                        
-                                            DeviceOrPatient.map(item =>{
+                                            let findFlag = false 
+                                            this.state.importData.map(item =>{
                                             if( item.asset_control_number.toUpperCase() == value.toUpperCase() ){
                                                 this.setState({bindData:item})
                                                 findFlag = true

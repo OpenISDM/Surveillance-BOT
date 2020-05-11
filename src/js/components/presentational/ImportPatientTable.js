@@ -255,10 +255,7 @@ class ImportPatientTable extends React.Component{
                     let callback = () => messageGenerator.setSuccessMessage(
                         'save success'
                     )
-                    callback() 
-                    setTimeout(() => {
-                        window.location.reload();
-                     }, 1000); 
+                    callback()  
                 })
                 .catch(err => {
                     console.log(err) 
