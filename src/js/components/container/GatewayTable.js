@@ -192,6 +192,7 @@ class GatewayTable extends React.Component{
             .catch(err => {
                 console.log(err)
             })
+            this.setState({selection:[]})
     }
 
 
@@ -233,7 +234,7 @@ class GatewayTable extends React.Component{
                                         showDeleteConfirmation: true
                                     })
                                 }}
-                                disabled = {this.state.disable}
+                                disabled={this.state.selection.length == 0}
                             >
                                 {locale.texts.DELETE}
                             </PrimaryButton>

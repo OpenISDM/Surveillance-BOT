@@ -195,6 +195,7 @@ class LbeaconTable extends React.Component{
             .catch(err => {
                 console.log(`delete lbeacon failed ${err}`)
             }) 
+        this.setState({selection:[]})
     }
 
     render(){
@@ -235,7 +236,7 @@ class LbeaconTable extends React.Component{
                                         showDeleteConfirmation: true
                                     })
                                 }}
-                                disabled = {this.state.disable}
+                                disabled={this.state.selection.length == 0}
                             >
                                 {locale.texts.DELETE}
                             </PrimaryButton>

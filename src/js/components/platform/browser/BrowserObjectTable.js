@@ -55,7 +55,7 @@ class BrowserObjectTable extends React.Component{
         importData: [],
         filteredData: [],
         filterSelection: {},
-        locale: this.context.locale.abbr
+        locale: this.context.locale.abbr,
     }
 
     componentDidMount = () => {
@@ -257,8 +257,7 @@ class BrowserObjectTable extends React.Component{
     objectMultipleDelete = () => {
         let formOption = []
         var deleteArray = [];
-        var deleteCount = 0;
- 
+        var deleteCount = 0; 
         this.state.data.map (item => {
          
             this.state.selection.map(itemSelect => {
@@ -294,7 +293,9 @@ class BrowserObjectTable extends React.Component{
         })
         .catch(err => {
             console.log(err)
-        })
+        }) 
+       
+        this.setState({selection:[]})
     }
 
 
@@ -647,10 +648,10 @@ class BrowserObjectTable extends React.Component{
                     show={this.state.showDeleteConfirmation} 
                     handleClose={this.handleClose}
                     handleSubmit={
-             
+                        
                     this.state.warningSelect == 0 ?  this.objectMultipleDelete :null
               
-                    }
+                    } 
                 />
             </Fragment>
         )
