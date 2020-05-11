@@ -282,7 +282,7 @@ class TraceContainer extends React.Component{
                 endTime: now,
             }
         }
-        return {
+        return {  
             mode: this.defaultActiveKey,
             key: null,
             description: null,
@@ -522,7 +522,7 @@ class TraceContainer extends React.Component{
                                     locale.texts.TIME_FORMAT_IS_INCORRECT,
                                     value => {  
                                         let test = moment(value).format(timeValidatedFormat)
-                                        return moment(test, timeValidatedFormat, true).isValid()
+                                        return moment(test, timeValidatedFormat, true).isValid() 
                                     }
                                 ),
 
@@ -638,19 +638,54 @@ class TraceContainer extends React.Component{
                                         )}
                                     </div>
                                 
-                                    <DateTimePicker 
-                                        name='startTime'
+
+
+                                    <div
                                         className='mx-2'
-                                        value={values.startTime} 
-                                        onkeydown="return false"
-                                        onChange={(value) => { 
-                                            value != null ?
-                                            setFieldValue('startTime', moment(value).toDate())
-                                            : null
-                                        }}  
-                                     
-                                        placeholder={locale.texts.START_TIME} 
-                                    />
+                                        style={{
+                                            position: 'relative'
+                                        }}
+                                    > 
+                                        <DateTimePicker 
+                                            name='startTime'
+                                            className='mx-2'
+                                            value={values.startTime} 
+                                            onkeydown="return false"
+                                            onChange={(value) => { 
+                                                value != null ?
+                                                setFieldValue('startTime', moment(value).toDate())
+                                                : null
+                                            }}  
+                                        
+                                            placeholder={locale.texts.START_TIME} 
+                                        />
+ 
+                                        {errors.startTime && (
+                                        <div 
+                                            className='text-left'
+                                            style={{
+                                                fontSize: '0.6rem',
+                                                color: styleSheet.warning,
+                                                position: 'absolute',
+                                                left: 10,
+                                                bottom: -18,
+                                            }}
+                                        >
+                                            {errors.startTime}
+                                        </div>
+                                    )}
+
+                                    </div>
+
+
+                                    <div
+                                        className='mx-2'
+                                        style={{
+                                            position: 'relative'
+                                        }}
+                                    >
+                                    
+
                                     <DateTimePicker 
                                         name='endTime'
                                         className='mx-2'
@@ -662,6 +697,26 @@ class TraceContainer extends React.Component{
                                         }} 
                                         placeholder={locale.texts.END_TIME}
                                     />
+                                     {errors.endTime && (
+                                        <div 
+                                            className='text-left'
+                                            style={{
+                                                fontSize: '0.6rem',
+                                                color: styleSheet.warning,
+                                                position: 'absolute',
+                                                left: 10,
+                                                bottom: -18,
+                                            }}
+                                        >
+                                            {errors.endTime}
+                                        </div>
+                                    )}
+
+                                    </div>
+
+
+
+
                                   
                                 </div>
                                 
