@@ -677,6 +677,7 @@ class TraceContainer extends React.Component{
                                     </PrimaryButton>
                                 </div>
                             </div>
+                            
                             {status == config.AJAX_STATUS_MAP.LOADING && <Loader />}
 
                             <hr/>
@@ -686,14 +687,14 @@ class TraceContainer extends React.Component{
                                         keyField='id'
                                         data={this.state.data}
                                         columns={this.state.columns}
-                                        className='-highlight mt-4'
+                                        className='-highlight'
                                         style={{maxHeight: '65vh'}} 
                                         pageSize={this.state.data.length} 
                                         {...styleConfig.reactTable}
                                         getTrProps={this.onRowClick}
                                     />
                                 )
-                                :   <NoDataFoundDiv>{[locale.texts[status.toUpperCase().replace(/ /g, '_')]]}</NoDataFoundDiv>
+                                :   <NoDataFoundDiv>{locale.texts[status.toUpperCase().replace(/ /g, '_')]}</NoDataFoundDiv>
                             }         
                         </Fragment>
                     )}
