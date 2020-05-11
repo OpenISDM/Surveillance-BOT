@@ -86,13 +86,13 @@ class TabletTraceContainer extends React.Component{
         this.getLbeaconTable();
         if (this.props.location.state) {
             let { state } = this.props.location
-            let now = moment();
-            let lastday = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT);
+            let endTime = moment();
+            let startTime = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT);
             let field = {
                 mode: state.mode,
                 key: state.key,
-                startTime: lastday,
-                endTime: now,
+                startTime,
+                endTime,
                 description: state.key.label
             }
             this.getLocationHistory(field, 0)
@@ -279,13 +279,13 @@ class TabletTraceContainer extends React.Component{
     getInitialValues = () => {
         if (this.props.location.state) {
             let { state } = this.props.location;
-            let now = moment().toDate();
-            let lastday = moment().subtract(30, 'minutes').toDate();
+            let endTime = moment().toDate();
+            let startTime = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT).toDate();
             return {
                 mode: state.mode,
                 key: state.key,
-                startTime: lastday,
-                endTime: now,
+                startTime,
+                endTime,
             }
         }
         return {
