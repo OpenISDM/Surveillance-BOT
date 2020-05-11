@@ -46,8 +46,7 @@ class PatientTable extends React.Component{
         physicianList: [],
         roomOptions: [],
         objectFilter: [],
-        objectTable: [],
-        importData: [],
+        objectTable: [], 
         filteredData: [],
         filterSelection: {},
         locale: this.context.locale.abbr
@@ -55,8 +54,7 @@ class PatientTable extends React.Component{
 
     componentDidMount = () => {
         this.getData();
-        this.getAreaTable();
-        this.getImportedData();
+        this.getAreaTable(); 
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -113,24 +111,7 @@ class PatientTable extends React.Component{
             console.log(err);
         })
     }
-
-    getImportedData = () => {
-        let { locale } = this.context
-        axios.get(dataSrc.importedObject, {
-            params: {
-                locale: locale.abbr
-            }
-        })
-        .then(res => {
-            this.setState({
-                importData: res.data.rows,
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    
-    }
+  
 
     getAreaTable = () => {
         let {
@@ -516,15 +497,8 @@ class PatientTable extends React.Component{
                     handleSubmit={this.handleSubmitForm}
                     formPath={this.state.formPath}
                     handleClose={this.handleClose}
-                    objectTable={this.state.objectTable}
-                    importedData= {this.state.importData}
-                    areaTable={this.state.areaTable}
-                    PatientImportData = {this.state.importData}
-                    data={this.state.importData.reduce((dataMap, item) => {
-                        dataMap[item.asset_control_number] = item 
-                        return dataMap
-                        }, {})
-                    }
+                    objectTable={this.state.objectTable} 
+                    areaTable={this.state.areaTable} 
                 />
                 <DissociationForm
                     show={this.state.isShowEditImportTable} 

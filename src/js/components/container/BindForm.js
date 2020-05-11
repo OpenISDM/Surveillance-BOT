@@ -36,7 +36,7 @@ class BindForm extends React.Component {
     componentDidUpdate = (prevProps, prevState) => {    
         if (prevProps.show != this.props.show){
             this.getImportedData()  
-        }
+        } 
     }
 
 
