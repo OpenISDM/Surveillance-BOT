@@ -89,7 +89,7 @@ class TraceContainer extends React.Component{
 
         console.log(fields)
         let startTime = moment().subtract(config.DEFAULT_CONTACT_TREE_INTERVAL_VALUE, config.DEFAULT_CONTACT_TREE_INTERVAL_UNIT);
-        let endTime = moment();
+        let endTime = moment().subtract(6, 'days');
         var parents = [];
         let level = 0;
         let maxLevel = fields.level;

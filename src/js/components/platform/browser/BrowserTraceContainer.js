@@ -80,13 +80,13 @@ class TraceContainer extends React.Component{
         this.getLbeaconTable();
         if (this.props.location.state) {
             let { state } = this.props.location
-            let now = moment();
-            let lastPoint = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT);
+            let endTime = moment();
+            let startTime = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT);
             let field = {
                 mode: state.mode,
                 key: state.key,
-                startTime: lastPoint,
-                endTime: now,
+                startTime,
+                endTime,
                 description: state.key.label
             }
             this.getLocationHistory(field, 0)
@@ -273,13 +273,13 @@ class TraceContainer extends React.Component{
     getInitialValues = () => {
         if (this.props.location.state) {
             let { state } = this.props.location;
-            let now = moment().toDate();
-            let lastday = moment().subtract(30, 'minutes').toDate();
+            let endTime = moment().toDate();
+            let startTime = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT).toDate();
             return {
                 mode: state.mode,
                 key: state.key,
-                startTime: lastday,
-                endTime: now,
+                startTime,
+                endTime,
             }
         }
         return {  
@@ -732,6 +732,7 @@ class TraceContainer extends React.Component{
                                     </PrimaryButton>
                                 </div>
                             </div>
+                            
                             {status == config.AJAX_STATUS_MAP.LOADING && <Loader />}
 
                             <hr/>
@@ -741,14 +742,14 @@ class TraceContainer extends React.Component{
                                         keyField='id'
                                         data={this.state.data}
                                         columns={this.state.columns}
-                                        className='-highlight mt-4'
+                                        className='-highlight'
                                         style={{maxHeight: '65vh'}} 
                                         pageSize={this.state.data.length} 
                                         {...styleConfig.reactTable}
                                         getTrProps={this.onRowClick}
                                     />
                                 )
-                                :   <NoDataFoundDiv>{[locale.texts[status.toUpperCase().replace(/ /g, '_')]]}</NoDataFoundDiv>
+                                :   <NoDataFoundDiv>{locale.texts[status.toUpperCase().replace(/ /g, '_')]}</NoDataFoundDiv>
                             }         
                         </Fragment>
                     )}

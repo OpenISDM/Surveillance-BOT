@@ -404,6 +404,7 @@ const tw = {
     EDIT_TIME: "編輯時間",
     NOTES: "註記",
     NO_DATA_AVAILABE: "無資料顯示", 
+    NO_NOTIFICATION: "無通知",
     SUBMIT_TIMESTAMP: "儲存時間",
     USER_NAME: "人員名稱",
     DEVICES_FOUND_IN: "儀器位於",

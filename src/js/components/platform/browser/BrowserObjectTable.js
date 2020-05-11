@@ -61,7 +61,6 @@ class BrowserObjectTable extends React.Component{
     componentDidMount = () => {
         this.getData();
         this.getAreaTable();
-        this.getImportedData();
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -118,24 +117,6 @@ class BrowserObjectTable extends React.Component{
         .catch(err => {
             console.log(err);
         })
-    }
-
-    getImportedData = () => {
-        let { locale } = this.context
-        axios.get(dataSrc.importedObject, {
-            params: {
-                locale: locale.abbr
-            }
-        })
-        .then(res => {
-            this.setState({
-                importData: res.data.rows,
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    
     }
 
     getAreaTable = () => {
@@ -655,29 +636,12 @@ class BrowserObjectTable extends React.Component{
                     formPath={this.state.formPath}
                     handleClose={this.handleClose}
                     objectTable={this.state.objectTable}
-                    importedData= {this.state.importData}
                     areaTable={this.state.areaTable}
-                    PatientImportData = {this.state.importData}
                     data={this.state.importData.reduce((dataMap, item) => {
                         dataMap[item.asset_control_number] = item 
                         return dataMap
                         }, {})
                     }
-                />
-                <DissociationForm
-                    show={this.state.isShowEditImportTable} 
-                    title={this.state.formTitle} 
-                    selectedRowData={this.state.selectedRowData || 'handleAllDelete'} 
-                    handleSubmitForm={this.handleSubmitForm}
-                    formPath={this.state.formPath}
-                    objectTable={this.state.objectTable}
-                    handleClose={this.handleClose}
-                    data={this.state.objectTable.reduce((dataMap, item) => {
-                        dataMap[item.mac_address] = item
-                        return dataMap
-                        }, {})
-                    }
-                    refreshData={this.state.refreshData}  
                 />
 
                 <DeleteConfirmationForm

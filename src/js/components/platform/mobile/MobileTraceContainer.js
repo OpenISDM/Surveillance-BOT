@@ -63,13 +63,6 @@ class MobileTraceContainer extends React.Component{
 
     defaultActiveKey='name' 
 
-    statusMap = {
-        LOADING: 'loading',
-        SUCCESS: 'succcess',
-        NO_RESULT: 'not result',
-        WAIT_FOR_SEARCH: 'wait for search',
-    }
-
     navList = [
         {
             name: 'name',
@@ -86,13 +79,13 @@ class MobileTraceContainer extends React.Component{
         this.getLbeaconTable();
         if (this.props.location.state) {
             let { state } = this.props.location
-            let now = moment();
-            let lastday = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT);
+            let endTime = moment();
+            let startTime = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT);
             let field = {
                 mode: state.mode,
                 key: state.key,
-                startTime: lastday,
-                endTime: now,
+                startTime,
+                endTime,
                 description: state.key.label
             }
             this.getLocationHistory(field, 0)
@@ -181,7 +174,7 @@ class MobileTraceContainer extends React.Component{
         let timeValidatedFormat = 'YYYY/MM/DD HH:mm:ss'
         
         /** Set formik status as 0. Would render loading page */
-        this.formikRef.current.setStatus(this.statusMap.LOADING)
+        this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.LOADING)
 
         switch(fields.mode) {
             case 'name':
@@ -213,7 +206,7 @@ class MobileTraceContainer extends React.Component{
         .then(res => {
             /** Condition handler when no result */
             if (res.data.rowCount == 0) {
-                this.formikRef.current.setStatus(this.statusMap.NO_RESULT)
+                this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.NO_RESULT)
                 this.setState({
                     data: [],
                 })
@@ -268,7 +261,7 @@ class MobileTraceContainer extends React.Component{
                 columns,
                 histories,
                 breadIndex,
-            }, this.formikRef.current.setStatus(this.statusMap.SUCCESS))
+            }, this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.SUCCESS))
 
         })
         .catch(err => {
@@ -436,7 +429,7 @@ class MobileTraceContainer extends React.Component{
                 setFieldValue('endTime', null)
                 setErrors({})
                 setTouched({})
-                setStatus(this.statusMap.WAIT_FOR_SEARCH)
+                setStatus(config.AJAX_STATUS_MAP.WAIT_FOR_SEARCH)
                 this.setState({
                     data: [],
                     columns: [],
@@ -485,7 +478,7 @@ class MobileTraceContainer extends React.Component{
 
                     ref={this.formikRef}
 
-                    initialStatus={this.statusMap.WAIT_FOR_SEARCH}
+                    initialStatus={config.AJAX_STATUS_MAP.WAIT_FOR_SEARCH}
                     
                     validateOnChange={false}
 
@@ -497,30 +490,6 @@ class MobileTraceContainer extends React.Component{
                             key: Yup.object()
                                 .nullable()
                                 .required(locale.texts.REQUIRED),
-                                // .when('mode', {
-                                //     is: 'mac',
-                                //     then: Yup.string().test(
-                                //         'mode', 
-                                //         locale.texts.MAC_ADDRESS_FORMAT_IS_NOT_CORRECT,
-                                //         value => {  
-                                //             if (value == undefined) return false
-                                //             let pattern = new RegExp('^[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}$');
-                                //             return value.match(pattern)
-                                //         }
-                                //     )
-                                // })
-                                // .when('mode', {
-                                //     is: 'uuid',
-                                //     then: Yup.object().test(
-                                //         'uuid', 
-                                //         locale.texts.LBEACON_FORMAT_IS_NOT_CORRECT,
-                                //         value => {  
-                                //             if (value == undefined) return false
-                                //             let pattern = new RegExp('^[0-9A-Fa-f]{8}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{12}$');
-                                //             return value.value.match(pattern)
-                                //         }
-                                //     )
-                                // }),
 
                             startTime: Yup.string()
                                 .required(locale.texts.START_TIME_IS_REQUIRED)
@@ -608,7 +577,7 @@ class MobileTraceContainer extends React.Component{
                             </BOTNav>
                             <div className='d-flex flex-column'>
                                 <div
-                                    className='m-2'
+                                    className='my-2'
                                     style={{
                                         position: 'relative'
                                     }}
@@ -656,7 +625,7 @@ class MobileTraceContainer extends React.Component{
                                 </div>
                                 <DateTimePicker 
                                     name='startTime'
-                                    className='m-2'
+                                    className='my-2'
                                     value={values.startTime}
                                     onChange={(value) => {
                                         setFieldValue('startTime', moment(value).toDate())
@@ -665,7 +634,7 @@ class MobileTraceContainer extends React.Component{
                                 />
                                 <DateTimePicker 
                                     name='endTime'
-                                    className='m-2'
+                                    className='my-2'
                                     value={values.endTime}
                                     onChange={(value) => {
                                         setFieldValue('endTime', moment(value).toDate())
@@ -680,7 +649,7 @@ class MobileTraceContainer extends React.Component{
                                     {locale.texts.SEARCH}
                                 </PrimaryButton>
                             </div>
-                            {status == this.statusMap.LOADING && <Loader />}
+                            {status == config.AJAX_STATUS_MAP.LOADING && <Loader />}
                             <hr/>
                             {this.state.data.length != 0 ? 
                                 (
@@ -699,9 +668,6 @@ class MobileTraceContainer extends React.Component{
                             }         
                         </Fragment>
                     )}
-                />
-                <ExportModal
-                    show={this.state.showModal}
                 />
             </BOTContainer>
         )
