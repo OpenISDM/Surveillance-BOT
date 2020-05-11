@@ -401,6 +401,7 @@ const en =  {
     ROLES: "role type",
     NOTES: "notes", 
     NO_DATA_AVAILABE: "no data available",
+    NO_NOTIFICATION: "no notification",
     USER_NAME: "user name",
     DEVICES_FOUND_IN: "devices found in",
     DEVICES_FOUND: "devices found",
