@@ -3,14 +3,8 @@ import { Modal, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { 
-    addAssociation,
-    addAssociation_Patient
-} from "../../dataSrc"
 import { AppContext } from '../../context/AppContext';
 import Select from 'react-select';
-import config from '../../config'
-import messageGenerator from '../../helper/messageGenerator';
 import FormikFormGroup from '../presentational/FormikFormGroup';
 import {
     FormFieldName
@@ -28,17 +22,15 @@ class BindForm extends React.Component {
         objectType:'',
         alertText:'',
         bindData:'', 
-        importData:'',
+        importData: [],
     }; 
 
-  
 
     componentDidUpdate = (prevProps, prevState) => {    
-        if (prevProps.show != this.props.show){
+        if (prevProps.show != this.props.show && this.props.show){
             this.getImportedData()  
         } 
     }
-
 
     handleClose = (callback) => {
         this.setState({
