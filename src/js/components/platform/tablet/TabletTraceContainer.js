@@ -181,7 +181,7 @@ class TabletTraceContainer extends React.Component{
         let timeValidatedFormat = 'YYYY/MM/DD HH:mm:ss'
         
         /** Set formik status as 0. Would render loading page */
-        this.formikRef.current.setStatus(this.statusMap.LOADING)
+        this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.LOADING)
 
         switch(fields.mode) {
             case 'name':
@@ -213,7 +213,7 @@ class TabletTraceContainer extends React.Component{
         .then(res => {
             /** Condition handler when no result */
             if (res.data.rowCount == 0) {
-                this.formikRef.current.setStatus(this.statusMap.NO_RESULT)
+                this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.NO_RESULT)
                 this.setState({
                     data: [],
                 })
@@ -268,7 +268,7 @@ class TabletTraceContainer extends React.Component{
                 columns,
                 histories,
                 breadIndex,
-            }, this.formikRef.current.setStatus(this.statusMap.SUCCESS))
+            }, this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.SUCCESS))
 
         })
         .catch(err => {
@@ -436,7 +436,7 @@ class TabletTraceContainer extends React.Component{
                 setFieldValue('endTime', null)
                 setErrors({})
                 setTouched({})
-                setStatus(this.statusMap.WAIT_FOR_SEARCH)
+                setStatus(config.AJAX_STATUS_MAP.WAIT_FOR_SEARCH)
                 this.setState({
                     data: [],
                     columns: [],
@@ -485,7 +485,7 @@ class TabletTraceContainer extends React.Component{
 
                     ref={this.formikRef}
 
-                    initialStatus={this.statusMap.WAIT_FOR_SEARCH}
+                    initialStatus={config.AJAX_STATUS_MAP.WAIT_FOR_SEARCH}
                     
                     validateOnChange={false}
 
@@ -689,7 +689,7 @@ class TabletTraceContainer extends React.Component{
                                     </PrimaryButton>
                                 </div>
                             </div>
-                            {status == this.statusMap.LOADING && <Loader />}
+                            {status == config.AJAX_STATUS_MAP.LOADING && <Loader />}
                             <hr/>
                             {this.state.data.length != 0 ? 
                                 (
