@@ -147,11 +147,13 @@ class ImportPatientTable extends React.Component{
             }
         })
         .then(res => {
+            this.setState({selection:[]})
             this.handleSubmitForm()
         })
         .catch(err => {
             console.log(err)
         })
+     
     }
  
     handleClickButton = (e) => {
@@ -321,7 +323,7 @@ class ImportPatientTable extends React.Component{
                                 className='text-capitalize mr-2 mb-1'
                                 name='delete'
                                 onClick={this.handleClickButton}
-                                disabled = {this.state.disable}
+                                disabled={this.state.selection.length == 0}
                             >
                                 {locale.texts.DELETE}
                             </PrimaryButton>
