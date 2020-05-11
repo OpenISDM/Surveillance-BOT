@@ -188,7 +188,7 @@ class BrowserObjectTable extends React.Component{
         let {
             apiMethod
         } = this.state
-
+        this.setState({isShowBind:false})
         axios[apiMethod](dataSrc.object, {
             formOption,
             mode: 'PERSONA',

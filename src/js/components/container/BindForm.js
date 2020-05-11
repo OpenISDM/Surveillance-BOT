@@ -31,12 +31,7 @@ class BindForm extends React.Component {
         importData:'',
     }; 
 
- 
-    componentDidUpdate = (prevProps, prevState) => {
-        if (this.context.locale.abbr !== prevState.locale) {
-            this.getImportedData() 
-        }
-    }
+  
 
 
     handleClose = (callback) => {
@@ -81,7 +76,7 @@ class BindForm extends React.Component {
  
     render() {
         const { locale } = this.context
-
+        this.getImportedData()  
         const areaOptions = this.props.areaTable.map(area => {
             return {
                 value: area.name,
