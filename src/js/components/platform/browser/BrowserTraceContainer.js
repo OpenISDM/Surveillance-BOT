@@ -520,7 +520,7 @@ class TraceContainer extends React.Component{
                                 .test(
                                     'startTime', 
                                     locale.texts.TIME_FORMAT_IS_INCORRECT,
-                                    value => {  
+                                    value => {   
                                         let test = moment(value).format(timeValidatedFormat)
                                         return moment(test, timeValidatedFormat, true).isValid() 
                                     }
@@ -566,7 +566,7 @@ class TraceContainer extends React.Component{
                                             name='bread'
                                             onClick={(e) => {
                                                 setFieldValue('mode', history.mode)
-                                                setFieldValue('key', history.key)
+                                                setFieldValue('key', history.key) 
                                                 setFieldValue('startTime', moment(history.startTime).toDate())
                                                 setFieldValue('endTime', moment(history.endTime).toDate())
                                                 this.setState({
@@ -637,9 +637,7 @@ class TraceContainer extends React.Component{
                                             </div>
                                         )}
                                     </div>
-                                
-
-
+                                 
                                     <div
                                         className='mx-2'
                                         style={{
@@ -654,7 +652,7 @@ class TraceContainer extends React.Component{
                                             onChange={(value) => { 
                                                 value != null ?
                                                 setFieldValue('startTime', moment(value).toDate())
-                                                : null
+                                                : setFieldValue('startTime', undefined)
                                             }}  
                                         
                                             placeholder={locale.texts.START_TIME} 
@@ -693,7 +691,7 @@ class TraceContainer extends React.Component{
                                         onChange={(value) => { 
                                             value != null ?
                                             setFieldValue('endTime', moment(value).toDate())
-                                            : null
+                                            : setFieldValue('endTime', undefined)
                                         }} 
                                         placeholder={locale.texts.END_TIME}
                                     />
