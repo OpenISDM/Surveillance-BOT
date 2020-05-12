@@ -88,8 +88,8 @@ class TraceContainer extends React.Component{
         this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.LOADING)
 
         console.log(fields)
-        let startTime = moment().subtract(config.DEFAULT_CONTACT_TREE_INTERVAL_VALUE, config.DEFAULT_CONTACT_TREE_INTERVAL_UNIT);
-        let endTime = moment().subtract(6, 'days');
+        let startTime = moment().subtract(6, 'days');
+        let endTime = moment().subtract(4, 'days');
         var parents = [];
         let level = 0;
         let maxLevel = fields.level;
@@ -136,59 +136,6 @@ class TraceContainer extends React.Component{
     }
 
     processContactTree = (result) => {
-        const data = {
-            name: 'joe',
-            parent: '',
-            level: 0,
-            children: [
-                {
-                    name: 'HCC',
-                    parent: 'joe',
-                    level: 1,
-                },
-                {
-                    name: 'jason',
-                    parent: 'joe',
-                    level: 1,
-                    children: [
-                        {
-                            name: 'jane',
-                            parent: 'jason',
-                            level: 2,
-                            children: [
-                                {
-                                    name: 'Mr. Wang',
-                                    parent: 'jane',
-                                    level: 3
-                                }
-                            ]
-                        },
-                        {
-                            name: 'joey',
-                            parent: 'jason',
-                            level: 2,
-                        },
-                        {
-                            name: 'tony',
-                            parent: 'jason',
-                            level: 2
-                        }
-                    ]
-                },
-                {
-                    name: 'jimmy',
-                    parent: 'joe',
-                    level: 1,
-                    children: [
-                        {
-                            name: 'vera',
-                            parent: 'jimmy',
-                            level: 2,
-                        },
-                    ]
-                }
-            ]
-        }
         var collection = {}
         var duplicate = []
 
@@ -233,6 +180,7 @@ class TraceContainer extends React.Component{
                 endTime,
             )
             .then(res => {
+                console.log(res)
                 level++
                 // if (!parents.includes(name)) parents.push(name)
                 // console.log(res.data.rows)
@@ -257,34 +205,6 @@ class TraceContainer extends React.Component{
             })
 
             return node
-
-
-
-
-            // this.getNode(
-            //     name,
-            //     parents,
-            //     startTime,
-            //     endTime
-            // )
-            // .then(res => {
-            //     level++
-            //     node.children = res.data.rows.map(child => {
-
-            //         return this.getContactTree(
-            //             {},
-            //             child.child,
-            //             parents,
-            //             child.start_time,
-            //             child.end_time,
-            //             level
-            //         )
-            //     })
-
-            //     console.log(node)
-
-            //     return node
-            // })
         }
     }
 
@@ -367,7 +287,7 @@ class TraceContainer extends React.Component{
                                                         {parent}
                                                     </Col>
                                                     <Col>
-                                                        <i class="fas fa-arrow-right"></i>                                                    
+                                                        <i className="fas fa-arrow-right"></i>                                                    
                                                     </Col>
                                                     <Col
                                                         className='d-flex-column'
