@@ -252,7 +252,6 @@ class GatewayTable extends React.Component{
                         {...styleConfig.reactTable}
                         ref={r => (this.selectTable = r)}
                         className='-highlight'
-                        pageSize={this.state.data.length}
                         style={{maxHeight:'75vh'}}                     
                         onPageChange={(e) => {
                             this.setState({

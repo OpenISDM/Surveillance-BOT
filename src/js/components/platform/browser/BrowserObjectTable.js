@@ -592,12 +592,11 @@ class BrowserObjectTable extends React.Component{
                     columns={this.state.columns}
                     ref={r => (this.selectTable = r)}
                     className='-highlight text-none'
-                    style={{maxHeight:'75vh'}} 
+                    style={{maxHeight:'70vh'}} 
                     onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                     {...extraProps}
                     {...styleConfig.reactTable}
-                    pageSize={this.state.filteredData.length}
-
+                    NoDataComponent={() => null}
                     getTrProps={(state, rowInfo, column, instance) => {
                         return {
                             onClick: (e) => { 

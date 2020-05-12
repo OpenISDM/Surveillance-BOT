@@ -245,18 +245,14 @@ class AdminManagementContainer extends React.Component{
                     </AccessControl>
                 </div>
                 <hr/>
-                {this.state.data.length != 0 &&
-                    <ReactTable 
-                        data={this.state.data} 
-                        columns={this.state.columns} 
-                        noDataText='No Data Available'
-                        className='-highlight text-none'
-                        pageSize={this.state.data.length}
-                        style={{maxHeight:'85vh'}}                               
-                        {...styleConfig.reactTable}
-                        getTrProps={this.onRowClick}
-                    />
-                }
+                <ReactTable 
+                    data={this.state.data} 
+                    columns={this.state.columns} 
+                    className='-highlight text-none'
+                    style={{maxHeight:'85vh'}}                               
+                    {...styleConfig.reactTable}
+                    getTrProps={this.onRowClick}
+                />
 
                 <EditUserForm
                     show={this.state.showAddUserForm}

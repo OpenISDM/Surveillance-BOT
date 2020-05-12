@@ -337,8 +337,7 @@ class ImportPatientTable extends React.Component{
                     columns={this.state.columns}
                     ref={r => (this.selectTable = r)}
                     className='-highlight'
-                    style={{maxHeight:'75vh'}} 
-                    // pageSize={this.state.data.length}
+                    style={{maxHeight:'73vh'}} 
                     onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                     {...extraProps}
                     {...styleConfig.reactTable}
