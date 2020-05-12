@@ -13,7 +13,7 @@ export default class Pagination extends React.Component {
         this.changePage = this.changePage.bind(this);
 
         this.state = {
-        visiblePages: this.getVisiblePages(null, props.pages)
+            visiblePages: this.getVisiblePages(null, props.pages)
         };
     }
 
@@ -26,13 +26,14 @@ export default class Pagination extends React.Component {
         nextText: PropTypes.string
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.pages !== nextProps.pages) {
+    componentDidUpdate = (prevProps, prevState) => {
+
+        if (prevProps.pages !== this.props.pages) {
             this.setState({
-                visiblePages: this.getVisiblePages(null, nextProps.pages)
+                visiblePages: this.getVisiblePages(null, this.props.pages)
             });
         }
-        this.changePage(nextProps.page + 1);
+        this.changePage(this.props.page + 1);
     }
 
     filterPages = (visiblePages, totalPages) => {
@@ -97,53 +98,55 @@ export default class Pagination extends React.Component {
                     &nbsp;
                     {locale.texts.RESULTS}
                 </div>
-                <div
-                    className='d-flex'
-                >
-                    <div className='Table__prevPageWrapper'>
-                        <PageButtonComponent
-                            className='Table__pageButton'
-                            onClick={() => {
-                            if (activePage === 1) return;
-                                this.changePage(activePage - 1);
-                                }}
-                            disabled={activePage === 1}
-                        >
-                            {this.props.previousText}
-                        </PageButtonComponent>
-                    </div>
-
-                    <div className='Table__visiblePagesWrapper'>
-                    {visiblePages.map((page, index, array) => {
-                        return (
+                {this.props.data.length && (
+                    <div
+                        className='d-flex'
+                    >
+                        <div className='Table__prevPageWrapper'>
                             <PageButtonComponent
-                                key={page}
-                                className={
-                                activePage === page
-                                    ? 'Table__pageButton Table__pageButton--active'
-                                    : 'Table__pageButton'
-                                }
-                                onClick={this.changePage.bind(null, page)}
+                                className='Table__pageButton'
+                                onClick={() => {
+                                if (activePage === 1) return;
+                                    this.changePage(activePage - 1);
+                                    }}
+                                disabled={activePage === 1}
                             >
-                                {array[index - 1] + 2 < page ? `...${page}` : page}
+                                {this.props.previousText}
                             </PageButtonComponent>
-                        );
-                    })}
+                        </div>
+    
+                        <div className='Table__visiblePagesWrapper'>
+                            {visiblePages.map((page, index, array) => {
+                                return (
+                                    <PageButtonComponent
+                                        key={page}
+                                        className={
+                                        activePage === page
+                                            ? 'Table__pageButton Table__pageButton--active'
+                                            : 'Table__pageButton'
+                                        }
+                                        onClick={this.changePage.bind(null, page)}
+                                    >
+                                        {array[index - 1] + 2 < page ? `...${page}` : page}
+                                    </PageButtonComponent>
+                                );
+                            })}
+                        </div>
+    
+                        <div className='Table__nextPageWrapper'>
+                            <PageButtonComponent
+                                className='Table__pageButton'
+                                onClick={() => {
+                                    if (activePage === this.props.pages) return;
+                                        this.changePage(activePage + 1);
+                                    }}
+                                disabled={activePage === this.props.pages}
+                            >
+                                {this.props.nextText}
+                            </PageButtonComponent>
+                        </div>
                     </div>
-
-                    <div className='Table__nextPageWrapper'>
-                        <PageButtonComponent
-                            className='Table__pageButton'
-                            onClick={() => {
-                                if (activePage === this.props.pages) return;
-                                    this.changePage(activePage + 1);
-                                }}
-                            disabled={activePage === this.props.pages}
-                        >
-                            {this.props.nextText}
-                        </PageButtonComponent>
-                    </div>
-                </div>
+                )}
             </div>
         );
     }
