@@ -44,6 +44,8 @@ const pdfPackageGenerator = {
         contactTree: `contact_tree`,
     },
 
+    PDF_FILENAME_TIME_FORMAT: "YYYY-MM-Do_hh_mm_ss",
+
     /** Pdf format pdfPackageGenerator */
     pdfFormat: {
 
