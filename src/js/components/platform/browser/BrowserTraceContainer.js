@@ -214,13 +214,12 @@ class BrowseTraceContainer extends React.Component{
 
             let data;
             switch(fields.mode) {
-                case 'mac':
                 case 'name':
                     data = res.data.rows.map((item, index) => {
                         item.residenceTime = moment.duration(item.duration).locale(locale.abbr).humanize();
                         item.startTime = moment(item.start_time).format(timeValidatedFormat);
                         item.endTime = moment(item.end_time).format(timeValidatedFormat);
-                        item.description = item.beacon_description;
+                        item.description = item.location_description;
                         item.mode = fields.mode;
                         item.area_original = item.area_name;
                         item.area = locale.texts[item.area_name];
@@ -233,6 +232,7 @@ class BrowseTraceContainer extends React.Component{
                         item.mode = fields.mode
                         item.area_original = item.area
                         item.area= locale.texts[item.area]
+                        item.description = item.name
                         return item
                     })
                     break;
@@ -240,7 +240,7 @@ class BrowseTraceContainer extends React.Component{
 
             var histories = this.state.histories
 
-            if (breadIndex < this.state.histories.length - 1) {
+            if (breadIndex < this.state.histories.length) {
                 histories = histories.slice(0, breadIndex)
             }
 
@@ -367,6 +367,8 @@ class BrowseTraceContainer extends React.Component{
                         title: column.name
                     }
                 })
+
+
                 axios.post(dataSrc.file.export.csv, {
                     data: this.state.data,
                     header,          
@@ -604,7 +606,6 @@ class BrowseTraceContainer extends React.Component{
                                             position: 'relative'
                                         }}
                                     >
-                                    
                                         <Select
                                             name='key'
                                             value={values.key}
@@ -708,13 +709,7 @@ class BrowseTraceContainer extends React.Component{
                                     )}
 
                                     </div>
-
-
-
-
-                                  
                                 </div>
-                                
                                 <div
                                     className='d-flex align-items-center'
                                 >

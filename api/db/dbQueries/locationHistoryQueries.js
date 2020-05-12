@@ -57,7 +57,7 @@ module.exports = {
 						MIN(groups.area_id) AS area_id,
 						MIN(area_table.name) AS area_name,
 						MIN(groups.uuid::TEXT) AS uuid,
-						MIN(lbeacon_table.description) AS beacon_description,
+						MIN(lbeacon_table.description) AS location_description,
 						MIN(groups.battery_voltage) AS battery_voltage,
 						AVG(groups.average_rssi) AS avg_rssi,
 						MIN(groups.record_timestamp) AS start_time,
@@ -83,7 +83,7 @@ module.exports = {
 					SELECT 
 						location_history_table.uuid,
 						location_history_table.mac_address,
-						lbeacon_table.description,
+						lbeacon_table.description AS location_description,
 						area_table.name AS area,
 						object_table.name
 					FROM location_history_table

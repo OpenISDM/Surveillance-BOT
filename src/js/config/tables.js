@@ -577,7 +577,7 @@ const locationHistoryByMacColumns = [
     },
     {
         Header: "description",
-        accessor: "description",
+        accessor: "location_description",
         width: 180,
     },
     {
@@ -624,7 +624,7 @@ const locationHistoryByUUIDColumns = [
     },
     {
         Header: "description",
-        accessor: "description",
+        accessor: "location_description",
         width: 180,
     },
 ]
