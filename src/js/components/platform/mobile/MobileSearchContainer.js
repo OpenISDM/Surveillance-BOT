@@ -24,6 +24,7 @@ const MobileSearchContainer = ({
                     placeholder={searchKey}
                     getSearchKey={getSearchKey}
                     clearSearchResult={clearSearchResult}    
+                    width={250}
                 />
             </Row>
         </div>

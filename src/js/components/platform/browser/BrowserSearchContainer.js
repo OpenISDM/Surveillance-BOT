@@ -24,6 +24,7 @@ const BrowserSearchContainer = ({
                     placeholder={searchKey}
                     getSearchKey={getSearchKey}
                     clearSearchResult={clearSearchResult}    
+                    width={500}
                 />
             </Row>
         </div>

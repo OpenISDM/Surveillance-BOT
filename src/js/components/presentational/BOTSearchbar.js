@@ -33,7 +33,7 @@ class BOTSearchbar extends React.Component {
                 border: '2px solid rgba(227, 222, 222, 0.447)',
                 borderRadius : '25px',
                 fontSize: '0.8rem',
-                width: 250,
+                width: this.props.width,
                 minHeight: '1.2rem',
                 position: 'relative'
             },
@@ -42,7 +42,6 @@ class BOTSearchbar extends React.Component {
                 fontSize: '1rem',
             }
         }
-
         const { value } = this.state;
         return (            
             <Form 
@@ -51,7 +50,9 @@ class BOTSearchbar extends React.Component {
             >
                 <Form.Group 
                     className='d-flex justify-content-center align-items-center mb-0 mx-1'
-                    style={{minWidth: 200}}
+                    style={{
+                        minWidth: parseInt(this.props.width) * 0.9
+                    }}
                 >
                     <i 
                         className='fas fa-search'

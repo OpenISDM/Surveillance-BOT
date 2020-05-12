@@ -18,12 +18,13 @@ const TabletSearchContainer = ({
             className="py-1" 
             onTouchMove={handleTouchMove}
         >
-            <Image src={config.LOGO} rounded width={150}/>
+            <Image src={config.LOGO} rounded width={100}/>
             <Row id='searchBar' className='d-flex justify-content-center align-items-center my-4'>
                 <BOTSearchbar
                     placeholder={searchKey}
                     getSearchKey={getSearchKey}
                     clearSearchResult={clearSearchResult}    
+                    width={300}
                 />
             </Row>
         </div>
