@@ -10,7 +10,7 @@ const config = {
 
     DEFAULT_CONTACT_TREE_INTERVAL_UNIT: 'days',
 
-    DEFAULT_CONTACT_TREE_INTERVAL_VALUE: 2,
+    DEFAULT_CONTACT_TREE_INTERVAL_VALUE: 7,
 
     DEFAULT_AREA_ID: 1,
     
@@ -42,7 +42,7 @@ const config = {
     AJAX_STATUS_MAP: {
         LOADING: 'loading',
         SUCCESS: 'succcess',
-        NO_RESULT: 'not result',
+        NO_RESULT: 'no result',
         WAIT_FOR_SEARCH: 'wait for search',
     },
 
