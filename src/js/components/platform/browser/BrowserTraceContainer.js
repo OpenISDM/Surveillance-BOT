@@ -213,7 +213,6 @@ class BrowseTraceContainer extends React.Component{
             }
 
             let data;
-
             switch(fields.mode) {
                 case 'mac':
                 case 'name':
@@ -234,7 +233,6 @@ class BrowseTraceContainer extends React.Component{
                         item.mode = fields.mode
                         item.area_original = item.area
                         item.area= locale.texts[item.area]
-                        item.description = item.name
                         return item
                     })
                     break;
