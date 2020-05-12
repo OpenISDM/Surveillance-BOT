@@ -183,6 +183,7 @@ const styleConfig = {
             }
         },
 
+        defaultPageSize: 15,
 
         SelectAllInputComponent: BOTCheckbox,
 

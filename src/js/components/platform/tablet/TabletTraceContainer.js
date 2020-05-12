@@ -63,12 +63,6 @@ class TabletTraceContainer extends React.Component{
 
     defaultActiveKey='name' 
 
-    statusMap = {
-        LOADING: 'loading',
-        SUCCESS: 'succcess',
-        NO_RESULT: 'not result',
-        WAIT_FOR_SEARCH: 'wait for search',
-    }
 
     navList = [
         {
@@ -393,24 +387,23 @@ class TabletTraceContainer extends React.Component{
                 })
                 break;
             case 'exportPDF':
-                let pdfPackage = pdfPackageGenerator.getPdfPackage(
-                    'trackingRecord', 
-                    auth.user, 
-                    {
+                let pdfPackage = pdfPackageGenerator.getPdfPackage({
+                    option: 'trackingRecord',
+                    user: auth.user,
+                    data: {
                         columns: this.state.columns.filter(column => column.accessor != 'uuid'),
                         data: this.state.data
                     },
                     locale,
-                    null,
-                    {
+                    signature: null,
+                    additional: {
                         extension: 'pdf',
                         key: values.key.label,
                         startTime: moment(values.startTime).format('lll'),
                         endTime: moment(values.endTime).format('lll'),
                         type: values.mode
-
                     }
-                )  
+                })
 
                 axios.post(dataSrc.file.export.pdf, {
                     userInfo: auth.user,
@@ -659,19 +652,25 @@ class TabletTraceContainer extends React.Component{
                                     <DateTimePicker 
                                         name='startTime'
                                         className='mx-2'
-                                        value={values.startTime}
-                                        onChange={(value) => {
+                                        value={values.startTime} 
+                                        onkeydown="return false"
+                                        onChange={(value) => { 
+                                            value != null ?
                                             setFieldValue('startTime', moment(value).toDate())
-                                        }}
-                                        placeholder={locale.texts.START_TIME}
+                                            : null
+                                        }}  
+                                     
+                                        placeholder={locale.texts.START_TIME} 
                                     />
                                     <DateTimePicker 
                                         name='endTime'
                                         className='mx-2'
                                         value={values.endTime}
-                                        onChange={(value) => {
+                                        onChange={(value) => { 
+                                            value != null ?
                                             setFieldValue('endTime', moment(value).toDate())
-                                        }}
+                                            : null
+                                        }} 
                                         placeholder={locale.texts.END_TIME}
                                     />
                                   
@@ -697,9 +696,8 @@ class TabletTraceContainer extends React.Component{
                                         keyField='id'
                                         data={this.state.data}
                                         columns={this.state.columns}
-                                        className='-highlight mt-4'
+                                        className='-highlight'
                                         style={{maxHeight: '65vh'}} 
-                                        pageSize={this.state.data.length}
                                         {...styleConfig.reactTable}
                                         getTrProps={this.onRowClick}
                                     />
@@ -708,9 +706,6 @@ class TabletTraceContainer extends React.Component{
                             }         
                         </Fragment>
                     )}
-                />
-                <ExportModal
-                    show={this.state.showModal}
                 />
             </BOTContainer>
         )

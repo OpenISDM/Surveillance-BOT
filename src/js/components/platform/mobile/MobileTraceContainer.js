@@ -272,13 +272,13 @@ class MobileTraceContainer extends React.Component{
     getInitialValues = () => {
         if (this.props.location.state) {
             let { state } = this.props.location;
-            let now = moment().toDate();
-            let lastday = moment().subtract(30, 'minutes').toDate();
+            let endTime = moment().toDate();
+            let startTime = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT).toDate();
             return {
                 mode: state.mode,
                 key: state.key,
-                startTime: lastday,
-                endTime: now,
+                startTime,
+                endTime,
             }
         }
         return {
@@ -386,24 +386,23 @@ class MobileTraceContainer extends React.Component{
                 })
                 break;
             case 'exportPDF':
-                let pdfPackage = pdfPackageGenerator.getPdfPackage(
-                    'trackingRecord', 
-                    auth.user, 
-                    {
+                let pdfPackage = pdfPackageGenerator.getPdfPackage({
+                    option: 'trackingRecord',
+                    user: auth.user,
+                    data: {
                         columns: this.state.columns.filter(column => column.accessor != 'uuid'),
                         data: this.state.data
                     },
                     locale,
-                    null,
-                    {
+                    signature: null,
+                    additional: {
                         extension: 'pdf',
                         key: values.key.label,
                         startTime: moment(values.startTime).format('lll'),
                         endTime: moment(values.endTime).format('lll'),
                         type: values.mode
-
                     }
-                )  
+                })
 
                 axios.post(dataSrc.file.export.pdf, {
                     userInfo: auth.user,
@@ -577,7 +576,6 @@ class MobileTraceContainer extends React.Component{
                             </BOTNav>
                             <div className='d-flex flex-column'>
                                 <div
-                                    className='my-2'
                                     style={{
                                         position: 'relative'
                                     }}
@@ -657,9 +655,8 @@ class MobileTraceContainer extends React.Component{
                                         keyField='id'
                                         data={this.state.data}
                                         columns={this.state.columns}
-                                        className='-highlight mt-4'
+                                        className='-highlight'
                                         style={{maxHeight: '65vh'}} 
-                                        pageSize={this.state.data.length}
                                         {...styleConfig.reactTable}
                                         getTrProps={this.onRowClick}
                                     />

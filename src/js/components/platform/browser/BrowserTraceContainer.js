@@ -36,13 +36,12 @@ import {
 } from '../../BOTComponent/styleComponent';
 import IconButton from '../../BOTComponent/IconButton';
 import styleSheet from '../../../config/styleSheet';
-import ExportModal from '../../presentational/ExportModal';
 import config from '../../../config';
 import pdfPackageGenerator from '../../../helper/pdfPackageGenerator';
 
 momentLocalizer()
 
-class TraceContainer extends React.Component{
+class BrowseTraceContainer extends React.Component{
   
     static contextType = AppContext
     
@@ -689,7 +688,6 @@ class TraceContainer extends React.Component{
                                         columns={this.state.columns}
                                         className='-highlight'
                                         style={{maxHeight: '65vh'}} 
-                                        pageSize={this.state.data.length} 
                                         {...styleConfig.reactTable}
                                         getTrProps={this.onRowClick}
                                     />
@@ -699,12 +697,9 @@ class TraceContainer extends React.Component{
                         </Fragment>
                     )}
                 />
-                <ExportModal
-                    show={this.state.showModal}
-                />
             </BOTContainer>
         )
     }
 }
 
-export default TraceContainer
+export default BrowseTraceContainer
