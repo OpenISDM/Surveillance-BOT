@@ -16,9 +16,7 @@ const pdfPackageGenerator = {
             pdfOptions
         } = raw
         const header = pdfPackageGenerator.pdfFormat.getHeader(user, locale, option, signature, additional, data)
-        console.log(header)
         const body = pdfPackageGenerator.pdfFormat.getBody[option](data, locale, user, location, signature, additional)
-        console.log(body)
         const path = pdfPackageGenerator.pdfFormat.getPath(option, additional).path
         const pdf = header + body
         
