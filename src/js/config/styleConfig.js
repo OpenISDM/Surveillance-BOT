@@ -197,9 +197,10 @@ const styleConfig = {
 
         showPagination: true,
 
-        previousText: <i class="fas fa-chevron-left"></i>,
+        previousText: <i className="fas fa-chevron-left"></i>,
 
-        nextText: <i class="fas fa-chevron-right"></i>,
+        nextText: <i className="fas fa-chevron-right"></i>,
+
 
     },
     checkbox: {
