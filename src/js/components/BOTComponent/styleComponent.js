@@ -131,6 +131,7 @@ export const PrimaryButton = styled(Button)`
 export const NoDataFoundDiv = styled.div`
     padding: 10px 20px;
     background: white;
+    text-transform: capitalize;
 `
 
 export const BOTDataTimePicker = styled(DataTimePicker)`

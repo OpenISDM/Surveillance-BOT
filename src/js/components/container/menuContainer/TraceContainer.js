@@ -26,17 +26,6 @@ import dataSrc from '../../../dataSrc';
 
 class TraceContainer extends React.Component{
 
-    componentDidMount = () => {
-        /** set the scrollability in body disabled */
-        let targetElement = document.querySelector('body')
-        enableBodyScroll(targetElement);
-    }
-
-    componentWillUnmount = () => {
-        let targetElement = document.querySelector('body')
-        disableBodyScroll(targetElement);
-    }
-
     static contextType = AppContext
     
     formikRef = React.createRef()
@@ -54,7 +43,20 @@ class TraceContainer extends React.Component{
     }
     columns = [];
 
+    componentDidMount = () => {
+        /** set the scrollability in body disabled */
+        let targetElement = document.querySelector('body')
+        enableBodyScroll(targetElement);
+    }
+
+    componentWillUnmount = () => {
+        let targetElement = document.querySelector('body')
+        disableBodyScroll(targetElement);
+    }
+
     defaultActiveKey='name' 
+
+    title='trace'
 
     navList = [
         {
@@ -466,7 +468,8 @@ class TraceContainer extends React.Component{
             navList,
             handleClick,
             getLocationHistory,
-            onRowClick
+            onRowClick,
+            title
         } = this
 
         let propsGroup = {
@@ -483,7 +486,8 @@ class TraceContainer extends React.Component{
             navList,
             handleClick,
             getLocationHistory,
-            onRowClick
+            onRowClick,
+            title
         }
 
         return (

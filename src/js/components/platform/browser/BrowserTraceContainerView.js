@@ -5,7 +5,7 @@ import 'react-table/react-table.css';
 import { 
     Formik,
 } from 'formik';
-import * as Yup from 'yup';
+import * as Yup from 'yup'; 
 import { 
     Nav,
     Breadcrumb,
@@ -43,7 +43,8 @@ const BrowseTraceContainerView = React.forwardRef(({
     options,
     columns,
     getLocationHistory,
-    onRowClick
+    onRowClick,
+    title
 }, ref) => {
 
     const locale = React.useContext(LocaleContext);
@@ -55,7 +56,7 @@ const BrowseTraceContainerView = React.forwardRef(({
         >
             <div className='d-flex justify-content-between'>
                 <PageTitle>                                            
-                    {locale.texts.TRACKING_HISTORY}
+                    {locale.texts[title.toUpperCase().replace(/ /g, '_')]}
                 </PageTitle>
                 {data.length !== 0 &&
                     <div>

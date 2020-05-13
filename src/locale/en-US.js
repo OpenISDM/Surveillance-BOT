@@ -17,6 +17,7 @@ const en =  {
     TRACKING_HISTORY: "tracking history",
     TRACKING_PATH: "tracking path",
     TRACKING_RECORD: "tracking record",
+    TRACE: "trace",
     HISTORICAL_TRACKING_RECORD: "historical tracking record",
     REAL_TIME_TRACKING_RECORD: "real-time tracking record",
     HISTORICAL_RECORD: "historical record",

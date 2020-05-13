@@ -43,7 +43,8 @@ const TabletTraceContainerView = React.forwardRef(({
     options,
     columns,
     getLocationHistory,
-    onRowClick
+    onRowClick,
+    title
 }, ref) => {
 
     const locale = React.useContext(LocaleContext);
@@ -55,7 +56,7 @@ const TabletTraceContainerView = React.forwardRef(({
         >
             <div className='d-flex justify-content-between'>
                 <PageTitle>                                            
-                    {locale.texts.TRACKING_HISTORY}
+                    {locale.texts[title.toUpperCase().replace(/ /g, '_')]}
                 </PageTitle>
                 {data.length !== 0 &&
                     <div>

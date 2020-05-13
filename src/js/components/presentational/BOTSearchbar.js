@@ -70,6 +70,7 @@ class BOTSearchbar extends React.Component {
                         value={value} 
                         onChange={this.handleChange}
                         autoComplete="off"
+                        autoFocus={false}
                     />
 
                 </Form.Group>

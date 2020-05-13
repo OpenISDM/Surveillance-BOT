@@ -17,6 +17,7 @@ const tw = {
     TRACKING_HISTORY: "追蹤紀錄",
     TRACKING_PATH: "追蹤路徑",
     TRACKING_RECORD: "追蹤紀錄",
+    TRACE: "追蹤紀錄",
     HISTORICAL_TRACKING_RECORD: "歷史紀錄",
     REAL_TIME_TRACKING_RECORD: "即時紀錄",
     HISTORICAL_RECORD: "歷史紀錄",
