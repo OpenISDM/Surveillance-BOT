@@ -15,7 +15,7 @@ import dataSrc from '../../../dataSrc';
 import {
     BrowserView,
     MobileOnlyView,
-    TabletView
+    TabletView,
 } from 'react-device-detect';
 import BrowserObjectTableView from '../../platform/browser/BrowserObjectTableView';
 import MobileObjectTableView from '../../platform/mobile/MobileObjectTableView';

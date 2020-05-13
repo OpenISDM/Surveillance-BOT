@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import 'react-tabs/style/react-tabs.css';
+import React from 'react';
 import { 
     Fade,
 } from 'react-transition-group';
@@ -17,12 +16,34 @@ import {
     PageTitle
 } from '../../BOTComponent/styleComponent';
 import ObjectTableContainer from './ObjectTableContainer';
+import {
+    isMobileOnly,
+    isTablet
+} from 'react-device-detect';
+import { 
+    disableBodyScroll,
+    enableBodyScroll,
+} from 'body-scroll-lock';
 
 class ObjectManagementContainer extends React.Component{
 
     static contextType = AppContext
 
     defaultActiveKey = 'patients_table'
+
+    componentDidMount = () => {
+
+        /** set the scrollability in body disabled */
+        if (isMobileOnly || isTablet) {
+            let targetElement = document.querySelector('body')
+            enableBodyScroll(targetElement);
+        }
+    }
+
+    componentWillUnmount = () => {
+        let targetElement = document.querySelector('body')
+        disableBodyScroll(targetElement);
+    }
     
     render(){
         const {
