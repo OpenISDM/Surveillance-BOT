@@ -16,7 +16,7 @@ import {
     BOTNav,
     PageTitle
 } from '../../BOTComponent/styleComponent';
-import BrowserObjectTable from '../../platform/browser/BrowserObjectTable';
+import ObjectTableContainer from './ObjectTableContainer';
 
 class ObjectManagementContainer extends React.Component{
 
@@ -60,7 +60,7 @@ class ObjectManagementContainer extends React.Component{
                         className='my-3'
                     >
                         <Tab.Pane eventKey='patients_table'>
-                            <BrowserObjectTable/> 
+                            <ObjectTableContainer/> 
                         </Tab.Pane>
                         <AccessControl
                             permission={'user:importTable'}

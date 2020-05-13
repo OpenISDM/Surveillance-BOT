@@ -1,36 +1,28 @@
 import React, { Fragment } from 'react';
-import { 
-    ButtonToolbar,
-} from 'react-bootstrap';
 import { AppContext } from '../../../context/AppContext';
 import ReactTable from 'react-table'; 
 import styleConfig from '../../../config/styleConfig';
 import selecTableHOC from 'react-table/lib/hoc/selectTable';
 import BindForm from '../../container/BindForm';
-import DissociationForm from '../../container/DissociationForm';
 import DeleteConfirmationForm from '../../presentational/DeleteConfirmationForm';
-import Select from 'react-select';
-import BOTInput from '../../presentational/BOTInput';
 import axios from 'axios';
 import EditPatientForm from '../../container/EditPatientForm';
-import {
-    PrimaryButton
-} from '../../BOTComponent/styleComponent';
 import messageGenerator from '../../../helper/messageGenerator';
 const SelectTable = selecTableHOC(ReactTable);
-import AccessControl from '../../presentational/AccessControl';
 import { patientTableColumn } from '../../../config/tables';
 import retrieveDataHelper from '../../../helper/retrieveDataHelper';
-import config from '../../../config';
 import dataSrc from '../../../dataSrc';
 import {
     BrowserView,
     MobileOnlyView,
     TabletView
 } from 'react-device-detect';
+import BrowserObjectTableView from '../../platform/browser/BrowserObjectTableView';
+import MobileObjectTableView from '../../platform/mobile/MobileObjectTableView';
+import TabletObjectTableView from '../../platform/tablet/TableObjectTableView';
 
 
-class BrowserObjectTable extends React.Component{
+class ObjectTableContainer extends React.Component{
     
     static contextType = AppContext
     
@@ -365,18 +357,22 @@ class BrowserObjectTable extends React.Component{
 
     render(){
 
-        const { locale } = this.context 
-
         const {  
             selectedRowData,
             selectAll,
             selectType,
+            filterSelection,
+            selection
         } = this.state
 
         const {
             toggleSelection,
             toggleAll,
             isSelected,
+            addObjectFilter,
+            removeObjectFilter,
+            handleClickButton,
+            handleClick
         } = this;
 
         const extraProps = {
@@ -387,202 +383,31 @@ class BrowserObjectTable extends React.Component{
             selectType
         };
 
+        const propsGroup = {
+            addObjectFilter,
+            removeObjectFilter,
+            filterSelection,
+            handleClickButton,
+            handleClick,
+            selection
+        }
+
         return(
             <Fragment> 
                 <BrowserView>
-                    <div className='d-flex justify-content-between my-4'>
-                        <div className='d-flex justify-content-start'>                    
-                            <BOTInput
-                                className='mx-2'
-                                placeholder={locale.texts.SEARCH}
-                                getSearchKey={(key) => {
-                                    this.addObjectFilter(
-                                        key, 
-                                        ['name', 'area', 'macAddress', 'acn'], 
-                                        'search bar'
-                                    )
-                                }}
-                                clearSearchResult={null}                                        
-                            />
-                            <AccessControl
-                                renderNoAccess={() => null}
-                                platform={['browser']}
-                            >
-                                <Select
-                                    name='Select Area Patient'
-                                    className='mx-2'
-                                    styles={styleConfig.reactSelectFilter}
-                                    onChange={(value) => {
-                                        if(value){
-                                            this.addObjectFilter(value.label, ['area'], 'area select')
-                                        }else{
-                                            this.removeObjectFilter('area select')
-                                        }
-                                    }}
-                                    options={this.state.filterSelection.areaSelection}
-                                    isClearable={true}
-                                    isSearchable={true}
-                                    placeholder={locale.texts.SELECT_AREA}
-                                />
-                            </AccessControl>
-                        </div>
-                        <AccessControl
-                            renderNoAccess={() => null}
-                            platform={['browser', 'tablet']} 
-                        >
-                            <ButtonToolbar>
-                                <PrimaryButton
-                                    className='text-capitalize mr-2 mb-1'
-                                    name='associate'
-                                    onClick={this.handleClickButton}
-                                >
-                                    {locale.texts.ASSOCIATE}
-                                </PrimaryButton>
-                                <PrimaryButton
-                                    className='text-capitalize mr-2 mb-1'
-                                    onClick={this.handleClick}
-                                >
-                                    {locale.texts.ADD}
-                                </PrimaryButton>
-                                <PrimaryButton
-                                    className='text-capitalize mr-2 mb-1'
-                                    name='delete'
-                                    onClick={this.handleClickButton}
-                                    disabled={this.state.selection.length == 0}
-                                >
-                                    {locale.texts.DELETE}
-                                </PrimaryButton>
-                            </ButtonToolbar>
-                        </AccessControl>
-                    </div>
+                    <BrowserObjectTableView
+                        {...propsGroup}
+                    />                    
                 </BrowserView>
                 <TabletView>
-                <div className='d-flex justify-content-between my-4'>
-                        <div className='d-flex justify-content-start'>                    
-                            <BOTInput
-                                className='mx-2'
-                                placeholder={locale.texts.SEARCH}
-                                getSearchKey={(key) => {
-                                    this.addObjectFilter(
-                                        key, 
-                                        ['name', 'area', 'macAddress', 'acn'], 
-                                        'search bar'
-                                    )
-                                }}
-                                clearSearchResult={null}                                        
-                            />
-                            <AccessControl
-                                renderNoAccess={() => null}
-                                platform={['browser']}
-                            >
-                                <Select
-                                    name='Select Area Patient'
-                                    className='mx-2'
-                                    styles={styleConfig.reactSelectFilter}
-                                    onChange={(value) => {
-                                        if(value){
-                                            this.addObjectFilter(value.label, ['area'], 'area select')
-                                        }else{
-                                            this.removeObjectFilter('area select')
-                                        }
-                                    }}
-                                    options={this.state.filterSelection.areaSelection}
-                                    isClearable={true}
-                                    isSearchable={true}
-                                    placeholder={locale.texts.SELECT_AREA}
-                                />
-                            </AccessControl>
-                        </div>
-                        <AccessControl
-                            renderNoAccess={() => null}
-                            platform={['browser', 'tablet']} 
-                        >
-                            <ButtonToolbar>
-                                <PrimaryButton
-                                    className='text-capitalize mr-2 mb-1'
-                                    name='associate'
-                                    onClick={this.handleClickButton}
-                                >
-                                    {locale.texts.ASSOCIATE}
-                                </PrimaryButton>
-                                <PrimaryButton
-                                    className='text-capitalize mr-2 mb-1'
-                                    onClick={this.handleClick}
-                                >
-                                    {locale.texts.ADD}
-                                </PrimaryButton>
-                                <PrimaryButton
-                                    className='text-capitalize mr-2 mb-1'
-                                    name='delete'
-                                    onClick={this.handleClickButton}
-                                    disabled={this.state.selection.length == 0}
-                                >
-                                    {locale.texts.DELETE}
-                                </PrimaryButton>
-                            </ButtonToolbar>
-                        </AccessControl>
-                    </div>
+                    <TabletObjectTableView
+                        {...propsGroup}
+                    />
                 </TabletView>
                 <MobileOnlyView>
-                    <div className='d-flex justify-content-start'>                    
-                        <BOTInput
-                            className='mx-2'
-                            placeholder={locale.texts.SEARCH}
-                            getSearchKey={(key) => {
-                                this.addObjectFilter(
-                                    key, 
-                                    ['name', 'area', 'macAddress', 'acn'], 
-                                    'search bar'
-                                )
-                            }}
-                            clearSearchResult={null}                                        
-                        />
-                        <AccessControl
-                            renderNoAccess={() => null}
-                            platform={['browser']}
-                        >
-                            <Select
-                                name='Select Area Patient'
-                                className='mx-2'
-                                styles={styleConfig.reactSelectFilter}
-                                onChange={(value) => {
-                                    if(value){
-                                        this.addObjectFilter(value.label, ['area'], 'area select')
-                                    }else{
-                                        this.removeObjectFilter('area select')
-                                    }
-                                }}
-                                options={this.state.filterSelection.areaSelection}
-                                isClearable={true}
-                                isSearchable={false}
-                                placeholder={locale.texts.SELECT_AREA}
-                            />
-                        </AccessControl>
-                    </div>
-
-                    <ButtonToolbar>
-                        <PrimaryButton
-                            className='text-capitalize mr-2 mb-1'
-                            name='associate'
-                            onClick={this.handleClickButton}
-                        >
-                            {locale.texts.ASSOCIATE}
-                        </PrimaryButton>
-                        <PrimaryButton
-                            className='text-capitalize mr-2 mb-1'
-                            onClick={this.handleClick}
-                        >
-                            {locale.texts.ADD}
-                        </PrimaryButton>
-                        <PrimaryButton
-                            className='text-capitalize mr-2 mb-1'
-                            name='delete'
-                            onClick={this.handleClickButton}
-                            disabled={this.state.selection.length == 0}
-                        >
-                            {locale.texts.DELETE}
-                        </PrimaryButton>
-                    </ButtonToolbar>
+                    <MobileObjectTableView
+                        {...propsGroup}
+                    />                    
 
                 </MobileOnlyView>
                 <hr/>
@@ -642,7 +467,6 @@ class BrowserObjectTable extends React.Component{
                         }, {})
                     }
                 />
-
                 <DeleteConfirmationForm
                     show={this.state.showDeleteConfirmation} 
                     handleClose={this.handleClose}
@@ -656,4 +480,4 @@ class BrowserObjectTable extends React.Component{
         )
     }
 }
-export default BrowserObjectTable
+export default ObjectTableContainer
