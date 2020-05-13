@@ -95,6 +95,7 @@ const  MobileTraceContainerView = React.forwardRef(({
                             .required(locale.texts.REQUIRED),
 
                         startTime: Yup.string()
+                            .nullable()
                             .required(locale.texts.START_TIME_IS_REQUIRED)
                             .test(
                                 'startTime', 
@@ -106,6 +107,7 @@ const  MobileTraceContainerView = React.forwardRef(({
                             ),
 
                         endTime: Yup.string()
+                            .nullable()
                             .required(locale.texts.END_TIME_IS_REQUIRED)
                             .test(
                                 'endTime', 
