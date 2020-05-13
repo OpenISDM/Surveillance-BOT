@@ -8,15 +8,15 @@ import ScrollArea from 'react-scrollbar';
 import AccessControl from '../../presentational/AccessControl';
 import SearchResultListGroup from '../../presentational/SearchResultListGroup'
 import LocaleContext from '../../../context/LocaleContext';
+import {
+    ListTitle
+} from '../../BOTComponent/styleComponent';
 
 const style = {
     noResultDiv: {
         color: 'grey',
         fontSize: '1rem',
     },
-    titleText: {
-        color: 'rgb(80, 80, 80, 0.9)',
-    }, 
     list: {
         maxHeight: '75vh',
         overflow:  'hidden scroll'
@@ -35,15 +35,15 @@ const BrowserSearchResultList = ({
     let locale = React.useContext(LocaleContext);
     return (
         <Fragment>
-            <Row className='d-flex justify-content-center' style={style.titleText}>
-                <div className='title text-capitalize'>
+            <Row className='d-flex justify-content-center'>
+                <ListTitle>
                     {title}
-                </div>
+                </ListTitle>
             </Row>
             <Row>
                 {searchResult.length == 0 
                     ?   <Col className='d-flex justify-content-center font-weight-lighter' style={style.noResultDiv}>
-                            <div className='searchResultForDestop'>{locale.texts.NO_RESULT}</div>
+                            {locale.texts.NO_RESULT}
                         </Col> 
                     :   
                         <Col 

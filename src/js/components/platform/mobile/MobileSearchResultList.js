@@ -8,6 +8,9 @@ import ScrollArea from 'react-scrollbar';
 import AccessControl from '../../presentational/AccessControl';
 import SearchResultListGroup from '../../presentational/SearchResultListGroup'
 import LocaleContext from '../../../context/LocaleContext';
+import {
+    ListTitle
+} from '../../BOTComponent/styleComponent';
 
 const MobileSearchResultList = ({
     searchKey,
@@ -26,10 +29,6 @@ const MobileSearchResultList = ({
             color: 'grey',
             fontSize: '1rem',
         },
-        titleText: {
-            color: 'rgb(80, 80, 80, 0.9)',
-        }, 
-
         searchResultListForTablet: {
             maxHeight: '28vh',
             dispaly: searchKey ? null : 'none',
@@ -39,15 +38,15 @@ const MobileSearchResultList = ({
 
     return(
         <Fragment>
-            <Row className='d-flex justify-content-center' style={style.titleText}>
-                <h4>
+            <Row className='d-flex justify-content-center'>
+                <ListTitle>
                     {title}
-                </h4>
+                </ListTitle>
             </Row>
             <Row>
                 {searchResult.length === 0 
                     ?   <Col className='d-flex justify-content-center font-weight-lighter' style={style.noResultDiv}>
-                            <div className='searchResultForDestop'>{locale.texts.NO_RESULT}</div>
+                            {locale.texts.NO_RESULT}
                         </Col> 
                     :   
                         <Col className="searchResultListGroupForTablet d-flex justify-content-center">
