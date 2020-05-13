@@ -258,7 +258,7 @@ const locationHistoryByMacColumns = [
     {
         Header: "area",
         accessor: "area",
-        width: 180,
+        width: 230,
     },
     {
         Header: "description",
@@ -268,17 +268,17 @@ const locationHistoryByMacColumns = [
     {
         Header: "UUID",
         accessor: "uuid",
-        width: 400,
+        width: 450,
     },
     {
         Header: "start time",
         accessor: "startTime",
-        width: 250,
+        width: 300,
     },
     {
         Header: "end time",
         accessor: "endTime",
-        width: 250,
+        width: 300,
     },
     {
         Header: 'residence time',
@@ -300,17 +300,17 @@ const locationHistoryByUUIDColumns = [
     {
         Header: "mac address",
         accessor: "mac_address",
-        width: 180,
+        width: 250,
     },
     {
         Header: "area",
         accessor: "area",
-        width: 180,
+        width: 250,
     },
     {
         Header: "description",
         accessor: "location_description",
-        width: 180,
+        width: 200,
     },
 ]
 
