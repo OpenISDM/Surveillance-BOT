@@ -8,9 +8,9 @@ import {
     TabletView,
     MobileOnlyView
 } from 'react-device-detect';
-import BrowserTraceContainer from '../../platform/browser/BrowserTraceContainer';
-import MobileTraceContainer from '../../platform/mobile/MobileTraceContainer';
-import TabletTraceContainer from '../../platform/tablet/TabletTraceContainer';
+import BrowserTraceContainerView from '../../platform/browser/BrowserTraceContainerView';
+import MobileTraceContainerView from '../../platform/mobile/MobileTraceContainerView';
+import TabletTraceContainerView from '../../platform/tablet/TabletTraceContainerView';
 import { AppContext } from '../../../context/AppContext';
 import retrieveDataHelper from '../../../helper/retrieveDataHelper';
 import pdfPackageGenerator from '../../../helper/pdfPackageGenerator';
@@ -340,11 +340,21 @@ class TraceContainer extends React.Component{
 
     handleClick = (e) => {
         let name = e.target.name 
+
         let {
             auth,
             locale
         } = this.context
+
         let values = this.formikRef.current.state.values; 
+
+        let {
+            setFieldValue,
+            setErrors,
+            setTouched,
+            setStatus
+        } = this.formikRef.current
+
         switch(name) {
             case 'exportCSV':
 
@@ -408,12 +418,6 @@ class TraceContainer extends React.Component{
                 break;
 
             case 'nav':
-                let {
-                    setFieldValue,
-                    setErrors,
-                    setTouched,
-                    setStatus
-                } = this.formikRef.current
                 let mode = e.target.getAttribute('data-rb-event-key')
                 setFieldValue('key', null)
                 setFieldValue('mode', mode)
@@ -427,9 +431,24 @@ class TraceContainer extends React.Component{
                     columns: [],
                 })
                 break;
-
+            case 'bread':
+                let {
+                    history,
+                    index 
+                } = JSON.parse(e.target.getAttribute('data'))
+                setFieldValue('mode', history.mode)
+                setFieldValue('key', history.key) 
+                setFieldValue('startTime', moment(history.startTime).toDate())
+                setFieldValue('endTime', moment(history.endTime).toDate())
+                this.setState({
+                    data: history.data,
+                    columns: history.columns,
+                    breadIndex: parseInt(index)
+                })
         }
     }
+
+
  
     render(){
  
@@ -470,20 +489,21 @@ class TraceContainer extends React.Component{
         return (
             <Fragment>
                 <BrowserView>
-                    <BrowserTraceContainer
-                        location={this.props.location}
+                    <BrowserTraceContainerView
                         {...propsGroup}
                         ref={this.formikRef}
                     /> 
                 </BrowserView>
                 <TabletView>
-                    <TabletTraceContainer
-                        location={this.props.location}
+                    <TabletTraceContainerView
+                        {...propsGroup}
+                        ref={this.formikRef}
                     /> 
                 </TabletView>
                 <MobileOnlyView>
-                    <MobileTraceContainer
-                        location={this.props.location}
+                    <MobileTraceContainerView
+                        {...propsGroup}
+                        ref={this.formikRef}
                     />
                 </MobileOnlyView>
             </Fragment>  

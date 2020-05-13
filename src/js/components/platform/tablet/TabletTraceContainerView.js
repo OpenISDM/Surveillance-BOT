@@ -33,12 +33,11 @@ import LocaleContext from '../../../context/LocaleContext';
 
 momentLocalizer()
 
-const BrowseTraceContainer = React.forwardRef(({
+const TabletTraceContainerView = React.forwardRef(({
     getInitialValues,
     breadIndex,
     data,
     histories,
-    setState,
     navList,
     handleClick,
     options,
@@ -46,9 +45,9 @@ const BrowseTraceContainer = React.forwardRef(({
     getLocationHistory,
     onRowClick
 }, ref) => {
+
     const locale = React.useContext(LocaleContext);
     const timeValidatedFormat = 'YYYY/MM/DD HH:mm:ss'
-
     let initialValues = getInitialValues()
 
     return (
@@ -94,30 +93,6 @@ const BrowseTraceContainer = React.forwardRef(({
                         key: Yup.object()
                             .nullable()
                             .required(locale.texts.REQUIRED),
-                            // .when('mode', {
-                            //     is: 'mac',
-                            //     then: Yup.string().test(
-                            //         'mode', 
-                            //         locale.texts.MAC_ADDRESS_FORMAT_IS_NOT_CORRECT,
-                            //         value => {  
-                            //             if (value == undefined) return false
-                            //             let pattern = new RegExp('^[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}:?[0-9a-fA-F]{2}$');
-                            //             return value.match(pattern)
-                            //         }
-                            //     )
-                            // })
-                            // .when('mode', {
-                            //     is: 'uuid',
-                            //     then: Yup.object().test(
-                            //         'uuid', 
-                            //         locale.texts.LBEACON_FORMAT_IS_NOT_CORRECT,
-                            //         value => {  
-                            //             if (value == undefined) return false
-                            //             let pattern = new RegExp('^[0-9A-Fa-f]{8}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{4}-?[0-9A-Fa-f]{12}$');
-                            //             return value.value.match(pattern)
-                            //         }
-                            //     )
-                            // }),
 
                         startTime: Yup.string()
                             .required(locale.texts.START_TIME_IS_REQUIRED)
@@ -159,28 +134,20 @@ const BrowseTraceContainer = React.forwardRef(({
                     submitForm, 
                 }) => (
                     <Fragment>
-                        {console.log(breadIndex)}
                         <Breadcrumb 
                             className='my-2'
                         >
-                            {histories.map((history, index) => { 
-                                return ( 
+                            {histories.map((history, index) => {
+                                return (
                                     <Breadcrumb.Item
                                         key={index}
                                         active={breadIndex == index}
                                         name='bread'
-                                        // onClick={(e) => {
-
-                                        //     setFieldValue('mode', history.mode)
-                                        //     setFieldValue('key', history.key) 
-                                        //     setFieldValue('startTime', moment(history.startTime).toDate())
-                                        //     setFieldValue('endTime', moment(history.endTime).toDate())
-                                        //     setState({
-                                        //         data: history.data,
-                                        //         columns: history.columns,
-                                        //         breadIndex: index
-                                        //     })
-                                        // }}
+                                        data={JSON.stringify({
+                                            history,
+                                            index
+                                        })}
+                                        onClick={handleClick}
                                     >
                                         {history.description}
                                     </Breadcrumb.Item>
@@ -222,8 +189,21 @@ const BrowseTraceContainer = React.forwardRef(({
                                         }}
                                         isClearable={true}
                                         isSearchable={true}
+                                        styles={{
+                                            control: (provided) => ({
+                                                ...provided,
+                                                fontSize: '1rem',
+                                                minHeight: '3rem',
+                                                position: 'none',
+                                                width: '300px',
+                                                borderRadius: 0                                
+                                            }),
+                                            valueContainer: base => ({
+                                                ...base,
+                                                paddingLeft: 35
+                                            }),
+                                        }}
                                         options={options[values.mode]}
-                                        styles={styleConfig.reactSelectSearch}
                                         components={styleConfig.reactSelectSearchComponent}         
                                         placeholder={locale.texts[`SEARCH_FOR_${values.mode.toUpperCase()}`]}                           
                                     />
@@ -242,53 +222,19 @@ const BrowseTraceContainer = React.forwardRef(({
                                         </div>
                                     )}
                                 </div>
-                                
-                                <div
+                                <DateTimePicker 
+                                    name='startTime'
                                     className='mx-2'
-                                    style={{
-                                        position: 'relative'
-                                    }}
-                                > 
-                                    <DateTimePicker 
-                                        name='startTime'
-                                        className='mx-2'
-                                        value={values.startTime} 
-                                        onkeydown="return false"
-                                        onChange={(value) => { 
-                                            value != null ?
-                                            setFieldValue('startTime', moment(value).toDate())
-                                            : setFieldValue('startTime', undefined)
-                                        }}  
-                                    
-                                        placeholder={locale.texts.START_TIME} 
-                                    />
-
-                                    {errors.startTime && (
-                                    <div 
-                                        className='text-left'
-                                        style={{
-                                            fontSize: '0.6rem',
-                                            color: styleSheet.warning,
-                                            position: 'absolute',
-                                            left: 10,
-                                            bottom: -18,
-                                        }}
-                                    >
-                                        {errors.startTime}
-                                    </div>
-                                )}
-
-                                </div>
-
-
-                                <div
-                                    className='mx-2'
-                                    style={{
-                                        position: 'relative'
-                                    }}
-                                >
+                                    value={values.startTime} 
+                                    onkeydown="return false"
+                                    onChange={(value) => { 
+                                        value != null ?
+                                        setFieldValue('startTime', moment(value).toDate())
+                                        : null
+                                    }}  
                                 
-
+                                    placeholder={locale.texts.START_TIME} 
+                                />
                                 <DateTimePicker 
                                     name='endTime'
                                     className='mx-2'
@@ -296,27 +242,13 @@ const BrowseTraceContainer = React.forwardRef(({
                                     onChange={(value) => { 
                                         value != null ?
                                         setFieldValue('endTime', moment(value).toDate())
-                                        : setFieldValue('endTime', undefined)
+                                        : null
                                     }} 
                                     placeholder={locale.texts.END_TIME}
                                 />
-                                    {errors.endTime && (
-                                    <div 
-                                        className='text-left'
-                                        style={{
-                                            fontSize: '0.6rem',
-                                            color: styleSheet.warning,
-                                            position: 'absolute',
-                                            left: 10,
-                                            bottom: -18,
-                                        }}
-                                    >
-                                        {errors.endTime}
-                                    </div>
-                                )}
-
-                                </div>
+                            
                             </div>
+                            
                             <div
                                 className='d-flex align-items-center'
                             >
@@ -353,4 +285,4 @@ const BrowseTraceContainer = React.forwardRef(({
     )
 })
 
-export default BrowseTraceContainer
+export default  TabletTraceContainerView
