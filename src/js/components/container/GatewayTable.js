@@ -242,39 +242,35 @@ class GatewayTable extends React.Component{
                     </AccessControl>
                 </div>
                 <hr/>
-                {this.state.data.length != 0 &&
-                    <SelectTable
-                        keyField='id'
-                        data={this.state.data} 
-                        columns={this.state.columns}
-                        SelectAllInputComponent={BOTCheckbox}
-                        SelectInputComponent={BOTCheckbox}
-                        {...styleConfig.reactTable}
-                        ref={r => (this.selectTable = r)}
-                        className='-highlight'
-                        style={{maxHeight:'75vh'}}                     
-                        onPageChange={(e) => {
-                            this.setState({
-                                selectAll:false,
-                                selection:''
-                            })
-                        }} 
-                        {...extraProps}
-                        getTrProps={(state, rowInfo, column, instance) => {
-                            return {
-                                onClick: (e, handleOriginal) => {
-                                    this.setState({
-                                        selectedRowData: rowInfo.original,
-                                        showEdit: true,
-                                    })
-                                    if (handleOriginal) {
-                                        handleOriginal()
-                                    }
+                <SelectTable
+                    keyField='id'
+                    data={this.state.data} 
+                    columns={this.state.columns}
+                    {...styleConfig.reactTable}
+                    ref={r => (this.selectTable = r)}
+                    className='-highlight'
+                    style={{maxHeight:'75vh'}}                     
+                    onPageChange={(e) => {
+                        this.setState({
+                            selectAll:false,
+                            selection:''
+                        })
+                    }} 
+                    {...extraProps}
+                    getTrProps={(state, rowInfo, column, instance) => {
+                        return {
+                            onClick: (e, handleOriginal) => {
+                                this.setState({
+                                    selectedRowData: rowInfo.original,
+                                    showEdit: true,
+                                })
+                                if (handleOriginal) {
+                                    handleOriginal()
                                 }
                             }
-                        }}
-                    />
-                }
+                        }
+                    }}
+                />
                 <EditGatewayForm 
                     show= {this.state.showEdit} 
                     title='add comment'

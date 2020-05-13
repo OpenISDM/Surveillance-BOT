@@ -201,6 +201,7 @@ const styleConfig = {
 
         nextText: <i className="fas fa-chevron-right"></i>,
 
+        NoDataComponent: () => null
 
     },
     checkbox: {
