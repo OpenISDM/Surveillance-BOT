@@ -14,10 +14,6 @@
         display: inline-block
     }
 
-    .searchResultForDestop {
-        display: none;
-    }
-
     .searchResultListGroup {
         max-Height: none;
         overflow: hidden auto;
