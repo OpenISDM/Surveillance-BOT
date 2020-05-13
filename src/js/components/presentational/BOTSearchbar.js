@@ -69,6 +69,7 @@ class BOTSearchbar extends React.Component {
                         className='border-0 w-100' 
                         value={value} 
                         onChange={this.handleChange}
+                        autoComplete="off"
                     />
 
                 </Form.Group>
