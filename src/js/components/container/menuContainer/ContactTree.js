@@ -11,8 +11,6 @@ import {
 import {
     userContainerModule
 } from '../../../config/pageModules';
-import MobileTraceContainer from '../../platform/mobile/MobileTraceContainer';
-import TabletTraceContainer from '../../platform/tablet/TabletTraceContainer';
 import BrowserContactTree from '../../platform/browser/BrowserContactTree';
 
 class ContactTree extends React.Component{
@@ -37,7 +35,7 @@ class ContactTree extends React.Component{
                         location={this.props.location}
                     /> 
                 </BrowserView>
-                <TabletView>
+                {/* <TabletView>
                     <TabletTraceContainer
                         location={this.props.location}
                     /> 
@@ -46,7 +44,7 @@ class ContactTree extends React.Component{
                     <MobileTraceContainer
                         location={this.props.location}
                     />
-                </MobileOnlyView>
+                </MobileOnlyView> */}
             </Fragment>  
         )
     }

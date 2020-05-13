@@ -87,9 +87,8 @@ class TraceContainer extends React.Component{
         /** Set formik status as 0. Would render loading page */
         this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.LOADING)
 
-        console.log(fields)
-        let startTime = moment().subtract(6, 'days');
-        let endTime = moment().subtract(4, 'days');
+        let startTime = moment().subtract(1, 'days');
+        let endTime = moment();
         var parents = [];
         let level = 0;
         let maxLevel = fields.level;
@@ -105,7 +104,7 @@ class TraceContainer extends React.Component{
         )
 
         let result = await contactTree
-
+            console.log(result)
         let processedData = this.processContactTree(result)
         let final = this.filterDuplicated(processedData)
         
@@ -180,7 +179,6 @@ class TraceContainer extends React.Component{
                 endTime,
             )
             .then(res => {
-                console.log(res)
                 level++
                 // if (!parents.includes(name)) parents.push(name)
                 // console.log(res.data.rows)
