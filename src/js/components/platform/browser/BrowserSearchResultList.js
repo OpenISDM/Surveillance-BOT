@@ -18,7 +18,7 @@ const style = {
         fontSize: '1rem',
     },
     list: {
-        maxHeight: '75vh',
+        maxHeight: '60vh',
         overflow:  'hidden scroll'
     }
 }
