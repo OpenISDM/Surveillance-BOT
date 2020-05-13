@@ -18,6 +18,7 @@ html,body {
     overflow-x: hidden;
 }
 
+
 /* html element */
 :focus {
     outline: 0;
@@ -231,6 +232,7 @@ a:hover {
     transition: none;
     text-transform: capitalize;
     letter-spacing: 1px;
+    word-break: keep-all;
 }
 
 .btn.btn-sm {
