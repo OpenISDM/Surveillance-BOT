@@ -98,7 +98,7 @@ export default class Pagination extends React.Component {
                     &nbsp;
                     {locale.texts.RESULTS}
                 </div>
-                {this.props.data.length && (
+                {this.props.data.length != 0 && (
                     <div
                         className='d-flex'
                     >

@@ -8,28 +8,15 @@ import {
 import AuthenticationContext from '../../../context/AuthenticationContext';
 
 const MobileMainContainer = ({ 
-    handleClearButton,
     getSearchKey,
-    setMonitor,
-    clearAlerts,
-    handleClosePath,
     handleShowPath,
-    lbeaconPosition,
-    geofenceConfig,
-    searchedObjectType,
-    showedObjects,
     highlightSearchPanel,
     showMobileMap,
     clearSearchResult,
     searchKey,
     searchResult,
-    trackingData,
-    proccessedTrackingData,
     hasSearchKey,
-    setShowedObjects,
-    pathMacAddress,
-    isHighlightSearchPanel,
-    locationMonitorConfig
+
 }) => {
 
     let auth = React.useContext(AuthenticationContext)

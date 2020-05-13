@@ -49,6 +49,13 @@ export const PageTitle = styled.div`
     margin-bottom: 1rem;
 `
 
+export const ListTitle = styled.div`
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: black;
+`
+
 export const BOTContainer = styled.div`
     margin: 20px 20px;
 `

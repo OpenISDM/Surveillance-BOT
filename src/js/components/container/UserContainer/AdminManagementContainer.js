@@ -247,9 +247,9 @@ class AdminManagementContainer extends React.Component{
                 <hr/>
                 <ReactTable 
                     data={this.state.data} 
-                    columns={this.state.columns} 
+                    columns={this.state.data.length != 0 ? this.state.columns : [{Header: ''}]} 
                     className='-highlight text-none'
-                    style={{maxHeight:'85vh'}}                               
+                    style={{maxHeight:'75vh'}}                               
                     {...styleConfig.reactTable}
                     getTrProps={this.onRowClick}
                 />
