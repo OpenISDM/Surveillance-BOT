@@ -95,6 +95,7 @@ const BrowseTraceContainerView = React.forwardRef(({
                             .required(locale.texts.REQUIRED),
 
                         startTime: Yup.string()
+                            .nullable()
                             .required(locale.texts.START_TIME_IS_REQUIRED)
                             .test(
                                 'startTime', 
@@ -106,6 +107,7 @@ const BrowseTraceContainerView = React.forwardRef(({
                             ),
 
                         endTime: Yup.string()
+                            .nullable()
                             .required(locale.texts.END_TIME_IS_REQUIRED)
                             .test(
                                 'endTime', 
@@ -213,13 +215,13 @@ const BrowseTraceContainerView = React.forwardRef(({
                                     style={{
                                         position: 'relative'
                                     }}
-                                > 
+                                >   
                                     <DateTimePicker 
                                         name='startTime'
                                         className='mx-2'
                                         value={values.startTime} 
                                         onkeydown="return false"
-                                        onChange={(value) => { 
+                                        onChange={(value) => {  
                                             value != null ?
                                             setFieldValue('startTime', moment(value).toDate())
                                             : setFieldValue('startTime', undefined)
@@ -257,7 +259,7 @@ const BrowseTraceContainerView = React.forwardRef(({
                                 <DateTimePicker 
                                     name='endTime'
                                     className='mx-2'
-                                    value={values.endTime}
+                                    value={values.endTime != null ? values.endTime  : undefined} 
                                     onChange={(value) => { 
                                         value != null ?
                                         setFieldValue('endTime', moment(value).toDate())
