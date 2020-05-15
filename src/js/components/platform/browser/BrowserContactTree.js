@@ -320,7 +320,7 @@ class TraceContainer extends React.Component{
                     locale,
                     signature: null,
                     additional: null,
-                    pdfOptions,
+                    // pdfOptions,
                 })
 
                 axios.post(dataSrc.file.export.pdf, {
@@ -338,6 +338,19 @@ class TraceContainer extends React.Component{
     render () {
 
         const { locale } = this.context
+
+        let test = [
+            {},
+            {
+                'joechou': ['hcc', 'jason', 'jimmy']
+            },
+            {
+                'hcc': ['jim', 'joey']
+            },
+            {
+                jane: ['edward', 'eric']
+            }
+        ]
  
         return (
             <BOTContainer>
@@ -490,20 +503,26 @@ class TraceContainer extends React.Component{
                                 </div>
                             </div>
                             <hr/>
-                            <div
-                                className='d-flex justify-content-start'
+                            <Row
+                                // className='d-flex justify-content-start'
                             >
-                                {this.state.collection.length != 0 
-                                    ?  this.state.collection.map((level, index) => {
+                                {test != 0 
+                                    ?  test.map((level, index) => {
                                             return (
                                                 <Card 
                                                     style={{ 
-                                                        width: '20rem' 
+                                                        // width: '20rem' 
                                                     }}
-                                                    className='mr-1'
+                                                    className='col-lg-4 border-0 p-1'
                                                     key={index}
                                                 >
-                                                    <Card.Body>
+                                                    <Card.Body
+                                                        style={{
+                                                            border: '1px solid rgba(0,0,0,.125)',
+                                                            borderRadius: '.25rem'
+                                                        }}
+                                                        
+                                                    >
                                                         <Card.Title
                                                             className='text-capitalize'
                                                         >
@@ -550,7 +569,7 @@ class TraceContainer extends React.Component{
                                         })
                                     :   <NoDataFoundDiv>{locale.texts[status.toUpperCase().replace(/ /g, '_')]}</NoDataFoundDiv>
                                 }
-                            </div>
+                            </Row>
                             {status == config.AJAX_STATUS_MAP.LOADING && <Loader backdrop={false} />}
                         </Fragment>
                     )}

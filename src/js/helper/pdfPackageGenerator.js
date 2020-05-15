@@ -234,67 +234,7 @@ const pdfPackageGenerator = {
 
             contactTree: (data, locale, user, location) => {
                 console.log(data)
-                // let foundTitle = pdfPackageGenerator.pdfFormat.getBodyItem.getBodyTitle(
-                //     'devices found', 
-                //     locale, 
-                //     area, 
-                //     data.foundResult.length !== 0
-                // )
-                // let foundResultList = pdfPackageGenerator.pdfFormat.getBodyItem.getDataContent(data.foundResult, locale)
-
-                
-                let test = data.map((level, index) => {
-                    return `
-                        <div 
-                            class='row'
-                        >
-                            <div>
-                                <div
-                                    className='text-capitalize'
-                                >
-                                    ${locale.texts.LEVEL} ${index}
-                                </div>
-                                <div>
-                                    ${Object.keys(level).map((parent, index) => {
-                                        return `
-                                            <div
-                                                key={index}
-                                                class='row'
-                                            >
-                                                <div
-                                                    class='col'
-                                                >
-                                                    ${parent}
-                                                </div>
-                                                <div
-                                                    class='col'
-                                                >
-                                                    ->                                                        
-                                                </div>
-                                                <div
-                                                    class='col'
-                                                >
-                                                    ${level[parent].map(child => {
-                                                        return `
-                                                            <p
-                                                                className='d-flex-column'
-                                                            >
-                                                                ${child}
-                                                            </p>
-                                                        `
-                                                    })}
-                                                </div>
-
-                                            </div>
-                                        `
-                                    })}
-                                </div>
-                            </div>
-                        </div>                                    
-                    `
-                })    
-
-                return test
+                return pdfPackageGenerator.pdfFormat.getBodyItem.getContactTracingContent(data, locale)  
             },
         },
         getBodyItem: {
@@ -526,6 +466,69 @@ const pdfPackageGenerator = {
                         </div>
                     </div>
                 `
+            },
+
+            getContactTracingContent: (data, locale) => {
+                return data.map((level, index) => {
+                    return `
+                        <div
+                            style='
+                                margin-top: 1rem;
+                                letter-spacing: 1px;
+                            '
+                        >
+                            <div
+                                style='
+                                    text-transform: capitalize;
+                                '
+                            >
+                                ${locale.texts.LEVEL} ${index}
+                            </div>
+                            <div>
+                                ${Object.keys(level).map((parent, index) => {
+                                    return `
+                                        <div
+                                            style='
+                                                display: table;
+                                                width: 100%; /*Optional*/
+                                                table-layout: fixed; /*Optional*/
+                                                border-spacing: 10px; /*Optional*/
+                                            '                                            
+                                        >
+                                            <div
+                                                style='
+                                                    display: table-cell;
+                                                '
+                                            >
+                                                ${parent}
+                                            </div>
+                                            <div
+                                                style='
+                                                    display: table-cell;
+                                                '
+                                            >
+                                                ->                                                        
+                                            </div>
+                                            <div
+                                                style='
+                                                    display: table-cell;
+                                                '
+                                            >
+                                                ${level[parent].map(child => {
+                                                    return `
+                                                        <div>
+                                                            ${child}
+                                                        </div>
+                                                    `
+                                                }).join('')}
+                                            </div>
+                                        </div>
+                                    `
+                                }).join('')}
+                            </div>
+                        </div>
+                    `
+                }).join('')  
             }
         },
     
