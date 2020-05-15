@@ -352,7 +352,10 @@ const pdfPackageGenerator = {
                 let headers = columns.map(field => {
                     return `
                         <th 
-                            style='text-align: left'
+                            style='
+                                text-align: left;
+                                text-transform: capitalize;
+                            '
                         >
                             ${field.Header}
                         </th>
@@ -360,7 +363,11 @@ const pdfPackageGenerator = {
                 }).join(' ')
                 return `
                     <table 
-                        style='width:100%; font-size: 0.8rem;'
+                        style='
+                            width:100%; 
+                            font-size: 0.8rem;
+                            margin-top: 1rem;
+                        '
                     >
                         ${headers}
                         ${data.map((item, index) => {
@@ -387,7 +394,10 @@ const pdfPackageGenerator = {
                 let headers = columns.map(field => {
                     return `
                         <th
-                            style='text-align: left'
+                            style='
+                                text-align: left;
+                                text-transform: capitalize;
+                            '
                         >
                             ${field.Header}
                         </th>
@@ -395,7 +405,11 @@ const pdfPackageGenerator = {
                 }).join(' ')
                 return `
                     <table 
-                        style='width:100%; font-size: 0.8rem;'
+                        style='
+                            width:100%; 
+                            font-size: 0.8rem;
+                            margin-top: 1rem;
+                        '
                     >
                         ${headers}
                         ${data.map((item, index) => {
@@ -405,7 +419,7 @@ const pdfPackageGenerator = {
                                     <td>${item.name}</td>
                                     <td>${item.mac_address}</td>
                                     <td>${item.area}</td>
-                                    <td>${item.description}</td>
+                                    <td>${item.location_description}</td>
                                 </tr>
                             `
                         }).join(' ')}
