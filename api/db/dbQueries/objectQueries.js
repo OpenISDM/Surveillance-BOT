@@ -50,8 +50,8 @@ const getObject = (objectType, areas_id) => {
 		WHERE object_table.object_type IN (${objectType.map(type => type)})
 		${areas_id ? `AND object_table.area_id IN (${areas_id.map(id => id)})` : ''}
 		ORDER BY 
-			object_table.registered_timestamp DESC,
-			object_table.name ASC
+			object_table.name ASC,
+			object_table.registered_timestamp DESC
 			
 			;
 	`
