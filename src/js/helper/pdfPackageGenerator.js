@@ -234,7 +234,6 @@ const pdfPackageGenerator = {
 
             contactTree: (data, locale, user, location) => {
                 console.log(data)
-                Object.keys(data).map(le)
                 // let foundTitle = pdfPackageGenerator.pdfFormat.getBodyItem.getBodyTitle(
                 //     'devices found', 
                 //     locale, 
@@ -244,55 +243,58 @@ const pdfPackageGenerator = {
                 // let foundResultList = pdfPackageGenerator.pdfFormat.getBodyItem.getDataContent(data.foundResult, locale)
 
                 
-                    {Object.keys(data)
-                        .filter(level => {
-                            return level != 0 && Object.values(data[level].length != 0)
-                        })
-                        .map((level, index) => {
-                            return (
-                                <Col
-                                    key={index}
-                                    lg={2}
+                let test = data.map((level, index) => {
+                    return `
+                        <div 
+                            class='row'
+                        >
+                            <div>
+                                <div
+                                    className='text-capitalize'
                                 >
-                                    {Object.keys(data[level])
-                                        .filter(parent => data[level][parent].length != 0)
-                                        .map((parent, index) => {
-                                            return (
-                                                <div>
-                                                    <div>
-                                                        {locale.texts.LEVEL} {level}
-                                                    </div>
-                                                    <Row
-                                                        key={index}
-                                                    >
-                                                        <Col>
-                                                            {parent}
-                                                        </Col>
-                                                        <Col>
-                                                            <i class="fas fa-arrow-right"></i>                                                    
-                                                        </Col>
-                                                        <Col
-                                                            className='d-flex-column'
-                                                        >
-                                                            {data[level][parent].map((child, index) => {
-                                                                return (
-                                                                    <div
-                                                                        key={index}
-                                                                    >
-                                                                        {child}
-                                                                    </div>
-                                                                )
-                                                            })}
-                                                        </Col>
-                                                    </Row>
+                                    ${locale.texts.LEVEL} ${index}
+                                </div>
+                                <div>
+                                    ${Object.keys(level).map((parent, index) => {
+                                        return `
+                                            <div
+                                                key={index}
+                                                class='row'
+                                            >
+                                                <div
+                                                    class='col'
+                                                >
+                                                    ${parent}
                                                 </div>
-                                            )
-                                    })}                
-                                </Col>
-                            )
-                        })}
-                
-                return 'test'
+                                                <div
+                                                    class='col'
+                                                >
+                                                    ->                                                        
+                                                </div>
+                                                <div
+                                                    class='col'
+                                                >
+                                                    ${level[parent].map(child => {
+                                                        return `
+                                                            <p
+                                                                className='d-flex-column'
+                                                            >
+                                                                ${child}
+                                                            </p>
+                                                        `
+                                                    })}
+                                                </div>
+
+                                            </div>
+                                        `
+                                    })}
+                                </div>
+                            </div>
+                        </div>                                    
+                    `
+                })    
+
+                return test
             },
         },
         getBodyItem: {
