@@ -232,57 +232,52 @@ const BrowseTraceContainerView = React.forwardRef(({
                                     />
 
                                     {errors.startTime && (
-                                    <div 
-                                        className='text-left'
-                                        style={{
-                                            fontSize: '0.6rem',
-                                            color: styleSheet.warning,
-                                            position: 'absolute',
-                                            left: 10,
-                                            bottom: -18,
-                                        }}
-                                    >
-                                        {errors.startTime}
-                                    </div>
-                                )}
+                                        <div 
+                                            className='text-left'
+                                            style={{
+                                                fontSize: '0.6rem',
+                                                color: styleSheet.warning,
+                                                position: 'absolute',
+                                                left: 10,
+                                                bottom: -18,
+                                            }}
+                                        >
+                                            {errors.startTime}
+                                        </div>
+                                    )}
 
                                 </div>
-
-
                                 <div
                                     className='mx-2'
                                     style={{
                                         position: 'relative'
                                     }}
                                 >
-                                
-
-                                <DateTimePicker 
-                                    name='endTime'
-                                    className='mx-2'
-                                    value={values.endTime != null ? values.endTime  : undefined} 
-                                    onChange={(value) => { 
-                                        value != null ?
-                                        setFieldValue('endTime', moment(value).toDate())
-                                        : setFieldValue('endTime', undefined)
-                                    }} 
-                                    placeholder={locale.texts.END_TIME}
-                                />
-                                    {errors.endTime && (
-                                    <div 
-                                        className='text-left'
-                                        style={{
-                                            fontSize: '0.6rem',
-                                            color: styleSheet.warning,
-                                            position: 'absolute',
-                                            left: 10,
-                                            bottom: -18,
-                                        }}
-                                    >
-                                        {errors.endTime}
-                                    </div>
-                                )}
-
+                                    <DateTimePicker 
+                                        name='endTime'
+                                        className='mx-2'
+                                        value={values.endTime != null ? values.endTime  : undefined} 
+                                        onChange={(value) => { 
+                                            value != null ?
+                                            setFieldValue('endTime', moment(value).toDate())
+                                            : setFieldValue('endTime', undefined)
+                                        }} 
+                                        placeholder={locale.texts.END_TIME}
+                                    />
+                                        {errors.endTime && (
+                                        <div 
+                                            className='text-left'
+                                            style={{
+                                                fontSize: '0.6rem',
+                                                color: styleSheet.warning,
+                                                position: 'absolute',
+                                                left: 10,
+                                                bottom: -18,
+                                            }}
+                                        >
+                                            {errors.endTime}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div

@@ -116,7 +116,7 @@ export const LoaderWrapper = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgb(255,255,255,0.8);
+    background-color: ${props => props.backdrop && 'rgb(255,255,255,0.8)'};
 `
 
 export const PrimaryButton = styled(Button)`

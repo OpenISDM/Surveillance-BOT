@@ -12,7 +12,8 @@ import { AppContext } from '../../../context/AppContext';
 import moment from 'moment';
 import {
     BOTContainer,
-    PrimaryButton
+    PrimaryButton,
+    NoDataFoundDiv
 } from '../../BOTComponent/styleComponent';
 import Loader from '../../presentational/Loader';
 import retrieveDataHelper from '../../../helper/retrieveDataHelper';
@@ -26,9 +27,15 @@ import config from '../../../config';
 import pdfPackageGenerator from '../../../helper/pdfPackageGenerator';
 import {
     Row,
-    Col
+    Col,
+    Card
 } from 'react-bootstrap';
 import NumberPicker from '../../container/NumberPicker';
+import { DateTimePicker } from 'react-widgets';
+import momentLocalizer from 'react-widgets-moment';
+
+momentLocalizer()
+
 
 class TraceContainer extends React.Component{
 
@@ -40,6 +47,7 @@ class TraceContainer extends React.Component{
         options: [],
         locale: this.context.locale.abbr,
         final: {},
+        collection: [],
     }
 
     defaultActiveKey='name' 
@@ -82,37 +90,110 @@ class TraceContainer extends React.Component{
         })
     }
 
-    async getLocationHistory (fields){
+    // async getLocationHistory (fields){
         
-        /** Set formik status as 0. Would render loading page */
+    //     /** Set formik status as 0. Would render loading page */
+    //     this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.LOADING)
+
+    //     let startTime = moment().subtract(1, 'days');
+    //     let endTime = moment();
+    //     var parents = [];
+    //     let level = 0;
+    //     let maxLevel = fields.level;
+
+    //     let contactTree = this.getContactTree(
+    //         {}, 
+    //         fields.key.value,
+    //         parents,
+    //         startTime,
+    //         endTime,
+    //         maxLevel,
+    //         level
+    //     )
+
+    //     let result = await contactTree
+    //         console.log(result)
+    //     let processedData = this.processContactTree(result)
+    //     let final = this.filterDuplicated(processedData)
+        
+    //     this.setState({
+    //         final,
+    //     })
+    //     this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.SUCCESS)
+
+    // }
+
+    async getLocationHistory (fields) {
+        let {
+            level,
+            key
+        } = fields
+        let duplicate = [];
+        let wait = [];
+        let collection = [];
+        let startTime = '2020/05/13 00:00:00';
+        let endTime = '2020/05/14 00:00:00';
+        wait.push({
+            name: key.value,
+            level: 0,
+            parent: "",
+            startTime,
+        })
+        duplicate.push(key.value)
+
+        this.setState({
+            collection,
+        })
+
         this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.LOADING)
 
-        let startTime = moment().subtract(1, 'days');
-        let endTime = moment();
-        var parents = [];
-        let level = 0;
-        let maxLevel = fields.level;
+        while (wait.length != 0) {
+            let parent = wait.shift();
+            if (parent.level > level - 1) break;
+            let childrenPromise = this.getChildren(
+                parent.name, 
+                duplicate,
+                parent.startTime,
+                endTime,
+            ).then(res => {
+                return res.data.rows
+                    .filter(child => !duplicate.includes(child.child))
+                    .map(child => {
+                        child.name = child.child
+                        child.startTime = child.start_time
+                        child.level = parent.level + 1
+                        wait.push(child)
+                        duplicate.push(child.child)
 
-        let contactTree = this.getContactTree(
-            {}, 
-            fields.key.value,
-            parents,
-            startTime,
-            endTime,
-            maxLevel,
-            level
-        )
+                        delete child.start_time
+                        this.mountChild(collection, child)
+                        return child
+                    })
+            })
+            await childrenPromise
+            this.setState({
+                collection
+            })
+        }
 
-        let result = await contactTree
-            console.log(result)
-        let processedData = this.processContactTree(result)
-        let final = this.filterDuplicated(processedData)
-        
-        this.setState({
-            final,
-        })
-        this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.SUCCESS)
+        /** set status code of fetching contact tracing data */
+        if (this.state.collection.length == 0) {
+            this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.NO_RESULT)
+        }
+        else this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.SUCCESS)
 
+    }
+
+    mountChild = (collection, child) => {
+        if (!collection[child.level]) {
+            collection[child.level] = {}
+        }
+
+        if (!collection[child.level][child.parent]) {
+            collection[child.level][child.parent] = [child.child]
+        } else {
+            collection[child.level][child.parent].push(child.child)
+        }
     }
 
     filterDuplicated = (data) => {
@@ -235,10 +316,10 @@ class TraceContainer extends React.Component{
                 let pdfPackage = pdfPackageGenerator.getPdfPackage({
                     option: 'contactTree',
                     user: auth.user,
-                    data: this.state.final,
+                    data: this.state.collection,
                     locale,
                     signature: null,
-                    additional:
+                    additional: null,
                     pdfOptions,
                 })
 
@@ -253,63 +334,6 @@ class TraceContainer extends React.Component{
                 break;
         }
     }
-
-    DrawTreeTextForm = (data) => {
-        let {
-            locale
-        } = this.context
-        return (
-            <Row>
-                {Object.keys(data)
-                    .filter(level => {
-                        return level != 0 && Object.values(data[level].length != 0)
-                    })
-                    .map((level, index) => {
-                        return (
-                            <Col
-                                key={index}
-                                lg={2}
-                            >
-                                {Object.keys(data[level])
-                                    .filter(parent => data[level][parent].length != 0)
-                                    .map((parent, index) => {
-                                        return (
-                                            <div>
-                                                <div>
-                                                    {locale.texts.LEVEL} {level}
-                                                </div>
-                                                <Row
-                                                    key={index}
-                                                >
-                                                    <Col>
-                                                        {parent}
-                                                    </Col>
-                                                    <Col>
-                                                        <i className="fas fa-arrow-right"></i>                                                    
-                                                    </Col>
-                                                    <Col
-                                                        className='d-flex-column'
-                                                    >
-                                                        {data[level][parent].map((child, index) => {
-                                                            return (
-                                                                <div
-                                                                    key={index}
-                                                                >
-                                                                    {child}
-                                                                </div>
-                                                            )
-                                                        })}
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        )
-                                })}                
-                            </Col>
-                        )
-                    })}
-            </Row>
-        )
-    }
  
     render () {
 
@@ -321,7 +345,7 @@ class TraceContainer extends React.Component{
                     <PageTitle>                                            
                         {locale.texts.CONTACT_TREE}
                     </PageTitle>
-                    {Object.keys(this.state.final).length !== 0 &&
+                    {this.state.collection.length !== 0 &&
                         <div>
                             <IconButton
                                 iconName='fas fa-download'
@@ -337,6 +361,8 @@ class TraceContainer extends React.Component{
                     initialValues={{
                         key: null,
                         level: null,
+                        endTime: moment().toDate(),
+                        startTime: moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT).toDate(),
                     }}
 
                     ref={this.formikRef}
@@ -383,7 +409,6 @@ class TraceContainer extends React.Component{
                                         <Select
                                             name='key'
                                             value={values.key}
-                                            className='float-right'
                                             onChange={(value) => { 
                                                 setFieldValue('key', value)
                                             }}
@@ -416,6 +441,41 @@ class TraceContainer extends React.Component{
                                         length={6}
                                         placeholder={locale.texts.SELECT_LEVEL}
                                     />
+                                    {/* <div
+                                        className='mx-2'
+                                        style={{
+                                            position: 'relative'
+                                        }}
+                                    >   
+                                        <DateTimePicker 
+                                            name='startTime'
+                                            className='mx-2'
+                                            value={values.startTime} 
+                                            onkeydown="return false"
+                                            onChange={(value) => {  
+                                                value != null ?
+                                                setFieldValue('startTime', moment(value).toDate())
+                                                : setFieldValue('startTime', undefined)
+                                            }}  
+                                        
+                                            placeholder={locale.texts.START_TIME} 
+                                        />
+
+                                        {errors.startTime && (
+                                            <div 
+                                                className='text-left'
+                                                style={{
+                                                    fontSize: '0.6rem',
+                                                    color: styleSheet.warning,
+                                                    position: 'absolute',
+                                                    left: 10,
+                                                    bottom: -18,
+                                                }}
+                                            >
+                                                {errors.startTime}
+                                            </div>
+                                        )}
+                                    </div> */}
                                 </div>
                                 <div
                                     className='d-flex align-items-center'
@@ -429,11 +489,69 @@ class TraceContainer extends React.Component{
                                     </PrimaryButton>
                                 </div>
                             </div>
-                            {status == config.AJAX_STATUS_MAP.LOADING && <Loader />}
                             <hr/>
-                            {status == config.AJAX_STATUS_MAP.SUCCESS && (
-                                this.DrawTreeTextForm(this.state.final)
-                            )}
+                            <div
+                                className='d-flex justify-content-start'
+                            >
+                                {this.state.collection.length != 0 
+                                    ?  this.state.collection.map((level, index) => {
+                                            return (
+                                                <Card 
+                                                    style={{ 
+                                                        width: '20rem' 
+                                                    }}
+                                                    className='mr-1'
+                                                    key={index}
+                                                >
+                                                    <Card.Body>
+                                                        <Card.Title
+                                                            className='text-capitalize'
+                                                        >
+                                                            {locale.texts.LEVEL} {index}
+                                                        </Card.Title>
+                                                        <Card.Text>
+                                                            {Object.keys(level).map((parent, index) => {
+                                                                return (
+                                                                    <Row
+                                                                        key={index}
+                                                                        className='mb-2'
+                                                                    >
+                                                                        <Col
+                                                                            lg={5}
+                                                                        >
+                                                                            {parent}
+                                                                        </Col>
+                                                                        <Col
+                                                                            lg={1}
+                                                                        >
+                                                                            <i className="fas fa-arrow-right"></i>                                                        
+                                                                        </Col>
+                                                                        <Col
+                                                                            lg={5}
+                                                                        >
+                                                                            {level[parent].map(child => {
+                                                                                return (
+                                                                                    <p
+                                                                                        className='d-flex-column'
+                                                                                    >
+                                                                                        {child}
+                                                                                    </p>
+                                                                                )
+                                                                            })}
+                                                                        </Col>
+        
+                                                                    </Row>
+                                                                )
+                                                            })}
+                                                        </Card.Text>
+                                                    </Card.Body>
+                                                </Card>                                    
+                                            )
+                                        })
+                                    :   <NoDataFoundDiv>{locale.texts[status.toUpperCase().replace(/ /g, '_')]}</NoDataFoundDiv>
+                                }
+                            </div>
+                            {status == config.AJAX_STATUS_MAP.LOADING && <Loader backdrop={false} />}
                         </Fragment>
                     )}
                 />

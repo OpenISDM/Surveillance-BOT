@@ -5,9 +5,13 @@ import {
 } from '../BOTComponent/styleComponent'
 import styleSheet from '../../config/styleSheet'
 
-const Loader = () => {
+const Loader = ({
+    backdrop = true
+}) => {
     return ( 
-        <LoaderWrapper>
+        <LoaderWrapper
+            backdrop={backdrop}
+        >
             <ReactLoading type={"bubbles"} color={styleSheet.theme}  /> 
         </LoaderWrapper>
     ) 
