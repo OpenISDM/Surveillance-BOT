@@ -56,9 +56,7 @@ class ObjectTableContainer extends React.Component{
     }
 
     componentDidUpdate = (prevProps, prevState) => {
-        if (this.context.locale.abbr !== prevState.locale) {
-            this.getData();
-            this.getAreaTable();
+        if (this.context.locale.abbr !== prevState.locale) { 
         }
     }
 
