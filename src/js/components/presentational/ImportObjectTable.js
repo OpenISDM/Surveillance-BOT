@@ -111,9 +111,9 @@ class ImportObjectTable extends React.Component{
         let rowsCount = 0 ; 
         if (selectAll) {
             const wrappedInstance = this.selectTable.getWrappedInstance();
-            const currentRecords = wrappedInstance.props.data
+     // const currentRecords = wrappedInstance.props.data
             
-            // const currentRecords = wrappedInstance.getResolvedState().sortedData;
+            const currentRecords = wrappedInstance.getResolvedState().sortedData;
            
       
 

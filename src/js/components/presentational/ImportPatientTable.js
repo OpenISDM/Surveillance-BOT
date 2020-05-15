@@ -117,9 +117,8 @@ class ImportPatientTable extends React.Component{
         let rowsCount = 0 ; 
         if (selectAll) {
             const wrappedInstance = this.selectTable.getWrappedInstance();
-            const currentRecords = wrappedInstance.props.data
-            
-            // const currentRecords = wrappedInstance.getResolvedState().sortedData;
+            // const currentRecords = wrappedInstance.props.data 
+            const currentRecords = wrappedInstance.getResolvedState().sortedData;
            
             currentRecords.forEach(item =>{
                 rowsCount++; 
@@ -132,8 +131,7 @@ class ImportPatientTable extends React.Component{
             selection = [];
         } 
         selection == '' ? this.setState({disable : true}) :  this.setState({disable : false}) 
-         this.setState({ selectAll, selection });
-
+        this.setState({ selectAll, selection });   
     };
 
     isSelected = (key) => {
@@ -337,7 +335,8 @@ class ImportPatientTable extends React.Component{
                     columns={this.state.columns}
                     ref={r => (this.selectTable = r)}
                     className='-highlight'
-                    style={{maxHeight:'73vh'}} 
+                    style={{maxHeight:'75vh'}} 
+                    // pageSize={this.state.data.length}
                     onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                     {...extraProps}
                     {...styleConfig.reactTable}
