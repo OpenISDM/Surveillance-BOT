@@ -9,9 +9,8 @@ import Select from 'react-select';
 import {
     PrimaryButton
 } from '../../BOTComponent/styleComponent';
-import AccessControl from '../../presentational/AccessControl';
-
-
+import AccessControl from '../../presentational/AccessControl'; 
+ 
 const BrowserObjectTableView = ({
     addObjectFilter,
     removeObjectFilter,
@@ -20,7 +19,7 @@ const BrowserObjectTableView = ({
     selection,
     handleClick
 }) => {
-    const locale = React.useContext(LocaleContext)
+    const locale = React.useContext(LocaleContext) 
 
     return (
         <div className='d-flex justify-content-between my-4'>
@@ -43,14 +42,17 @@ const BrowserObjectTableView = ({
                 >
                     <Select
                         className='mx-2 text-capitalize'
-                        styles={styleConfig.reactSelectFilter}
-                        onChange={(value) => {
+                        styles={styleConfig.reactSelectFilter}  
+                       
+                        onChange={(value) => {   
                             if(value){
                                 addObjectFilter(value.label, ['area'], 'area select')
                             }else{
                                 removeObjectFilter('area select')
                             }
                         }}
+
+                         
                         options={filterSelection.areaSelection}
                         isClearable={true}
                         isSearchable={true}

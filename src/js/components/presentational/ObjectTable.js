@@ -278,8 +278,8 @@ class ObjectTable extends React.Component{
         let rowsCount = 0 ; 
         if (selectAll) {
             const wrappedInstance = this.selectTable.getWrappedInstance();
-            const currentRecords = wrappedInstance.props.data 
-            // const currentRecords = wrappedInstance.getResolvedState().sortedData;      
+           // const currentRecords = wrappedInstance.props.data 
+            const currentRecords = wrappedInstance.getResolvedState().sortedData;      
             currentRecords.forEach(item =>{
                 rowsCount++; 
                 if ((rowsCount > wrappedInstance.state.pageSize * wrappedInstance.state.page) && ( rowsCount <= wrappedInstance.state.pageSize +wrappedInstance.state.pageSize * wrappedInstance.state.page) ){
