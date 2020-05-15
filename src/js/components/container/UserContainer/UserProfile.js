@@ -1,18 +1,18 @@
 import React from 'react';
 import { 
     Button, 
-    Image, 
-    ListGroup,
     ButtonToolbar
 } from 'react-bootstrap';
 import { AppContext } from '../../../context/AppContext';
 import axios from 'axios';
-import NumberPicker from '../NumberPicker';
 import EditAreasForm from '../../presentational/EditAreasForm';
 import retrieveDataHelper from '../../../helper/retrieveDataHelper';
 import EditPwdForm from '../../presentational/EditPwdForm';
 import messageGenerator from '../../../helper/messageGenerator';
 import dataSrc from '../../../dataSrc';
+import {
+    ListTitle
+} from '../../BOTComponent/styleComponent';
  
 
 class UserProfile extends React.Component{
@@ -22,13 +22,6 @@ class UserProfile extends React.Component{
     state= {
         show: false,
         showEditPwd: false,
-        locale: '',
-        upadateAreaId: [],
-        totalAreaId: [],
-        secondaryAreaId: [],
-        secondaryAreaIdBeforUpdate:[],
-        otherAreaId: [],
-        otherAreaIdBeforUpdate: [],
         areaTable: []
     }
     
@@ -153,40 +146,36 @@ class UserProfile extends React.Component{
                     </Button> 
                 </ButtonToolbar>
                 <div>
-                    <div className='title '>
+                    <ListTitle>
                         {locale.texts.ABOUT_YOU}
-                    </div>
-                    <div>
-                        <p>
-                            {locale.texts.NAME}: {auth.user.name}
-                        </p>
-                    </div>
+                    </ListTitle>
+                    <p>
+                        {locale.texts.NAME}: {auth.user.name}
+                    </p>
                 </div>
                 <hr/>
                 <div>
-                    <div className='title '>
-                        {locale.texts.YOUR_helper_AREAS}
-                    </div>
-                    <div>
-                        <p>
-                            {locale.texts.MAIN_AREA}: {areaTable.length != 0 
-                                && auth.user.main_area
-                                && locale.texts[areaTable[auth.user.main_area].name]
-                            }
-                        </p>
-                        <p>
-                            {locale.texts.SECONDARY_AREAS}: {
-                                Object.values(this.state.areaTable)
-                                    .filter(area => {
-                                        return auth.user.main_area != area.id && auth.user.areas_id.includes(area.id)
-                                    })
-                                    .map(area => {
-                                        return locale.texts[area.name]
-                                    })
-                                    .join('/')
-                            }
-                        </p>
-                    </div>
+                    <ListTitle>
+                        {locale.texts.YOUR_SERVICE_AREAS}
+                    </ListTitle>
+                    <p>
+                        {locale.texts.MAIN_AREA}: {areaTable.length != 0 
+                            && auth.user.main_area
+                            && locale.texts[areaTable[auth.user.main_area].name]
+                        }
+                    </p>
+                    <p>
+                        {locale.texts.SECONDARY_AREAS}: {
+                            Object.values(this.state.areaTable)
+                                .filter(area => {
+                                    return auth.user.main_area != area.id && auth.user.areas_id.includes(area.id)
+                                })
+                                .map(area => {
+                                    return locale.texts[area.name]
+                                })
+                                .join('/')
+                        }
+                    </p>
                 </div>
                 <hr/>
                 <EditAreasForm 

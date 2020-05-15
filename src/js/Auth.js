@@ -118,8 +118,6 @@ class Auth extends React.Component {
     }
 
     setArea = (areas_id, callback) => {
-        console.log(callback)
-        console.log(areas_id)
         let user = {
             ...this.state.user,
             areas_id

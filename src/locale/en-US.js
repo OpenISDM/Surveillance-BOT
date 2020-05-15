@@ -90,7 +90,7 @@ const en =  {
     IMPORT_PATIENTS_DATA:"HIS Patient",
     BATTERY_NOTIFICATION: "battery notification",
     ABOUT_YOU: "about you",
-    YOUR_helper_AREAS: "your helper areas",
+    YOUR_SERVICE_AREAS: "your service areas",
     PREFERENCE: "preference",
 
     /* buttons */
