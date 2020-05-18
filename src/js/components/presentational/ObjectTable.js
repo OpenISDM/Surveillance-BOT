@@ -283,7 +283,7 @@ class ObjectTable extends React.Component{
             currentRecords.forEach(item =>{
                 rowsCount++; 
                 if ((rowsCount > wrappedInstance.state.pageSize * wrappedInstance.state.page) && ( rowsCount <= wrappedInstance.state.pageSize +wrappedInstance.state.pageSize * wrappedInstance.state.page) ){
-                    selection.push(item.id)
+                    selection.push(item._original.id)
                 } 
             });
         }else{

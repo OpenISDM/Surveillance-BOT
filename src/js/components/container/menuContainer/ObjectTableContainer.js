@@ -56,38 +56,20 @@ class ObjectTableContainer extends React.Component{
         this.getAreaTable();
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
-        if (this.context.locale.abbr !== prevState.locale) { 
-            this.getRefresh();
+    componentDidUpdate = (prevProps, prevState) => { 
+        
+        if (this.context.locale.abbr !== prevState.locale) {  
+            console.log(this.context.locale)
+            console.log(this.state.filteredData)
+            this.state.filteredData.map(item=>{
+                this.context.locale.abbr == 'en' 
+                ? item.area_name.label = SiteModuleEN[item.area_name.value]
+                : item.area_name.label = SiteModuleTW[item.area_name.value]
+            })
+            // this.getData(); 
         }
     }
-
-    getRefresh = () =>{
-        let { 
-            locale,
-            auth
-        } = this.context
-
-        let columns = _.cloneDeep(patientTableColumn) 
-        columns.map(field => {
-            field.Header = locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
-        }) 
-
-        let data = this.state.filteredData; 
-        data.map(item=>{ 
-            console.log(item.area_name)
-            console.log(SiteModuleTW[item.area_name.label.toUpperCase().replace(/ /g, '_')]) 
-              
-        }) 
-
-        this.setState({
-            filterData:data,
-            columns:columns, 
-            locale: locale.abbr,
-        } ) 
-
-    }
-
+ 
     getData = (callback) => {
         let { 
             locale,
@@ -230,12 +212,11 @@ class ObjectTableContainer extends React.Component{
             const wrappedInstance = this.selectTable.getWrappedInstance();
            // const currentRecords = wrappedInstance.props.data
  
-            const currentRecords = wrappedInstance.getResolvedState().sortedData;
-           
+            const currentRecords = wrappedInstance.getResolvedState().sortedData ; 
             currentRecords.forEach(item =>{
                 rowsCount++; 
                 if ((rowsCount > wrappedInstance.state.pageSize * wrappedInstance.state.page) && ( rowsCount <= wrappedInstance.state.pageSize +wrappedInstance.state.pageSize * wrappedInstance.state.page) ){
-                    selection.push(item.id)
+                    selection.push(item._original.id)
                 } 
             });
  
