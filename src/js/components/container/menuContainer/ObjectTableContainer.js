@@ -60,28 +60,41 @@ class ObjectTableContainer extends React.Component{
     componentDidUpdate = (prevProps, prevState) => {    
 
         if (this.context.locale.abbr !== prevState.locale) {    
-            this.getAreaTable()
-
-            let columns = _.cloneDeep(patientTableColumn) 
-
-            columns.map(field => {
-                field.Header = this.context.locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
-            })
-
-            this.state.filteredData.map(item=>{
-                this.context.locale.lang == 'en' 
-                ? item.area_name.label = SiteModuleEN[item.area_name.value]
-                : item.area_name.label = SiteModuleTW[item.area_name.value]
-                item.registered_timestamp = moment(item.registered_timestamp._i).locale(this.context.locale.abbr).format("lll")
-            })
-            
-            this.setState({
-                columns,
+            this.getRefresh()
+            this.setState({ 
                 locale: this.context.locale.abbr
             }) 
         }
     }
- 
+
+    getRefresh = () =>{
+        this.getAreaTable()
+
+        let columns = _.cloneDeep(patientTableColumn) 
+
+        columns.map(field => {
+            field.Header = this.context.locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
+        }) 
+        this.state.data.map(item=>{
+            this.context.locale.lang == 'en' 
+            ? item.area_name.label = SiteModuleEN[item.area_name.value]
+            : item.area_name.label = SiteModuleTW[item.area_name.value]
+            item.registered_timestamp = moment(item.registered_timestamp._i).locale(this.context.locale.abbr).format("lll")
+        })
+
+        this.state.filteredData.map(item=>{
+            this.context.locale.lang == 'en' 
+            ? item.area_name.label = SiteModuleEN[item.area_name.value]
+            : item.area_name.label = SiteModuleTW[item.area_name.value]
+            item.registered_timestamp = moment(item.registered_timestamp._i).locale(this.context.locale.abbr).format("lll")
+        })
+        
+        this.setState({
+            columns,
+            locale: this.context.locale.abbr
+        }) 
+    }
+
     getData = (callback) => {
         let { 
             locale,
