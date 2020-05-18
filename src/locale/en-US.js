@@ -294,6 +294,7 @@ const en =  {
     USERNAME_IS_REQUIRED: "Username is required",
     PASSWORD_IS_REQUIRED: "Password is required",
     THE_Patient_Number_IS_ALREADY_USED :"The patient number is already used",
+    THE_ID_IS_ALREADY_USED: "The ID is already used",
     THE_USERNAME_IS_ALREADY_TAKEN: "The username is already taken",
     THE_ASSET_CONTROL_NUMBER_IS_ALREADY_USED: "The asset ID is already used",
     THE_MAC_ADDRESS_IS_ALREADY_USED :"The Mac Address is already used",
