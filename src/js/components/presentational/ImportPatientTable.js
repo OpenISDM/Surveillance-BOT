@@ -229,31 +229,29 @@ class ImportPatientTable extends React.Component{
                     if( reapetFlag == false) {
                         if(importData.asset_control_number !=undefined ){
                             
-                            if(checkArray!=''){
+                            if (checkArray!='') {
                                 checkArray.indexOf(importData.asset_control_number) != -1 
                                 ?  ReapeName += importData.name+ ','
                                 :  newData.push(importData)  
-                            }else{
+                            }else {
                                 newData.push(importData)  
                             }
                             checkArray.push(importData.asset_control_number)  
                         }else{
                             DataNameIsNull += importData.name + ','
                         }
-                    }else{
+                    } else {
                         ReapeName += importData.name   + ','
                     }
-                    })
+                })
 
-
-                    DataNameIsNull!='' ? alert('ASN必須不等於空:' + DataNameIsNull) : null 
-                    ReapeName!='' ?    alert(ReapeName + '的ASN與其他筆資料重複')  : null
-                    //沒被擋掉的存到newData後輸出
-            
-
-                    newData.map(item => {
-                            item.type = 'patient'
-                    }) 
+                DataNameIsNull != '' ? alert('ASN必須不等於空:' + DataNameIsNull) : null 
+                ReapeName != '' ?    alert(ReapeName + '的ASN與其他筆資料重複')  : null
+                //沒被擋掉的存到newData後輸出
+        
+                newData.map(item => {
+                        item.type = 'patient'
+                }) 
 
                 axios.post(dataSrc.importedObject, {
                     locale: locale.abbr,
@@ -345,7 +343,6 @@ class ImportPatientTable extends React.Component{
                     ref={r => (this.selectTable = r)}
                     className='-highlight'
                     style={{maxHeight:'75vh'}} 
-                    // pageSize={this.state.data.length}
                     onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                     {...extraProps}
                     {...styleConfig.reactTable}

@@ -37,7 +37,7 @@ import momentLocalizer from 'react-widgets-moment';
 momentLocalizer()
 
 
-class TraceContainer extends React.Component{
+class BrowserContactTree extends React.Component{
 
     static contextType = AppContext
     
@@ -55,15 +55,6 @@ class TraceContainer extends React.Component{
 
     componentDidMount = () => {
         this.getObjectTable();
-    }
-
-    componentDidUpdate = (prevProps, prevState) => {
-        let {
-            locale
-        } = this.context
-        if (this.context.locale.abbr !== prevState.locale) {   
-
-        }
     }
 
     getObjectTable = () => {
@@ -131,8 +122,10 @@ class TraceContainer extends React.Component{
         let duplicate = [];
         let wait = [];
         let collection = [];
-        let startTime = '2020/05/13 00:00:00';
-        let endTime = '2020/05/14 00:00:00';
+        // let startTime = '2020/05/13 00:00:00';
+        // let endTime = '2020/05/14 00:00:00';
+        let startTime = moment().subtract(config.DEFAULT_CONTACT_TREE_INTERVAL_UNIT, config.DEFAULT_CONTACT_TREE_INTERVAL_VALUE);
+        let endTime = moment();
         wait.push({
             name: key.value,
             level: 0,
@@ -338,19 +331,6 @@ class TraceContainer extends React.Component{
     render () {
 
         const { locale } = this.context
-
-        let test = [
-            {},
-            {
-                'joechou': ['hcc', 'jason', 'jimmy']
-            },
-            {
-                'hcc': ['jim', 'joey']
-            },
-            {
-                jane: ['edward', 'eric']
-            }
-        ]
  
         return (
             <BOTContainer>
@@ -454,41 +434,6 @@ class TraceContainer extends React.Component{
                                         length={6}
                                         placeholder={locale.texts.SELECT_LEVEL}
                                     />
-                                    {/* <div
-                                        className='mx-2'
-                                        style={{
-                                            position: 'relative'
-                                        }}
-                                    >   
-                                        <DateTimePicker 
-                                            name='startTime'
-                                            className='mx-2'
-                                            value={values.startTime} 
-                                            onkeydown="return false"
-                                            onChange={(value) => {  
-                                                value != null ?
-                                                setFieldValue('startTime', moment(value).toDate())
-                                                : setFieldValue('startTime', undefined)
-                                            }}  
-                                        
-                                            placeholder={locale.texts.START_TIME} 
-                                        />
-
-                                        {errors.startTime && (
-                                            <div 
-                                                className='text-left'
-                                                style={{
-                                                    fontSize: '0.6rem',
-                                                    color: styleSheet.warning,
-                                                    position: 'absolute',
-                                                    left: 10,
-                                                    bottom: -18,
-                                                }}
-                                            >
-                                                {errors.startTime}
-                                            </div>
-                                        )}
-                                    </div> */}
                                 </div>
                                 <div
                                     className='d-flex align-items-center'
@@ -506,8 +451,8 @@ class TraceContainer extends React.Component{
                             <Row
                                 // className='d-flex justify-content-start'
                             >
-                                {test != 0 
-                                    ?  test.map((level, index) => {
+                                {this.state.collection.length != 0 
+                                    ?  this.state.collection.map((level, index) => {
                                             return (
                                                 <Card 
                                                     style={{ 
@@ -579,4 +524,4 @@ class TraceContainer extends React.Component{
     }
 }
 
-export default TraceContainer
+export default BrowserContactTree

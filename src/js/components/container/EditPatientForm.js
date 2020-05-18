@@ -76,7 +76,7 @@ class EditPatientForm extends React.Component {
                                     .required(locale.texts.NUMBER_IS_REQUIRED)
                                     .test(
                                         'asset_control_number',
-                                        locale.texts.THE_Patient_Number_IS_ALREADY_USED,
+                                        locale.texts.THE_ID_IS_ALREADY_USED,
                                         value => {  
                                             if (value == undefined) return false
 
