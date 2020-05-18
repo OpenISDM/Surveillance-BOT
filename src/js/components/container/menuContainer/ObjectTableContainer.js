@@ -22,6 +22,7 @@ import MobileObjectTableView from '../../platform/mobile/MobileObjectTableView';
 import TabletObjectTableView from '../../platform/tablet/TableObjectTableView';
 import SiteModuleTW from '../../../../../site_module/locale/zh-TW';
 import SiteModuleEN from '../../../../../site_module/locale/en-US';
+import moment from 'moment';
 
 class ObjectTableContainer extends React.Component{
     
@@ -56,17 +57,19 @@ class ObjectTableContainer extends React.Component{
         this.getAreaTable();
     }
 
-    componentDidUpdate = (prevProps, prevState) => { 
+    componentDidUpdate = (prevProps, prevState) => {   
         
-        if (this.context.locale.abbr !== prevState.locale) {  
-            console.log(this.context.locale)
-            console.log(this.state.filteredData)
+        if (this.context.locale.abbr !== prevState.locale) {    
             this.state.filteredData.map(item=>{
-                this.context.locale.abbr == 'en' 
+                this.context.locale.lang == 'en' 
                 ? item.area_name.label = SiteModuleEN[item.area_name.value]
                 : item.area_name.label = SiteModuleTW[item.area_name.value]
+                item.registered_timestamp = moment(item.registered_timestamp._i).locale(this.context.locale.abbr).format("lll")
             })
-            // this.getData(); 
+            
+            this.setState({
+                locale: this.context.locale.abbr
+            }) 
         }
     }
  
