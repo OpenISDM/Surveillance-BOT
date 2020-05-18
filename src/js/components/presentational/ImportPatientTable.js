@@ -214,7 +214,7 @@ class ImportPatientTable extends React.Component{
                 let reapetFlag = false;
                 let DataNameIsNull = '';
                 let ReapeName = ''; 
-
+                let checkArray = []
 
                 data.map(importData => {
 
@@ -224,17 +224,22 @@ class ImportPatientTable extends React.Component{
 
                         importData.asset_control_number == dataOrigin.asset_control_number ? reapetFlag = true : null
 
-                    })
-
+                    }) 
                     if( reapetFlag == false) {
                         if(importData.asset_control_number !=undefined ){
-                                newData.push(importData) 
+                            
+                            if(checkArray!=''){
+                                checkArray.indexOf(importData.asset_control_number) != -1 
+                                ?  ReapeName += importData.name+ ','
+                                :  newData.push(importData)  
+                            }
+                            checkArray.push(importData.asset_control_number)  
                         }else{
                             DataNameIsNull += importData.name + ','
                         }
-                        }else{
-                            ReapeName += importData.name   + ','
-                        }
+                    }else{
+                        ReapeName += importData.name   + ','
+                    }
                     })
 
 
