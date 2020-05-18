@@ -224,7 +224,7 @@ class ObjectTable extends React.Component{
             })
                  deleteCount +=1
         })
-        
+        this.setState({selectAll:false})
         deleteArray.map( item => {
          
             this.state.data[item] === undefined ?

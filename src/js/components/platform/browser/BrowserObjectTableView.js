@@ -19,8 +19,7 @@ const BrowserObjectTableView = ({
     selection,
     handleClick
 }) => {
-    const locale = React.useContext(LocaleContext) 
-
+    const locale = React.useContext(LocaleContext)  
     return (
         <div className='d-flex justify-content-between my-4'>
             <div className='d-flex justify-content-start'>                    
@@ -39,7 +38,7 @@ const BrowserObjectTableView = ({
                 <AccessControl
                     renderNoAccess={() => null}
                     platform={['browser']}
-                >
+                > 
                     <Select
                         className='mx-2 text-capitalize'
                         styles={styleConfig.reactSelectFilter}  
@@ -50,9 +49,7 @@ const BrowserObjectTableView = ({
                             }else{
                                 removeObjectFilter('area select')
                             }
-                        }}
-
-                         
+                        }} 
                         options={filterSelection.areaSelection}
                         isClearable={true}
                         isSearchable={true}

@@ -146,7 +146,7 @@ class ObjectEditedRecord extends React.Component{
     }
 
     deleteRecord = () => {
-
+        this.setState({selectAll:false})
         let idPackage = []
         this.state.selection.map( item => {
             idPackage.push(parseInt(this.state.data[item - 1].id))

@@ -142,7 +142,7 @@ class ImportObjectTable extends React.Component{
         let callback = () => messageGenerator.setSuccessMessage(
             'save success'
         )
-        
+        this.setState({selectAll:false})
         axios.post(deleteImportData, {
             idPackage: this.state.selection
         })

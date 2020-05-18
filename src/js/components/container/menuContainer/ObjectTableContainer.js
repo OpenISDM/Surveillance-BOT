@@ -20,7 +20,8 @@ import {
 import BrowserObjectTableView from '../../platform/browser/BrowserObjectTableView';
 import MobileObjectTableView from '../../platform/mobile/MobileObjectTableView';
 import TabletObjectTableView from '../../platform/tablet/TableObjectTableView';
-
+import SiteModuleTW from '../../../../../site_module/locale/zh-TW';
+import SiteModuleEN from '../../../../../site_module/locale/en-US';
 
 class ObjectTableContainer extends React.Component{
     
@@ -57,7 +58,34 @@ class ObjectTableContainer extends React.Component{
 
     componentDidUpdate = (prevProps, prevState) => {
         if (this.context.locale.abbr !== prevState.locale) { 
+            this.getRefresh();
         }
+    }
+
+    getRefresh = () =>{
+        let { 
+            locale,
+            auth
+        } = this.context
+
+        let columns = _.cloneDeep(patientTableColumn) 
+        columns.map(field => {
+            field.Header = locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
+        }) 
+
+        let data = this.state.filteredData; 
+        data.map(item=>{ 
+            console.log(item.area_name)
+            console.log(SiteModuleTW[item.area_name.label.toUpperCase().replace(/ /g, '_')]) 
+              
+        }) 
+
+        this.setState({
+            filterData:data,
+            columns:columns, 
+            locale: locale.abbr,
+        } ) 
+
     }
 
     getData = (callback) => {
@@ -79,30 +107,30 @@ class ObjectTableContainer extends React.Component{
                 field.Header = locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
             })
 
-            res.data.rows
+            reas.data.rows
             .filter(item => item.object_type != 0)
             .map(item => {
                 
                 item.area_name = {
-                    value: item.area_name,
+                    value:item.area_name,
                     label: locale.texts[item.area_name],
                     id: item.area_id
                 }
                 data.push(item)
             }) 
-
+ 
             this.setState({
                 data,
                 isShowEdit: false,
                 isShowBind: false,
                 showDeleteConfirmation: false,
                 isPatientShowEdit: false,
-                disableASN: false,
-                filteredData: data,
+                disableASN: false, 
                 columns,
                 objectTable: res.data.rows,
-                locale: locale.abbr
-            }, callback)
+                locale: locale.abbr,
+                filteredData:data 
+            }, callback) 
         })
         .catch(err => {
             console.log(err);
@@ -259,7 +287,7 @@ class ObjectTableContainer extends React.Component{
             })
                  deleteCount +=1
         })
-        
+        this.setState({selectAll:false})
         deleteArray.map( item => {
          
             this.state.data[item] === undefined ?
@@ -289,9 +317,9 @@ class ObjectTableContainer extends React.Component{
     }
 
 
-    filterData = (data, key, filteredAttribute) => {
-
-        const { locale } = this.context  
+    filterData = (data, key, filteredAttribute) => { 
+        const { locale } = this.context   
+        
         key = key.toLowerCase()
         let filteredData = data.filter(obj => { 
             if(filteredAttribute.includes('name')){
@@ -328,14 +356,13 @@ class ObjectTableContainer extends React.Component{
         return filteredData
     }
 
-    addObjectFilter = (key, attribute, source) => {
-
+    addObjectFilter = (key, attribute, source) => {  
         this.state.objectFilter = this.state.objectFilter.filter(filter => source != filter.source)
         
         this.state.objectFilter.push({
             key, attribute, source
         })
-        this.filterObjects()
+        this.filterObjects() 
     }
 
     removeObjectFilter = (source) => {
@@ -408,7 +435,7 @@ class ObjectTableContainer extends React.Component{
                     />                    
 
                 </MobileOnlyView>
-                <hr/>
+                <hr/> 
                 <SelectTable
                     keyField='id'
                     data={this.state.filteredData}

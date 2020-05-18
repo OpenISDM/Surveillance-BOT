@@ -165,6 +165,7 @@ class LbeaconTable extends React.Component{
         let idPackage = []
         var deleteArray = [];
         var deleteCount = 0;
+        this.setState({selectAll:false})
         this.state.data.map (item => {
         
             this.state.selection.map(itemSelect => {

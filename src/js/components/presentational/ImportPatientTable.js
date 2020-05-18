@@ -36,7 +36,7 @@ class ImportPatientTable extends React.Component{
 
     componentDidUpdate = (prevProps, prevState) => {
         if (this.context.locale.abbr !== prevState.locale) {
-            this.getData() 
+            this.getData()  
         }
     }
 
@@ -139,6 +139,7 @@ class ImportPatientTable extends React.Component{
     };
 
     deleteRecordImport = () => {
+        this.setState({selectAll:false})
         axios.delete(dataSrc.importedObject, {
             data: {
                 idPackage: this.state.selection
