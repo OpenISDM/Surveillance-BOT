@@ -123,7 +123,7 @@ class ImportPatientTable extends React.Component{
             currentRecords.forEach(item =>{
                 rowsCount++; 
                 if ((rowsCount > wrappedInstance.state.pageSize * wrappedInstance.state.page) && ( rowsCount <= wrappedInstance.state.pageSize +wrappedInstance.state.pageSize * wrappedInstance.state.page) ){
-                    selection.push(item.asset_control_number)
+                    selection.push(item._original.asset_control_number)
                 } 
             });
 
