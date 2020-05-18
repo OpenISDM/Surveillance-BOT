@@ -57,9 +57,10 @@ class ObjectTableContainer extends React.Component{
         this.getAreaTable();
     }
 
-    componentDidUpdate = (prevProps, prevState) => {   
-         
-        if (this.context.locale.abbr !== prevState.locale) {   
+    componentDidUpdate = (prevProps, prevState) => {    
+
+        if (this.context.locale.abbr !== prevState.locale) {    
+            this.getAreaTable()
 
             let columns = _.cloneDeep(patientTableColumn) 
 
@@ -110,8 +111,7 @@ class ObjectTableContainer extends React.Component{
                     id: item.area_id
                 }
                 data.push(item)
-            }) 
- 
+            })  
             this.setState({
                 data,
                 isShowEdit: false,
