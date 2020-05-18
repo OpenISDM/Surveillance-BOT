@@ -59,8 +59,6 @@ class ObjectTableContainer extends React.Component{
     componentDidUpdate = (prevProps, prevState) => { 
         
         if (this.context.locale.abbr !== prevState.locale) {  
-            console.log(this.context.locale)
-            console.log(this.state.filteredData)
             this.state.filteredData.map(item=>{
                 this.context.locale.abbr == 'en' 
                 ? item.area_name.label = SiteModuleEN[item.area_name.value]
