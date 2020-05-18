@@ -52,7 +52,7 @@ class ObjectTableContainer extends React.Component{
         locale: this.context.locale.abbr,
     }
 
-    componentDidMount = () => {
+    componentDidMount = () => { 
         this.getData();
         this.getAreaTable();
     }
@@ -80,6 +80,7 @@ class ObjectTableContainer extends React.Component{
             ? item.area_name.label = SiteModuleEN[item.area_name.value]
             : item.area_name.label = SiteModuleTW[item.area_name.value]
             item.registered_timestamp = moment(item.registered_timestamp._i).locale(this.context.locale.abbr).format("lll")
+            item.area_name.label == undefined ?   item.area_name.label = '*site module error*' : null 
         })
 
         this.state.filteredData.map(item=>{
@@ -87,8 +88,9 @@ class ObjectTableContainer extends React.Component{
             ? item.area_name.label = SiteModuleEN[item.area_name.value]
             : item.area_name.label = SiteModuleTW[item.area_name.value]
             item.registered_timestamp = moment(item.registered_timestamp._i).locale(this.context.locale.abbr).format("lll")
+            item.area_name.label == undefined ?   item.area_name.label = '*site module error*' : null
         })
-        
+       
         this.setState({
             columns,
             locale: this.context.locale.abbr
@@ -120,7 +122,7 @@ class ObjectTableContainer extends React.Component{
                 
                 item.area_name = {
                     value:item.area_name,
-                    label: locale.texts[item.area_name],
+                    label: locale.texts[item.area_name] || '*site module error*',
                     id: item.area_id
                 }
                 data.push(item)
