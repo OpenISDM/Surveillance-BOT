@@ -107,7 +107,7 @@ class ObjectTableContainer extends React.Component{
                 field.Header = locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
             })
 
-            reas.data.rows
+            res.data.rows
             .filter(item => item.object_type != 0)
             .map(item => {
                 
@@ -287,7 +287,7 @@ class ObjectTableContainer extends React.Component{
             })
                  deleteCount +=1
         })
-        this.setState({selectAll:false})
+        
         deleteArray.map( item => {
          
             this.state.data[item] === undefined ?
