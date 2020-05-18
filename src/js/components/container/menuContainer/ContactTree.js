@@ -8,9 +8,6 @@ import {
     TabletView,
     MobileOnlyView
 } from 'react-device-detect';
-import {
-    userContainerModule
-} from '../../../config/pageModules';
 import BrowserContactTree from '../../platform/browser/BrowserContactTree';
 
 class ContactTree extends React.Component{
@@ -35,16 +32,6 @@ class ContactTree extends React.Component{
                         location={this.props.location}
                     /> 
                 </BrowserView>
-                {/* <TabletView>
-                    <TabletTraceContainer
-                        location={this.props.location}
-                    /> 
-                </TabletView>
-                <MobileOnlyView>
-                    <MobileTraceContainer
-                        location={this.props.location}
-                    />
-                </MobileOnlyView> */}
             </Fragment>  
         )
     }
