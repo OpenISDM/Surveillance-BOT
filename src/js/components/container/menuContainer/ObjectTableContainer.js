@@ -60,6 +60,13 @@ class ObjectTableContainer extends React.Component{
     componentDidUpdate = (prevProps, prevState) => {   
          
         if (this.context.locale.abbr !== prevState.locale) {   
+
+            let columns = _.cloneDeep(patientTableColumn) 
+
+            columns.map(field => {
+                field.Header = this.context.locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
+            })
+
             this.state.filteredData.map(item=>{
                 this.context.locale.lang == 'en' 
                 ? item.area_name.label = SiteModuleEN[item.area_name.value]
@@ -68,6 +75,7 @@ class ObjectTableContainer extends React.Component{
             })
             
             this.setState({
+                columns,
                 locale: this.context.locale.abbr
             }) 
         }
