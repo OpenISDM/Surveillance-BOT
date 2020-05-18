@@ -140,6 +140,7 @@ class ImportPatientTable extends React.Component{
 
     deleteRecordImport = () => {
         this.setState({selectAll:false})
+        
         axios.delete(dataSrc.importedObject, {
             data: {
                 idPackage: this.state.selection
@@ -232,6 +233,8 @@ class ImportPatientTable extends React.Component{
                                 checkArray.indexOf(importData.asset_control_number) != -1 
                                 ?  ReapeName += importData.name+ ','
                                 :  newData.push(importData)  
+                            }else{
+                                newData.push(importData)  
                             }
                             checkArray.push(importData.asset_control_number)  
                         }else{

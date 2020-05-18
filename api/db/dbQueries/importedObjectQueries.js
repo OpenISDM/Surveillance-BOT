@@ -17,9 +17,7 @@ module.exports = {
         const query = `
             DELETE FROM import_table
             WHERE asset_control_number IN (${idPackage.map(item => `'${item}'`)});
-
-            DELETE FROM object_table
-            WHERE asset_control_number IN (${idPackage.map(item => `'${item}'`)});
+ 
         `
         return query
     },
