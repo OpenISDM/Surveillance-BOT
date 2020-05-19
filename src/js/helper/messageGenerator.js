@@ -21,10 +21,10 @@ const setSuccessMessage = (
 }
 
 const setErrorMessage = (
-    msg = 'connect to database failed'
-) => {
+    msg  
+) => { 
     return (
-        toast.success(<ToastMessage msg={msg} />, {
+        toast.success(<ToastMessage msg={msg == '' ? 'connect to database failed' : msg} />, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: false,
             className: 'toast-error-notice-container',
