@@ -28,8 +28,7 @@ const EditUserForm = ({
     roleName,
     data,
     areaTable
-}) => {
-
+}) => { 
     let locale = React.useContext(LocaleContext)
 
     const areaOptions = areaTable.map(area => {
@@ -78,6 +77,17 @@ const EditUserForm = ({
                                       return reapeatFlag
                                     },
                                 })
+                                .test(
+                                    'name',
+                                    locale.texts.SIGNUP_FAIL,
+                                    value => {  
+                                        let repeat = true
+                                        data.map(item=>{ 
+                                            item.name.toUpperCase() == value.toUpperCase() ? repeat = false : null
+                                        })
+                                        return repeat
+                                    }
+                                )
                                 .max(100),
                             area: selectedUser ? null : Yup.object().required(locale.texts.AREA_IS_REQUIRED),
                             password: selectedUser ? '' : Yup.string().required(locale.texts.PASSWORD_IS_REQUIRED),
@@ -85,7 +95,7 @@ const EditUserForm = ({
                         })
                     }
 
-                    onSubmit={values => { 
+                    onSubmit={values => {  
                         handleSubmit(values)
                     }}
 
@@ -123,7 +133,7 @@ const EditUserForm = ({
                                     >
                                         {roleName
                                             .filter(roleName => roleName.name !== 'guest')
-                                            .map((roleName, index) => { 
+                                            .map((roleName, index) => {
                                                 return (
                                                     <Field
                                                         component={Checkbox}

@@ -35,7 +35,7 @@ class AdminManagementContainer extends React.Component{
         deleteUserName:'',
         areaTable: [],
         showAddUserForm: false,
-        showDeleteUserForm:false,
+        showDeleteUserForm:false, 
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -62,7 +62,7 @@ class AdminManagementContainer extends React.Component{
             let columns = _.cloneDeep(userInfoTableColumn)
             columns.map((field, index) => {
                 field.Header = locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
-            })
+            }) 
             let data = res.data.rows.map((item, index) => {
                 item._id = index + 1
                 item.roles = item.role_type.map(role => locale.texts[role.toUpperCase()]).join(',')
@@ -139,17 +139,10 @@ class AdminManagementContainer extends React.Component{
         } 
         let callback = () => {
             messageGenerator.setSuccessMessage('save success')
-        } 
-        let failback = () => {
-            messageGenerator.setErrorMessage('signup fail')
-        } 
+        }  
         auth[api](user, () => {
             this.getUserList(callback)
-        },
-        failback(),
-        setTimeout(() => {
-            this.handleClose() 
-         }, 500)
+        } 
         )
     }
 

@@ -440,7 +440,7 @@ const tw = {
     SAVE_SHIFT_CHANGE_SUCCESS: "儲存交班報表成功",
     SAVE_SUCCESS: "儲存成功",
     SELECT_ROLE:"選擇權限",
-    SIGNUP_FAIL:"新增失敗：帳號重複",
+    SIGNUP_FAIL:"帳號重複",
 
     /** user roles */
     CARE_PROVIDER: "護理人員",
