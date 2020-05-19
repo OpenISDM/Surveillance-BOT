@@ -22,8 +22,7 @@ const setSuccessMessage = (
 
 const setErrorMessage = (
     msg  
-) => {
-    console.log(msg)
+) => { 
     return (
         toast.success(<ToastMessage msg={msg == '' ? 'connect to database failed' : msg} />, {
             position: toast.POSITION.TOP_CENTER,
