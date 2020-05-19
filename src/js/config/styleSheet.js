@@ -1,16 +1,16 @@
 const styleSheet = {
 
-    theme: '#007bff',
+    theme: 'rgb(0, 123, 255)',
 
-    lightGrey: '#0000001a',
+    lightGrey: 'rgba(32,33,36,0.28)',
 
     bodyBackGround: '#f0edf240',
 
-    inActive: '#00000054',
+    inActive: 'rgba(0, 0, 0, 0.33)',
 
     iconColor: 'black',
 
-    grey: '#00000038',
+    grey: 'rgba(0, 0, 0, 0.33)',
 
     warning: 'red',
 

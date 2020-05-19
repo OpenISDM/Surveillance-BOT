@@ -65,12 +65,11 @@ class AdminManagementContainer extends React.Component{
             }) 
             let data = res.data.rows.map((item, index) => {
                 item._id = index + 1
-                item.roles = item.role_type.map(role => locale.texts[role.toUpperCase()]).join(',')
+                item.roles = item.role_type
+                    .map(role => locale.texts[role.toUpperCase()]).join('/')
                 item.area_ids = item.area_ids
                     .filter(area =>  area.id != item.main_area.id)
-                    .map(area => {
-                        return locale.texts[area.value]
-                    })
+                    .map(area => locale.texts[area.value])
                     .join('/')
                 item.main_area.label = locale.texts[item.main_area.value]
                 return item

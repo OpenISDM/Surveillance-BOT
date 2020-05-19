@@ -33,6 +33,7 @@ export const navbarNavList = [
         alias: 'contactTree',
         path: '/page/contactTree',
         permission: 'route:contactTree',
+        platform: ['browser']
 
     },
 ]
