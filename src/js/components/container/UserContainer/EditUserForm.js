@@ -85,8 +85,7 @@ const EditUserForm = ({
                         })
                     }
 
-                    onSubmit={values => {
-                        console.log(values)
+                    onSubmit={values => { 
                         handleSubmit(values)
                     }}
 

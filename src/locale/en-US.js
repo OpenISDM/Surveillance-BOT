@@ -438,7 +438,8 @@ const en =  {
     SAVE_SHIFT_CHANGE_SUCCESS: "save shift change success",
     SAVE_SUCCESS: "save success",
     SELECT_ROLE:"select role",
-
+    SIGNUP_FAIL:"this username already exist",
+    
     /** user roles */
     CARE_PROVIDER: "care provider",
     SYSTEM_ADMIN: "system admin",

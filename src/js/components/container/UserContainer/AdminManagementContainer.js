@@ -139,11 +139,18 @@ class AdminManagementContainer extends React.Component{
         } 
         let callback = () => {
             messageGenerator.setSuccessMessage('save success')
-        }
-        
+        } 
+        let failback = () => {
+            messageGenerator.setErrorMessage('signup fail')
+        } 
         auth[api](user, () => {
             this.getUserList(callback)
-        })
+        },
+        failback(),
+        setTimeout(() => {
+            this.handleClose() 
+         }, 500)
+        )
     }
 
     handleDeleteUserSubmit = (e) => {
