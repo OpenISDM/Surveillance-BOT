@@ -1,3 +1,5 @@
+
+
 /* Customize the label (the container) */
 .container {
     display: flex;
@@ -31,7 +33,7 @@
     left: 0;
     height: 18px;
     width: 18px;
-    border: 2px solid #80808029;
+    border: 2px solid rgba(32,33,36,0.28);
     border-radius: 4px;
     /* background-color: #eee; */
 }
