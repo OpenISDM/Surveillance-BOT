@@ -86,6 +86,7 @@ const EditUserForm = ({
                     }
 
                     onSubmit={values => {
+                        console.log(values)
                         handleSubmit(values)
                     }}
 
@@ -123,7 +124,7 @@ const EditUserForm = ({
                                     >
                                         {roleName
                                             .filter(roleName => roleName.name !== 'guest')
-                                            .map((roleName, index) => {
+                                            .map((roleName, index) => { 
                                                 return (
                                                     <Field
                                                         component={Checkbox}

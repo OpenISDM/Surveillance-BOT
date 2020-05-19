@@ -11,17 +11,17 @@ module.exports = {
             password,
             username
         } = request.body
-        username = username.toLowerCase()
+   
 
         pool.query(dbQueries.signin(username))
             .then(res => {
-                if (res.rowCount < 1) {
+                if (res.rowCount < 1) { 
                     console.log(`signin failed: username or password is incorrect`)
                     response.json({
                         authentication: false,
                         message: "Username or password is incorrect"
                     })
-                } else {
+                } else { 
                     if (bcrypt.compareSync(password, res.rows[0].password)) {
                         let { 
                             name, 
@@ -66,7 +66,7 @@ module.exports = {
                             .then(res =>  console.log(`sign in success: ${name}`))
                             .catch(err => console.log(`set visit timestamp fails ${err}`))
 
-                    } else {
+                    } else { 
                         response.json({
                             authentication: false,
                             message: "password is incorrect"

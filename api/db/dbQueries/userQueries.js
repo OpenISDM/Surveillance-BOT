@@ -60,7 +60,7 @@ module.exports = {
 	},
 
 	addUser: signupPackage => {
-
+		console.log(signupPackage)
 		const text = 
 			`
 			INSERT INTO user_table 
@@ -93,7 +93,9 @@ module.exports = {
 
 
 	insertUserData: (name, roles, area_id) => {
-
+		console.log(name)
+		console.log(roles)
+		console.log(area_id)
 		return `
 			INSERT INTO user_role (
 				user_id, 

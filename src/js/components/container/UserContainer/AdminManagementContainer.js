@@ -119,7 +119,7 @@ class AdminManagementContainer extends React.Component{
             api,
             selectedUser
         } = this.state 
-
+         
         let user = {
             ...auth.user,
             ...values,
@@ -133,12 +133,11 @@ class AdminManagementContainer extends React.Component{
 
         if (!user.areas_id.includes(user.area.id)) {
             user.areas_id.push(user.area.id)
-        }
-
+        } 
         let callback = () => {
             messageGenerator.setSuccessMessage('save success')
         }
- 
+        
         auth[api](user, () => {
             this.getUserList(callback)
         })

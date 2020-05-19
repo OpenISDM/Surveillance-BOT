@@ -1,6 +1,5 @@
 module.exports = {
-	signin: (username) => {
-
+	signin: (username) => { 
 		const text =
 			`
 			WITH 
