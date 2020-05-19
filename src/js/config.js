@@ -49,7 +49,7 @@ const config = {
     PDF_FILENAME_TIME_FORMAT: "YYYY-MM-Do_hh_mm_ss",
 
     
-    DEFAULT_ROLE: ['guest'], 
+    DEFAULT_ROLE: ['system_admin'], 
 
     HEALTH_STATUS_MAP: {
         0: 'normal',
