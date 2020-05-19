@@ -124,7 +124,7 @@ class BrowserContactTree extends React.Component{
         let collection = [];
         // let startTime = '2020/05/13 00:00:00';
         // let endTime = '2020/05/14 00:00:00';
-        let startTime = moment().subtract(config.DEFAULT_CONTACT_TREE_INTERVAL_UNIT, config.DEFAULT_CONTACT_TREE_INTERVAL_VALUE);
+        let startTime = moment().startOf('day');
         let endTime = moment();
         wait.push({
             name: key.value,
