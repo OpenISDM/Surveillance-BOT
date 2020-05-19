@@ -18,6 +18,7 @@ import {
     PrimaryButton 
 } from '../../BOTComponent/styleComponent';
 import AccessControl from '../../presentational/AccessControl';
+import config from '../../../config';
 
 class AdminManagementContainer extends React.Component{
 
@@ -91,7 +92,9 @@ class AdminManagementContainer extends React.Component{
     getAllRole = () => {
         retrieveDataHelper.getAllRole()
             .then(res => {
-                let roleName = res.data.rows.filter(item => item.name !== 'guest' )
+
+                /** filter system default roles */
+                let roleName = res.data.rows.filter(item => config.ROLES_SELECTION.includes(item.name))
                 this.setState({
                     roleName,
                 })
