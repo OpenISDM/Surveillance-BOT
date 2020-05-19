@@ -13,7 +13,7 @@ module.exports = {
         } = request.body
    
 
-        pool.query(dbQueries.signin(username.toUpperCase()))
+        pool.query(dbQueries.signin(username.toLowerCase()))
             .then(res => {
                 if (res.rowCount < 1) { 
                     console.log(`signin failed: username or password is incorrect`)

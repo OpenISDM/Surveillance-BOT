@@ -43,7 +43,7 @@ module.exports = {
         const hash = bcrypt.hashSync(password, saltRounds);
 
         const signupPackage = {
-            name : name.toUpperCase(),
+            name,
             password: hash,
             area_id
         } 
@@ -52,27 +52,27 @@ module.exports = {
         })
 
 
-        pool.query(authQueries.signin(name.toUpperCase()))
-        .then(ress => {  
-            if (ress.rowCount < 1) { 
-                pool.query(dbQueries.addUser(signupPackage))
-                .then(res => {
-                    pool.query(dbQueries.insertUserData(name.toUpperCase(), roles, area_id))
-                        .then(res => {
-                            console.log('sign up succeed')
-                            response.status(200).json(res)
-                        })
-                        .catch(err => {
-                            console.log(`sinup failed ${err}`)
-                        })
-                })
-                .catch(err => {
-                    console.log(`signup failed ${err}`)
-                })
-            }else{ 
-                console.log('signup failed : repeat username')
-            }
-        })
+        pool.query(authQueries.signin(name))
+            .then(ress => {  
+                if (ress.rowCount < 1) { 
+                    pool.query(dbQueries.addUser(signupPackage))
+                    .then(res => {
+                        pool.query(dbQueries.insertUserData(name, roles, area_id))
+                            .then(res => {
+                                console.log('sign up succeed')
+                                response.status(200).json(res)
+                            })
+                            .catch(err => {
+                                console.log(`sinup failed ${err}`)
+                            })
+                    })
+                    .catch(err => {
+                        console.log(`signup failed ${err}`)
+                    })
+                }else{ 
+                    console.log('signup failed : repeat username')
+                }
+            })
 
        
     },
