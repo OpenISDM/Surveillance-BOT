@@ -223,25 +223,71 @@ const  MobileTraceContainerView = React.forwardRef(({
                                         </div>
                                     )}
                                 </div>
-                                <DateTimePicker 
-                                    name='startTime'
-                                    className='my-2'
-                                    value={values.startTime}
-                                    onChange={(value) => {
-                                        setFieldValue('startTime', moment(value).toDate())
+                                <div
+                                    className='my-3'
+                                    style={{
+                                        position: 'relative'
                                     }}
-                                    placeholder={locale.texts.START_TIME}
-                                    defaultCurrentDate={moment().startOf("day").toDate()}
-                                />
-                                <DateTimePicker 
-                                    name='endTime'
-                                    className='my-2'
-                                    value={values.endTime}
-                                    onChange={(value) => {
-                                        setFieldValue('endTime', moment(value).toDate())
+                                >   
+                                    <DateTimePicker 
+                                        name='startTime'
+                                        value={values.startTime} 
+                                        onkeydown="return false"
+                                        onChange={(value) => {  
+                                            value != null ?
+                                            setFieldValue('startTime', moment(value).toDate())
+                                            : setFieldValue('startTime', undefined)
+                                        }}  
+                                        defaultCurrentDate={moment().startOf("day").toDate()}
+                                        placeholder={locale.texts.START_TIME} 
+                                    />
+                                    {errors.startTime && (
+                                        <div 
+                                            className='text-left'
+                                            style={{
+                                                fontSize: '0.6rem',
+                                                color: styleSheet.warning,
+                                                position: 'absolute',
+                                                left: 0,
+                                                bottom: -18,
+                                            }}
+                                        >
+                                            {errors.startTime}
+                                        </div>
+                                    )}
+
+                                </div>
+                                <div
+                                    className='mb-4 mt-1'
+                                    style={{
+                                        position: 'relative'
                                     }}
-                                    placeholder={locale.texts.END_TIME}
-                                />
+                                >
+                                    <DateTimePicker 
+                                        name='endTime'
+                                        value={values.endTime != null ? values.endTime  : undefined} 
+                                        onChange={(value, e) => {
+                                            value != null ?
+                                            setFieldValue('endTime', moment(value).toDate())
+                                            : setFieldValue('endTime', undefined)
+                                        }} 
+                                        placeholder={locale.texts.END_TIME}
+                                    />
+                                    {errors.endTime && (
+                                        <div 
+                                            className='text-left'
+                                            style={{
+                                                fontSize: '0.6rem',
+                                                color: styleSheet.warning,
+                                                position: 'absolute',
+                                                left: 0,
+                                                bottom: -18,
+                                            }}
+                                        >
+                                            {errors.endTime}
+                                        </div>
+                                    )}
+                                </div>
                                 <PrimaryButton
                                     type='button' 
                                     onClick={submitForm}
