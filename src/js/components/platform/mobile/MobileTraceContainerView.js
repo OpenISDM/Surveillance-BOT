@@ -241,6 +241,7 @@ const  MobileTraceContainerView = React.forwardRef(({
                                         defaultCurrentDate={moment().startOf("day").toDate()}
                                         placeholder={locale.texts.START_TIME} 
                                     />
+
                                     {errors.startTime && (
                                         <div 
                                             className='text-left'
@@ -259,6 +260,7 @@ const  MobileTraceContainerView = React.forwardRef(({
                                 </div>
                                 <div
                                     className='mb-4 mt-1'
+
                                     style={{
                                         position: 'relative'
                                     }}
@@ -266,7 +268,7 @@ const  MobileTraceContainerView = React.forwardRef(({
                                     <DateTimePicker 
                                         name='endTime'
                                         value={values.endTime != null ? values.endTime  : undefined} 
-                                        onChange={(value, e) => {
+                                        onChange={(value) => { 
                                             value != null ?
                                             setFieldValue('endTime', moment(value).toDate())
                                             : setFieldValue('endTime', undefined)
@@ -274,6 +276,7 @@ const  MobileTraceContainerView = React.forwardRef(({
                                         placeholder={locale.texts.END_TIME}
                                     />
                                     {errors.endTime && (
+
                                         <div 
                                             className='text-left'
                                             style={{
@@ -288,12 +291,16 @@ const  MobileTraceContainerView = React.forwardRef(({
                                         </div>
                                     )}
                                 </div>
-                                <PrimaryButton
-                                    type='button' 
-                                    onClick={submitForm}
+                                <div
+                                    className='d-flex align-items-center'
                                 >
-                                    {locale.texts.SEARCH}
-                                </PrimaryButton>
+                                    <PrimaryButton
+                                        type='button' 
+                                        onClick={submitForm}
+                                    >
+                                        {locale.texts.SEARCH}
+                                    </PrimaryButton>
+                                </div>
                             </div>
                         
                         {status == config.AJAX_STATUS_MAP.LOADING && <Loader />}
