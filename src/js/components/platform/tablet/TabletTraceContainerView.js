@@ -144,8 +144,10 @@ const TabletTraceContainerView = React.forwardRef(({
                                 return (
                                     <Breadcrumb.Item
                                         key={index}
-                                        active={breadIndex == index}
                                         name='bread'
+                                        style={{
+                                            color: breadIndex == index ? styleSheet.theme : styleSheet.black
+                                        }}
                                         data={JSON.stringify({
                                             history,
                                             index
@@ -293,18 +295,7 @@ const TabletTraceContainerView = React.forwardRef(({
                                         </div>
                                     )}
                                 </div> 
-                            <div
-                                className='d-flex align-items-center'
-                            >
-                                <PrimaryButton
-                                    type='button' 
-                                    onClick={submitForm}
-                                >
-                                    {locale.texts.SEARCH}
-                                </PrimaryButton>
                             </div>
-                            </div>
-                            
                             <div
                                 className='d-flex align-items-center'
                             >

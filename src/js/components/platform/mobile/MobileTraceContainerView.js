@@ -144,8 +144,10 @@ const  MobileTraceContainerView = React.forwardRef(({
                                     return (
                                         <Breadcrumb.Item
                                             key={index}
-                                            active={breadIndex == index}
                                             name='bread'
+                                            style={{
+                                                color: breadIndex == index ? styleSheet.theme : styleSheet.black
+                                            }}
                                             data={JSON.stringify({
                                                 history,
                                                 index
