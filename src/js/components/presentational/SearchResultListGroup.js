@@ -8,8 +8,6 @@ import {
     getMacaddress,
     getRSSI 
 } from '../../helper/descriptionGenerator';
-import AccessControl from './AccessControl';
-
 
 const SearchResultListGroup = ({
     data,
@@ -67,22 +65,8 @@ const SearchResultListGroup = ({
                             <p className='d-inline-block'>{index + 1}.</p>
                         </div>
                         {getDescription(item, locale, config)}
-                        {
-                            <AccessControl
-                                permission={'form:develop'}
-                                renderNoAccess={() => null}
-                            >
-                                {`|${getMacaddress(item, locale)}`}
-                            </AccessControl>
-                        }
-                        {
-                            <AccessControl
-                                permission={'form:develop'}
-                                renderNoAccess={() => null}
-                            >
-                                {`|${getRSSI(item, locale)}`}
-                            </AccessControl>
-                        }
+                        {getMacaddress(item, locale)}
+                        {getRSSI(item, locale)}
                     </Link>
                 return element
             })}

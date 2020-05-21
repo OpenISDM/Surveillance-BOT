@@ -1,4 +1,6 @@
 import config from '../config';
+import React from 'react';
+import AccessControl from '../components/presentational/AccessControl';
 
 export const getDescription = (item, locale) => {
     var foundDeviceDescription = ``; 
@@ -158,17 +160,25 @@ export const getPosition = (item, locale) => {
 }
 
 export const getMacaddress = (item, locale) => {
-    return `
-        ${locale.texts.MAC_ADDRESS}:
-        ${item.mac_address}
-    `
+    return (
+        <AccessControl
+            permission={'form:develop'}
+            renderNoAccess={() => null}
+        >
+            | {locale.texts.MAC_ADDRESS}: {item.mac_address}
+        </AccessControl>
+    )
 }
 
 export const getRSSI = (item, locale) => {
-    return `
-        ${locale.texts.RSSI}:
-        ${item.rssi}
-    `
+    return (
+        <AccessControl
+            permission={'form:develop'}
+            renderNoAccess={() => null}
+        >
+            | {locale.texts.RSSI}: {item.rssi}
+        </AccessControl>
+    )
 }
 
 export const getAreaName = (item, locale) => {
