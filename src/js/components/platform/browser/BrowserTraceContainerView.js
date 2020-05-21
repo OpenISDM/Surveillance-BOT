@@ -142,7 +142,9 @@ const BrowseTraceContainerView = React.forwardRef(({
                                 return ( 
                                     <Breadcrumb.Item
                                         key={index}
-                                        active={breadIndex == index}
+                                        style={{
+                                            color: breadIndex == index ? styleSheet.theme : styleSheet.black
+                                        }}
                                         name='bread'
                                         data={JSON.stringify({
                                             history,

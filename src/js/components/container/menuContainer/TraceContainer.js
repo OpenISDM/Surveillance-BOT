@@ -74,9 +74,11 @@ class TraceContainer extends React.Component{
         this.getObjectTable();
         this.getLbeaconTable();
         if (this.props.location.state) {
+            console.log(1222)
             let { state } = this.props.location
             let endTime = moment();
-            let startTime = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT);
+            let startTime = moment().startOf('day');
+            console.log(startTime)
             let field = {
                 mode: state.mode,
                 key: state.key,
@@ -270,7 +272,7 @@ class TraceContainer extends React.Component{
         if (this.props.location.state) {
             let { state } = this.props.location;
             let endTime = moment().toDate();
-            let startTime = moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT).toDate();
+            let startTime = moment().startOf('day').toDate();
             return {
                 mode: state.mode,
                 key: state.key,
