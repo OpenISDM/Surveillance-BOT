@@ -199,63 +199,66 @@ class TraceContainer extends React.Component{
             mode: fields.mode
         })
         .then(res => {
-            /** Condition handler when no result */
-            if (res.data.rowCount == 0) {
-                this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.NO_RESULT)
-                this.setState({
-                    data: [],
-                }) 
-                return
-            }
 
-            let data;
-            switch(fields.mode) {
-                case 'name':
-                    data = res.data.rows.map((item, index) => {
-                        item.residenceTime = moment.duration(item.duration).locale(locale.abbr).humanize();
-                        item.startTime = moment(item.start_time).format(timeValidatedFormat);
-                        item.endTime = moment(item.end_time).format(timeValidatedFormat);
-                        item.description = item.location_description;
-                        item.mode = fields.mode;
-                        item.area_original = item.area_name;
-                        item.area = locale.texts[item.area_name];
-                        return item
-                    })
-                    break;
-                case 'uuid':
-                    data = res.data.rows.map((item, index) => {
-                        item.id = index + 1
-                        item.mode = fields.mode
-                        item.area_original = item.area
-                        item.area= locale.texts[item.area]
-                        item.description = item.name
-                        return item
-                    })
-                    break;
-            }
-
+            let data = []
+            let ajaxStatus;
             var histories = this.state.histories
 
-            if (breadIndex < this.state.histories.length) {
-                histories = histories.slice(0, breadIndex)
-            }
+            /** Condition handler when no result */
+            if (res.data.rowCount == 0) {
 
-            histories.push({
-                key: fields.key,
-                startTime: moment(fields.startTime).format(), 
-                endTime: moment(fields.endTime).format(),
-                mode: fields.mode,
-                data,
-                columns,
-                description: fields.description
-            })
+                ajaxStatus = config.AJAX_STATUS_MAP.NO_RESULT;
+                breadIndex--;
+
+            } else {
+
+                switch(fields.mode) {
+                    case 'name':
+                        data = res.data.rows.map((item, index) => {
+                            item.residenceTime = moment.duration(item.duration).locale(locale.abbr).humanize();
+                            item.startTime = moment(item.start_time).format(timeValidatedFormat);
+                            item.endTime = moment(item.end_time).format(timeValidatedFormat);
+                            item.description = item.location_description;
+                            item.mode = fields.mode;
+                            item.area_original = item.area_name;
+                            item.area = locale.texts[item.area_name];
+                            return item
+                        })
+                        break;
+                    case 'uuid':
+                        data = res.data.rows.map((item, index) => {
+                            item.id = index + 1
+                            item.mode = fields.mode
+                            item.area_original = item.area
+                            item.area= locale.texts[item.area]
+                            item.description = item.name
+                            return item
+                        })
+                        break;
+                }
+
+                ajaxStatus = config.AJAX_STATUS_MAP.SUCCESS;
+
+                if (breadIndex < this.state.histories.length) {
+                    histories = histories.slice(0, breadIndex)
+                }
+                histories.push({
+                    key: fields.key,
+                    startTime: moment(fields.startTime).format(), 
+                    endTime: moment(fields.endTime).format(),
+                    mode: fields.mode,
+                    data,
+                    columns,
+                    description: fields.description
+                })
+            }
 
             this.setState({
                 data,
                 columns,
                 histories,
                 breadIndex,
-            }, this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.SUCCESS))
+            }, this.formikRef.current.setStatus(ajaxStatus))
 
         })
         .catch(err => {

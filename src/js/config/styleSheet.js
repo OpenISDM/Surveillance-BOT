@@ -14,6 +14,8 @@ const styleSheet = {
 
     warning: 'red',
 
+    black: 'black',
+
 
 
 }

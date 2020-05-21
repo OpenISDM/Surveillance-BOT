@@ -21,16 +21,27 @@ const SearchResultListGroup = ({
     const { locale } = React.useContext(AppContext);
    
     const style = {
-        icon: {
-            color: '#007bff',
-            top: 10
-        },
+
         item: {
             minWidth: 35,
         },
         listGroup: {
             color: 'rgb(33, 37, 41)',
         }
+    }
+
+    const dataToLink = (data) => {
+        return ({
+            pathname: '/page/trace',
+            state: {
+                key: {
+                    value: data.name,
+                    label: data.name,
+                    description: data.name
+                },
+                mode: 'name'
+            }
+        })
     }
 
     return (
@@ -40,16 +51,7 @@ const SearchResultListGroup = ({
             {data.map((item,index) => {
                 let element = 
                     <Link 
-                        to={{
-                            pathname: '/page/trace',
-                            state: {
-                                key: {
-                                    value: item.name,
-                                    label: item.name,
-                                },
-                                mode: 'name'
-                            }
-                        }}
+                        to={dataToLink(item)}
                         eventKey={item.found + ':'+ index} 
                         key={index} 
                         action={action}

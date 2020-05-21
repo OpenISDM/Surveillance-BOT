@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import { 
     Nav,
     Breadcrumb,
+    Button
 } from 'react-bootstrap';
 import styleConfig from '../../../config/styleConfig';
 import 'react-tabs/style/react-tabs.css';
@@ -142,7 +143,10 @@ const BrowseTraceContainerView = React.forwardRef(({
                                 return ( 
                                     <Breadcrumb.Item
                                         key={index}
-                                        active={breadIndex == index}
+                                        // active={breadIndex == index}
+                                        style={{
+                                            color: breadIndex == index ? styleSheet.theme : styleSheet.black
+                                        }}
                                         name='bread'
                                         data={JSON.stringify({
                                             history,
