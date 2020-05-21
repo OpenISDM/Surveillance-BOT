@@ -82,9 +82,12 @@ const EditUserForm = ({
                                     locale.texts.SIGNUP_FAIL,
                                     value => {  
                                         let repeat = true
-                                        data.map(item=>{ 
-                                            item.name.toUpperCase() == value.toUpperCase() ? repeat = false : null
-                                        })
+                                        if (value != undefined){                      
+                                            data.map(item=>{  
+                                                item.name.toUpperCase() == value.toUpperCase() ? repeat = false : null
+                                            })       
+                                        }
+
                                         return repeat
                                     }
                                 )
@@ -107,9 +110,11 @@ const EditUserForm = ({
                                 label={locale.texts.NAME}
                                 error={errors.name}
                                 touched={touched.name}
-                                placeholder={locale.texts.USERNAME}
-                                
+                                placeholder={locale.texts.USERNAME} 
+                                autoComplete="off"
                             />
+ 
+                            
                             <FormikFormGroup 
                                 type="text"
                                 name="password"
@@ -118,6 +123,7 @@ const EditUserForm = ({
                                 touched={touched.password}
                                 placeholder={locale.texts.PASSWORD}
                                 display={!selectedUser}
+                                autoComplete="off"
                             />
                             <hr/>
                             <FormikFormGroup 
