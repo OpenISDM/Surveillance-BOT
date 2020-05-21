@@ -37,13 +37,15 @@ const MobileObjectTableView = ({
                     }}
                     clearSearchResult={null}                                        
                 />
-                <AccessControl
+                 
+            </div>
+            <AccessControl
                     renderNoAccess={() => null}
                     platform={['mobile']}
                 >
                     <Select
                         name='Select Area Patient'
-                        className='mx-2'
+                        className='mb-2'
                         styles={styleConfig.reactSelectFilter}
                         onChange={(value) => {
                             if(value){
@@ -57,8 +59,7 @@ const MobileObjectTableView = ({
                         isSearchable={false}
                         placeholder={locale.texts.SELECT_AREA}
                     />
-                </AccessControl>
-            </div>
+            </AccessControl>
 
             <ButtonToolbar>
                 <PrimaryButton
