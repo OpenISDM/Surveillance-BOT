@@ -21,6 +21,7 @@ const FormikFormGroup = ({
    value,
    onChange,
    example = null,
+   autoComplete = true,
 }) => {
     let style = {
         container: {
@@ -56,6 +57,7 @@ const FormikFormGroup = ({
                                 style={{
                                     letterSpacing: 1,
                                 }}
+                                autoComplete={autoComplete}
                             />
                         :
                         <div>
@@ -68,6 +70,7 @@ const FormikFormGroup = ({
                                 style={{
                                     letterSpacing: 1,
                                 }}
+                                autoComplete={autoComplete}
                             />
                         </div>
                     )
