@@ -23,7 +23,7 @@ const MobileObjectTableView = ({
     const locale = React.useContext(LocaleContext)
 
     return (
-        <div className='d-flex justify-content-between my-4'>
+        <Fragment> 
             <div className='d-flex justify-content-start'>                    
                 <BOTInput
                     className='mx-2'
@@ -39,7 +39,7 @@ const MobileObjectTableView = ({
                 />
                 <AccessControl
                     renderNoAccess={() => null}
-                    platform={['browser']}
+                    platform={['tablet']}
                 >
                     <Select
                         name='Select Area Patient'
@@ -59,9 +59,10 @@ const MobileObjectTableView = ({
                     />
                 </AccessControl>
             </div>
+            
             <AccessControl
                 renderNoAccess={() => null}
-                platform={['browser', 'tablet']} 
+                platform={['tablet']} 
             >
                 <ButtonToolbar>
                     <PrimaryButton
@@ -86,8 +87,10 @@ const MobileObjectTableView = ({
                         {locale.texts.DELETE}
                     </PrimaryButton>
                 </ButtonToolbar>
-            </AccessControl>
-        </div>
+            </AccessControl> 
+ 
+        </Fragment> 
+        
     )
 }
 
