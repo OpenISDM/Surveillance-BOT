@@ -235,7 +235,7 @@ const TabletTraceContainerView = React.forwardRef(({
                                         setFieldValue('startTime', moment(value).toDate())
                                         : null
                                     }}  
-                                
+                                    defaultCurrentDate={moment().startOf("day").toDate()}                                
                                     placeholder={locale.texts.START_TIME} 
                                 />
                                 <DateTimePicker 

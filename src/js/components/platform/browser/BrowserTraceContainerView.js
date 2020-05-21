@@ -231,7 +231,7 @@ const BrowseTraceContainerView = React.forwardRef(({
                                             setFieldValue('startTime', moment(value).toDate())
                                             : setFieldValue('startTime', undefined)
                                         }}  
-                                    
+                                        defaultCurrentDate={moment().startOf("day").toDate()}
                                         placeholder={locale.texts.START_TIME} 
                                     />
 

@@ -231,6 +231,7 @@ const  MobileTraceContainerView = React.forwardRef(({
                                         setFieldValue('startTime', moment(value).toDate())
                                     }}
                                     placeholder={locale.texts.START_TIME}
+                                    defaultCurrentDate={moment().startOf("day").toDate()}
                                 />
                                 <DateTimePicker 
                                     name='endTime'
