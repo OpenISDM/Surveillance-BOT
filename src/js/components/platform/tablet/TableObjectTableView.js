@@ -61,7 +61,7 @@ const MobileObjectTableView = ({
             </div>
             <AccessControl
                 renderNoAccess={() => null}
-                platform={['browser', 'tablet']} 
+                platform={['tablet']} 
             >
                 <ButtonToolbar>
                     <PrimaryButton

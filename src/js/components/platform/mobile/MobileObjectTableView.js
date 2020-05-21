@@ -39,7 +39,7 @@ const MobileObjectTableView = ({
                 />
                 <AccessControl
                     renderNoAccess={() => null}
-                    platform={['browser']}
+                    platform={['mobile']}
                 >
                     <Select
                         name='Select Area Patient'
