@@ -225,31 +225,84 @@ const TabletTraceContainerView = React.forwardRef(({
                                         </div>
                                     )}
                                 </div>
-                                <DateTimePicker 
-                                    name='startTime'
+                                <div
                                     className='mx-2'
-                                    value={values.startTime} 
-                                    onkeydown="return false"
-                                    onChange={(value) => { 
-                                        value != null ?
-                                        setFieldValue('startTime', moment(value).toDate())
-                                        : null
-                                    }}  
-                                
-                                    placeholder={locale.texts.START_TIME} 
-                                />
-                                <DateTimePicker 
-                                    name='endTime'
+                                    style={{
+                                        position: 'relative'
+                                    }}
+                                >   
+                                    <DateTimePicker 
+                                        name='startTime'
+                                        className='mx-2'
+                                        value={values.startTime} 
+                                        onkeydown="return false"
+                                        onChange={(value) => {  
+                                            value != null ?
+                                            setFieldValue('startTime', moment(value).toDate())
+                                            : setFieldValue('startTime', undefined)
+                                        }}  
+                                    
+                                        placeholder={locale.texts.START_TIME} 
+                                    />
+
+                                    {errors.startTime && (
+                                        <div 
+                                            className='text-left'
+                                            style={{
+                                                fontSize: '0.6rem',
+                                                color: styleSheet.warning,
+                                                position: 'absolute',
+                                                left: 10,
+                                                bottom: -18,
+                                            }}
+                                        >
+                                            {errors.startTime}
+                                        </div>
+                                    )}
+
+                                </div>
+                                <div
                                     className='mx-2'
-                                    value={values.endTime}
-                                    onChange={(value) => { 
-                                        value != null ?
-                                        setFieldValue('endTime', moment(value).toDate())
-                                        : null
-                                    }} 
-                                    placeholder={locale.texts.END_TIME}
-                                />
-                            
+                                    style={{
+                                        position: 'relative'
+                                    }}
+                                >
+                                    <DateTimePicker 
+                                        name='endTime'
+                                        className='mx-2'
+                                        value={values.endTime != null ? values.endTime  : undefined} 
+                                        onChange={(value) => { 
+                                            value != null ?
+                                            setFieldValue('endTime', moment(value).toDate())
+                                            : setFieldValue('endTime', undefined)
+                                        }} 
+                                        placeholder={locale.texts.END_TIME}
+                                    />
+                                        {errors.endTime && (
+                                        <div 
+                                            className='text-left'
+                                            style={{
+                                                fontSize: '0.6rem',
+                                                color: styleSheet.warning,
+                                                position: 'absolute',
+                                                left: 10,
+                                                bottom: -18,
+                                            }}
+                                        >
+                                            {errors.endTime}
+                                        </div>
+                                    )}
+                                </div> 
+                            <div
+                                className='d-flex align-items-center'
+                            >
+                                <PrimaryButton
+                                    type='button' 
+                                    onClick={submitForm}
+                                >
+                                    {locale.texts.SEARCH}
+                                </PrimaryButton>
+                            </div>
                             </div>
                             
                             <div

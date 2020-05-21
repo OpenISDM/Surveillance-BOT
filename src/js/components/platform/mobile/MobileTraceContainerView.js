@@ -223,30 +223,85 @@ const  MobileTraceContainerView = React.forwardRef(({
                                         </div>
                                     )}
                                 </div>
-                                <DateTimePicker 
-                                    name='startTime'
-                                    className='my-2'
-                                    value={values.startTime}
-                                    onChange={(value) => {
-                                        setFieldValue('startTime', moment(value).toDate())
+                                <div
+                                    className='mx-2'
+                                    style={{
+                                        position: 'relative'
                                     }}
-                                    placeholder={locale.texts.START_TIME}
-                                />
-                                <DateTimePicker 
-                                    name='endTime'
-                                    className='my-2'
-                                    value={values.endTime}
-                                    onChange={(value) => {
-                                        setFieldValue('endTime', moment(value).toDate())
+                                >   
+                                    <DateTimePicker 
+                                        name='startTime'
+                                        className='mx-2'
+                                        value={values.startTime} 
+                                        onkeydown="return false"
+                                        onChange={(value) => {  
+                                            value != null ?
+                                            setFieldValue('startTime', moment(value).toDate())
+                                            : setFieldValue('startTime', undefined)
+                                        }}  
+                                    
+                                        placeholder={locale.texts.START_TIME} 
+                                    />
+
+                                    {errors.startTime && (
+                                        <div 
+                                            className='text-left'
+                                            style={{
+                                                fontSize: '0.6rem',
+                                                color: styleSheet.warning,
+                                                position: 'absolute',
+                                                left: 10,
+                                                bottom: -18,
+                                            }}
+                                        >
+                                            {errors.startTime}
+                                        </div>
+                                    )}
+
+                                </div>
+                                <div
+                                    className='mx-2'
+                                    style={{
+                                        position: 'relative'
                                     }}
-                                    placeholder={locale.texts.END_TIME}
-                                />
+                                >
+                                    <DateTimePicker 
+                                        name='endTime'
+                                        className='mx-2'
+                                        value={values.endTime != null ? values.endTime  : undefined} 
+                                        onChange={(value) => { 
+                                            value != null ?
+                                            setFieldValue('endTime', moment(value).toDate())
+                                            : setFieldValue('endTime', undefined)
+                                        }} 
+                                        placeholder={locale.texts.END_TIME}
+                                    />
+                                        {errors.endTime && (
+                                        <div 
+                                            className='text-left'
+                                            style={{
+                                                fontSize: '0.6rem',
+                                                color: styleSheet.warning,
+                                                position: 'absolute',
+                                                left: 10,
+                                                bottom: -18,
+                                            }}
+                                        >
+                                            {errors.endTime}
+                                        </div>
+                                    )}
+                                </div>
+                            
+                            <div
+                                className='d-flex align-items-center'
+                            >
                                 <PrimaryButton
                                     type='button' 
                                     onClick={submitForm}
                                 >
                                     {locale.texts.SEARCH}
                                 </PrimaryButton>
+                            </div>
                             </div>
                         
                         {status == config.AJAX_STATUS_MAP.LOADING && <Loader />}
