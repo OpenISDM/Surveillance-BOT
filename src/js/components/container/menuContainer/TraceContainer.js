@@ -369,16 +369,26 @@ class TraceContainer extends React.Component{
                         extension: 'csv',
                     }
                 )
-                let header = this.state.columns.map(column => {
+                let header = this.state.columns.map(column => { 
                     return {
                         id: column.accessor,
                         title: column.name
                     }
+                }) 
+                let newData = []
+                this.state.data.map((item,index)=>{ 
+                    newData.push({
+                        [locale.texts.AREA]: item.area,
+                        [locale.texts.DESCRIPTION] : item.description,
+                        UUID : item.uuid,
+                        [locale.texts.START_TIME] : item.startTime,
+                        [locale.texts.END_TIME] : item.endTime,
+                        [locale.texts.RESIDENCE_TIME] : item.residenceTime 
+                    }) 
                 })
 
-
                 axios.post(dataSrc.file.export.csv, {
-                    data: this.state.data,
+                    data: newData,
                     header,          
                     filePackage
                 })
