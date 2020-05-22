@@ -34,7 +34,7 @@ app.get(/^\/page\/(.*)/, validation.pageChecker, (req, res) => {
 authRoutes(app);
 
 /** Access control of data retrieving from database by session */
-// app.use(validation.authChecker);
+app.use(validation.authChecker);
 
 /** Data retrieving routes */
 dataRoutes(app)
