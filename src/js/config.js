@@ -13,6 +13,8 @@ const config = {
     DEFAULT_CONTACT_TREE_INTERVAL_VALUE: 1,
 
     DEFAULT_AREA_ID: 1,
+
+    MAX_CONTACT_TRACING_LEVEL: 6,
     
     DEFAULT_USER: {
         roles: 'guest',

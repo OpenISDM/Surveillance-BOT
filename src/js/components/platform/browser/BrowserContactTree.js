@@ -81,39 +81,7 @@ class BrowserContactTree extends React.Component{
         })
     }
 
-    // async getLocationHistory (fields){
-        
-    //     /** Set formik status as 0. Would render loading page */
-    //     this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.LOADING)
-
-    //     let startTime = moment().subtract(1, 'days');
-    //     let endTime = moment();
-    //     var parents = [];
-    //     let level = 0;
-    //     let maxLevel = fields.level;
-
-    //     let contactTree = this.getContactTree(
-    //         {}, 
-    //         fields.key.value,
-    //         parents,
-    //         startTime,
-    //         endTime,
-    //         maxLevel,
-    //         level
-    //     )
-
-    //     let result = await contactTree
-    //         console.log(result)
-    //     let processedData = this.processContactTree(result)
-    //     let final = this.filterDuplicated(processedData)
-        
-    //     this.setState({
-    //         final,
-    //     })
-    //     this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.SUCCESS)
-
-    // }
-
+    /** Get location history */
     async getLocationHistory (fields) {
         let {
             level,
@@ -124,8 +92,11 @@ class BrowserContactTree extends React.Component{
         let collection = [];
         // let startTime = '2020/05/13 00:00:00';
         // let endTime = '2020/05/14 00:00:00';
-        let startTime = moment().startOf('day');
-        let endTime = moment();
+        // let startTime = moment().startOf('day');
+        // let endTime = moment();
+        let startTime = moment(fields.startTime).format();
+        let endTime = moment(fields.endTime).format();
+
         wait.push({
             name: key.value,
             level: 0,
@@ -177,6 +148,7 @@ class BrowserContactTree extends React.Component{
 
     }
 
+    /** Append child data into collection */
     mountChild = (collection, child) => {
         if (!collection[child.level]) {
             collection[child.level] = {}
@@ -206,78 +178,6 @@ class BrowserContactTree extends React.Component{
                 }) 
         })
         return data
-    }
-
-    processContactTree = (result) => {
-        var collection = {}
-        var duplicate = []
-
-        const collect = node => {
-            if (!collection[node.level]) {
-                collection[node.level] = {}
-            }
-            if (!collection[node.level][node.parent]) {
-                collection[node.level][node.parent] = []
-            }
-
-            collection[node.level][node.parent].push(node.name)
-            
-            if (node.children) {
-                node.children.map(child => {
-                    if (!duplicate.includes(child.name)) {
-                        duplicate.push(child.name)
-                    }
-                })
-                node.children.map(child => {
-                    collect(child)
-                })
-            }
-        }
-        collect(result)
-        return collection
-    }
-
-    async getContactTree (node, name, parents, startTime, endTime, maxLevel, level, att = '') {
-        node.name = name;
-        node.level = level;
-        node.parent = att;
-        // let parentsCopy = Array.from(parents)
- 
-        // if (!parentsCopy.includes(name)) parentsCopy.push(name)
-        if (level == maxLevel) return node;
-        else {
-            const getChildren = this.getChildren(
-                name,
-                parents,
-                startTime,
-                endTime,
-            )
-            .then(res => {
-                level++
-                // if (!parents.includes(name)) parents.push(name)
-                // console.log(res.data.rows)
-                return res.data.rows.map(child => {
-                    // if (!parents.includes(child.child)) parents.push(child.child)
-                    return this.getContactTree(
-                        {},
-                        child.child,
-                        parents,
-                        child.start_time,
-                        endTime,
-                        maxLevel,
-                        level,
-                        child.parent
-                    )
-                })
-
-            })
-            let children = await getChildren
-            node.children = await Promise.all(children).then(res => {
-                return res
-            })
-
-            return node
-        }
     }
 
     getChildren = (child, parents, startTime, endTime) => {
@@ -355,7 +255,7 @@ class BrowserContactTree extends React.Component{
                         key: null,
                         level: null,
                         endTime: moment().toDate(),
-                        startTime: moment().subtract(config.TRACING_INTERVAL_VALUE, config.TRACING_INTERVAL_UNIT).toDate(),
+                        startTime: moment().startOf('day').toDate(),
                     }}
 
                     ref={this.formikRef}
@@ -372,6 +272,10 @@ class BrowserContactTree extends React.Component{
                             key: Yup.object()
                                 .nullable()
                                 .required(locale.texts.REQUIRED),
+
+                            level: Yup.number()
+                                .nullable()
+                                .required(locale.texts.REQUIRED)
 
                     })}
 
@@ -424,16 +328,105 @@ class BrowserContactTree extends React.Component{
                                                 }}
                                             >
                                                 {errors.key}
+                                            </div> 
+                                        )}
+                                    </div>
+                                    <div
+                                        className='mx-2'
+                                        style={{
+                                            position: 'relative'
+                                        }}
+                                    >   
+                                        <DateTimePicker 
+                                            name='startTime'
+                                            className='mx-2'
+                                            value={values.startTime} 
+                                            onkeydown="return false"
+                                            onChange={(value) => {  
+                                                value != null ?
+                                                setFieldValue('startTime', moment(value).toDate())
+                                                : setFieldValue('startTime', undefined)
+                                            }}  
+                                            defaultCurrentDate={moment().startOf("day").toDate()}
+                                            placeholder={locale.texts.START_TIME} 
+                                        />
+
+                                        {errors.startTime && (
+                                            <div 
+                                                className='text-left'
+                                                style={{
+                                                    fontSize: '0.6rem',
+                                                    color: styleSheet.warning,
+                                                    position: 'absolute',
+                                                    left: 10,
+                                                    bottom: -18,
+                                                }}
+                                            >
+                                                {errors.startTime}
+                                            </div>
+                                        )}
+
+                                    </div>
+                                    <div
+                                        className='mx-2'
+                                        style={{
+                                            position: 'relative'
+                                        }}
+                                    >
+                                        <DateTimePicker 
+                                            name='endTime'
+                                            className='mx-2'
+                                            value={values.endTime != null ? values.endTime  : undefined} 
+                                            onChange={(value) => { 
+                                                value != null ?
+                                                setFieldValue('endTime', moment(value).toDate())
+                                                : setFieldValue('endTime', undefined)
+                                            }} 
+                                            placeholder={locale.texts.END_TIME}
+                                        />
+                                        {errors.endTime && (
+                                            <div 
+                                                className='text-left'
+                                                style={{
+                                                    fontSize: '0.6rem',
+                                                    color: styleSheet.warning,
+                                                    position: 'absolute',
+                                                    left: 10,
+                                                    bottom: -18,
+                                                }}
+                                            >
+                                                {errors.endTime}
                                             </div>
                                         )}
                                     </div>
-                                    <NumberPicker
-                                        name='level'
-                                        value={values.level}
-                                        onChange={(level) => setFieldValue('level', level)}
-                                        length={6}
-                                        placeholder={locale.texts.SELECT_LEVEL}
-                                    />
+                                    <div
+                                        className='mx-2'
+                                        style={{
+                                            position: 'relative'
+                                        }}
+                                    >
+                                        <NumberPicker
+                                            name='level'
+                                            value={values.level}
+                                            onChange={level => setFieldValue('level', level)}
+                                            length={config.MAX_CONTACT_TRACING_LEVEL}
+                                            placeholder={locale.texts.SELECT_LEVEL}
+                                        />
+                                        {errors.level && (
+                                            <div 
+                                                className='text-left'
+                                                style={{
+                                                    fontSize: '0.6rem',
+                                                    color: styleSheet.warning,
+                                                    position: 'absolute',
+                                                    left: 10,
+                                                    bottom: -18,
+                                                }}
+                                            >
+                                                {errors.level}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                                 <div
                                     className='d-flex align-items-center'
