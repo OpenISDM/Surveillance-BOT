@@ -17,7 +17,7 @@ import pdfPackageGenerator from '../../../helper/pdfPackageGenerator';
 import config from '../../../config';
 import moment from 'moment';
 import {
-    locationHistoryByMacColumns,
+    locationHistoryByNameColumns,
     locationHistoryByUUIDColumns,
     locationHistoryByAreaColumns
 } from '../../../config/tables';
@@ -204,7 +204,7 @@ class TraceContainer extends React.Component{
         switch(fields.mode) {
             case 'name':
                 key = fields.key.value;
-                this.columns = locationHistoryByMacColumns;
+                this.columns = locationHistoryByNameColumns;
                 break;
             case 'uuid':
                 key = fields.key.value;

@@ -254,21 +254,11 @@ const userInfoTableColumn = [
     
 ]
 
-const locationHistoryByMacColumns = [
+const locationHistoryByNameColumns = [
     {
         Header: "area",
         accessor: "area",
         width: 230,
-    },
-    {
-        Header: "description",
-        accessor: "location_description",
-        width: 180,
-    },
-    {
-        Header: "UUID",
-        accessor: "uuid",
-        width: 450,
     },
     {
         Header: "start time",
@@ -346,7 +336,7 @@ export {
     importTableColumn,
     patientTableColumn,
     userInfoTableColumn,
-    locationHistoryByMacColumns,
+    locationHistoryByNameColumns,
     locationHistoryByUUIDColumns,
     locationHistoryByAreaColumns
 }
