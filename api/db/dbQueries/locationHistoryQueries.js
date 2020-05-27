@@ -4,7 +4,7 @@ module.exports = {
 	getLocationHistory: (key, startTime, endTime, mode) => {
 		let query = null 
 		switch(mode) { 
-			case 'name':
+			case 'nameGroupByArea':
 				query = `
 					WITH ranges AS (
 						SELECT 
@@ -13,7 +13,7 @@ module.exports = {
 							record_timestamp, 
 							battery_voltage, 
 							average_rssi, 
-							CASE WHEN LAG(area_id) OVER (PARTITION BY mac_address ORDER BY mac_address, record_timestamp) = area_id
+							CASE WHEN LAG(area_id) OVER (PARTITION BY mac_address ORDER BY mac_address, record_timestamp) = area_id 
 								THEN NULL ELSE 1 END r
 						FROM 
 						(			 
@@ -50,7 +50,7 @@ module.exports = {
 							battery_voltage, 
 							average_rssi, 
 							r, 
-							SUM(r)OVER (ORDER BY mac_address, record_timestamp) grp
+							SUM(r) OVER (ORDER BY mac_address, record_timestamp) grp
 						FROM ranges
 					)
 
@@ -63,7 +63,8 @@ module.exports = {
 						AVG(groups.average_rssi) AS avg_rssi,
 						MIN(groups.record_timestamp) AS start_time,
 						MAX(groups.record_timestamp) AS end_time,
-						MAX(groups.record_timestamp) - MIN(groups.record_timestamp) AS duration
+						MAX(groups.record_timestamp) - MIN(groups.record_timestamp) AS duration,
+						grp
 					FROM groups
 
 					INNER JOIN object_table
@@ -75,11 +76,8 @@ module.exports = {
 					GROUP BY 
 						grp, 
 						groups.mac_address
-
-					ORDER by 
-						mac_address ASC, 
-						start_time DESC
-					`;
+					ORDER by mac_address ASC, start_time DESC
+					`
 				break;
 			case 'nameGroupByUUID':
 				query = `
@@ -339,3 +337,4 @@ module.exports = {
 	}
 
 }
+

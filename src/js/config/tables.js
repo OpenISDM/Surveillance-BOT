@@ -276,6 +276,61 @@ const locationHistoryByNameColumns = [
     }
 ]
 
+
+const locationHistoryByNameGroupByUUIDColumns = [
+    {
+        Header: "area",
+        accessor: "area",
+        width: 230,
+    },
+    {
+        Header: "start time",
+        accessor: "startTime",
+        width: 300,
+    },
+    {
+        Header: "end time",
+        accessor: "endTime",
+        width: 300,
+    },
+    {
+        Header: 'residence time',
+        accessor: 'residenceTime',
+    }
+]
+
+const locationHistoryByNameGroupBYUUIDColumns = [
+    {
+        Header: "area",
+        accessor: "area",
+        width: 230,
+    },
+    {
+        Header: "description",
+        accessor: "location_description",
+        width: 180,
+    },
+    {
+        Header: "UUID",
+        accessor: "uuid",
+        width: 450,
+    },
+    {
+        Header: "start time",
+        accessor: "startTime",
+        width: 300,
+    },
+    {
+        Header: "end time",
+        accessor: "endTime",
+        width: 300,
+    },
+    {
+        Header: 'residence time',
+        accessor: 'residenceTime',
+    }
+]
+
 const locationHistoryByUUIDColumns = [
     {
         Header: "POUND_SIGN",
@@ -337,6 +392,7 @@ export {
     patientTableColumn,
     userInfoTableColumn,
     locationHistoryByNameColumns,
+    locationHistoryByNameGroupBYUUIDColumns,
     locationHistoryByUUIDColumns,
     locationHistoryByAreaColumns
 }

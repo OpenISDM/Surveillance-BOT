@@ -278,6 +278,8 @@ const en =  {
     CHECK_PASSWORD:"Check password",
     LEVEL:"level",
     ADD_COMMENT: "add comment",
+    NAMEGROUPBYAREA: "name(area group)",
+    NAMEGROUPBYUUID: "name(UUID group)",
 
     /** error message */
     GENDER_IS_REQUIRED: "Gender is required",

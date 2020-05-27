@@ -19,7 +19,8 @@ import moment from 'moment';
 import {
     locationHistoryByNameColumns,
     locationHistoryByUUIDColumns,
-    locationHistoryByAreaColumns
+    locationHistoryByAreaColumns,
+    locationHistoryByNameGroupBYUUIDColumns
 } from '../../../config/tables';
 import axios from 'axios';
 import dataSrc from '../../../dataSrc';
@@ -55,19 +56,23 @@ class TraceContainer extends React.Component{
         disableBodyScroll(targetElement);
     }
 
-    defaultActiveKey='name' 
+    defaultActiveKey='nameGroupByArea' 
 
     title='trace'
 
     navList = [
         {
-            name: 'name',
-            mode: 'name',
+            name: 'nameGroupByArea',
+            mode: 'nameGroupByArea',
         },
         {
-            name: 'lbeacon',
-            mode: 'uuid'
+            name: 'nameGroupByUUID',
+            mode: 'nameGroupByUUID',
         },
+        // {
+        //     name: 'lbeacon',
+        //     mode: 'uuid'
+        // },
         {
             name: 'area',
             mode: 'area'
@@ -136,7 +141,8 @@ class TraceContainer extends React.Component{
             this.setState({
                 options: {
                     ...this.state.options,
-                    name,
+                    nameGroupByArea: name,
+                    nameGroupByUUID: name,
                 }
             })
         })
@@ -197,25 +203,26 @@ class TraceContainer extends React.Component{
 
         let key = null
         let timeValidatedFormat = 'YYYY/MM/DD HH:mm:ss'
-        
         /** Set formik status as 0. Would render loading page */
         this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.LOADING)
 
         switch(fields.mode) {
-            case 'name':
+            case 'nameGroupByArea':
                 key = fields.key.value;
                 this.columns = locationHistoryByNameColumns;
+                break;
+            case 'nameGroupByUUID':
+                key = fields.key.value;
+                this.columns = locationHistoryByNameGroupBYUUIDColumns;
                 break;
             case 'uuid':
                 key = fields.key.value;
                 this.columns = locationHistoryByUUIDColumns;
                 break;
             case 'area':
-                key = fields.key.id;
+                key = fields.key.value;
                 this.columns = locationHistoryByAreaColumns;
                 break;
-
-
         }
 
         let columns = _.cloneDeep(this.columns).map(field => {
@@ -231,7 +238,6 @@ class TraceContainer extends React.Component{
             mode: fields.mode
         })
         .then(res => {
-
             let data = []
             let ajaxStatus;
             var histories = this.state.histories
@@ -244,12 +250,13 @@ class TraceContainer extends React.Component{
 
             } else {
                 switch(fields.mode) {
-                    case 'name':
+                    case 'nameGroupByArea':
+                    case 'nameGroupByUUID':
                         data = res.data.rows.map((item, index) => {
                             item.residenceTime = moment.duration(item.duration).locale(locale.abbr).humanize();
                             item.startTime = moment(item.start_time).format(timeValidatedFormat);
                             item.endTime = moment(item.end_time).format(timeValidatedFormat);
-                            item.description = item.location_description;
+                            item.description = locale.texts[item.area_name];
                             item.mode = fields.mode;
                             item.area_original = item.area_name;
                             item.area = locale.texts[item.area_name];
@@ -330,6 +337,9 @@ class TraceContainer extends React.Component{
         let {
             setFieldValue,
         } = this.formikRef.current;
+        let {
+            locale
+        } = this.context
         let values = this.formikRef.current.state.values;
         let startTime;
         let endTime;
@@ -338,26 +348,47 @@ class TraceContainer extends React.Component{
                 let key;
                 let breadIndex = Number(this.state.breadIndex)
                 switch(rowInfo.original.mode) {
-                    case 'name':
+                    case 'nameGroupByArea':
                         key = {
-                            value: rowInfo.original.uuid,
-                            label: rowInfo.original.uuid,
+                            value: rowInfo.original.area_id,
+                            label: locale.texts[rowInfo.original.area_original],
                             description: rowInfo.original.description
                         };
                         startTime = moment(rowInfo.original.startTime).toDate()
                         endTime = moment(rowInfo.original.endTime).toDate()
                         setFieldValue('key', key)
-                        setFieldValue('mode', 'uuid')
+                        setFieldValue('mode', 'area')
                         setFieldValue('startTime', startTime)
                         setFieldValue('endTime', endTime)
                         this.getLocationHistory({
                             ...values,
                             ...rowInfo.original,
                             key,
-                            mode: 'uuid',
+                            mode: 'area',
                             description: rowInfo.original.description,
                         }, breadIndex + 1)
                         break;
+                    case 'nameGroupByUUID':
+                        key = {
+                            value: rowInfo.original.area_id,
+                            label: locale.texts[rowInfo.original.area_original],
+                            description: rowInfo.original.description
+                        };
+                        startTime = moment(rowInfo.original.startTime).toDate()
+                        endTime = moment(rowInfo.original.endTime).toDate()
+                        setFieldValue('key', key)
+                        setFieldValue('mode', 'area')
+                        setFieldValue('startTime', startTime)
+                        setFieldValue('endTime', endTime)
+                        this.getLocationHistory({
+                            ...values,
+                            ...rowInfo.original,
+                            key,
+                            mode: 'area',
+                            description: rowInfo.original.description,
+                        }, breadIndex + 1)
+                        break;
+                    
                     case 'uuid':
                     case 'area':
                         key = {
@@ -368,14 +399,14 @@ class TraceContainer extends React.Component{
                         startTime = moment(values.startTime).toDate()
                         endTime = moment(values.endTime).toDate()
                         setFieldValue('key', key)
-                        setFieldValue('mode', 'name')
+                        setFieldValue('mode', 'nameGroupByArea')
                         setFieldValue('startTime', startTime)
                         setFieldValue('endTime', endTime)
                         this.getLocationHistory({
                             ...values,
                             ...rowInfo.original,
                             key,
-                            mode: 'name',
+                            mode: 'nameGroupByArea',
                             description: rowInfo.original.description,
                         }, breadIndex + 1)
                         break;

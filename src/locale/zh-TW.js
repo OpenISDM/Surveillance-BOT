@@ -236,6 +236,8 @@ const tw = {
     FOLD:"折疊",
     COMMENT: "註記",
     SELECT_LEVEL: "選擇階層",
+    NAMEGROUPBYAREA: "名稱(area group)",
+    NAMEGROUPBYUUID: "名稱(UUID group)",
 
     /** form title */
     EDIT_LBEACON: "編輯 lbeacon",

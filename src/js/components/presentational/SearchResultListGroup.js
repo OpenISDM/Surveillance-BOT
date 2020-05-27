@@ -37,7 +37,7 @@ const SearchResultListGroup = ({
                     label: data.name,
                     description: data.name
                 },
-                mode: 'name'
+                mode: 'nameGroupByArea'
             }
         })
     }
