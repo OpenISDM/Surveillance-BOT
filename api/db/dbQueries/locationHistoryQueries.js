@@ -114,6 +114,34 @@ module.exports = {
 
 				`
 				break;
+			case 'area':
+				query = `
+					SELECT 
+						object_table.name,
+						location_history_table.mac_address,
+						area_table.name AS area
+					FROM location_history_table
+
+					LEFT JOIN object_table 
+					ON location_history_table.mac_address = object_table.mac_address
+
+					LEFT JOIN area_table
+					ON location_history_table.area_id = area_table.id
+
+					WHERE location_history_table.area_id = '${key}'
+						AND object_table.object_type != 0
+						AND record_timestamp >= '${startTime}'
+						AND record_timestamp <= '${endTime}'
+
+					GROUP BY 
+						location_history_table.mac_address, 
+						object_table.name,
+						area_table.name,
+						location_history_table.area_id
+
+					ORDER BY object_table.name ASC
+				`
+				break;
 
 		}
 

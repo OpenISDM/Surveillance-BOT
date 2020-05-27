@@ -334,6 +334,7 @@ const en =  {
     NO_DATA_FOUND: "no data found",
     SEARCH_FOR_NAME: "Search for name",
     SEARCH_FOR_UUID: "Search for uuid",
+    SEARCH_FOR_AREA: "search for area",
     PLEASE_TYPE_PERSONA_ID: "please type ID",
 
     /* Object Status */

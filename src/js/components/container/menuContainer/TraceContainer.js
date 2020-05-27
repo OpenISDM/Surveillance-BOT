@@ -19,6 +19,7 @@ import moment from 'moment';
 import {
     locationHistoryByMacColumns,
     locationHistoryByUUIDColumns,
+    locationHistoryByAreaColumns
 } from '../../../config/tables';
 import axios from 'axios';
 import dataSrc from '../../../dataSrc';
@@ -66,6 +67,10 @@ class TraceContainer extends React.Component{
         {
             name: 'lbeacon',
             mode: 'uuid'
+        },
+        {
+            name: 'area',
+            mode: 'area'
         }
     ]
 
@@ -73,6 +78,7 @@ class TraceContainer extends React.Component{
     componentDidMount = () => {
         this.getObjectTable();
         this.getLbeaconTable();
+        this.getAreaTable();
         if (this.props.location.state) {
             let { state } = this.props.location
             let endTime = moment();
@@ -160,6 +166,30 @@ class TraceContainer extends React.Component{
             })
         })
     }
+
+    getAreaTable = () => {
+        let {
+            locale
+        } = this.context
+        retrieveDataHelper.getAreaTable()
+            .then(res => {
+                let area = res.data.rows.map(area => {
+                    return {
+                        value: area.name,
+                        label: locale.texts[area.name],
+                        description: locale.texts[area.name],
+                        id: area.id
+                    }
+                })
+                this.setState({
+                    options:{
+                        ...this.state.options,
+                        area
+                    }
+                })
+            })
+    }
+
     getLocationHistory = (fields, breadIndex) => { 
         const {
             locale
@@ -176,14 +206,16 @@ class TraceContainer extends React.Component{
                 key = fields.key.value;
                 this.columns = locationHistoryByMacColumns;
                 break;
-            case 'mac':
-                key = fields.key.toLowerCase().replace(/[: ]/g, '').match(/.{1,2}/g).join(':')
-                this.columns = locationHistoryByMacColumns
-                break;
             case 'uuid':
-                key = fields.key.value
-                this.columns = locationHistoryByUUIDColumns
+                key = fields.key.value;
+                this.columns = locationHistoryByUUIDColumns;
                 break;
+            case 'area':
+                key = fields.key.id;
+                this.columns = locationHistoryByAreaColumns;
+                break;
+
+
         }
 
         let columns = _.cloneDeep(this.columns).map(field => {
@@ -211,7 +243,6 @@ class TraceContainer extends React.Component{
                 breadIndex--;
 
             } else {
-
                 switch(fields.mode) {
                     case 'name':
                         data = res.data.rows.map((item, index) => {
@@ -230,7 +261,17 @@ class TraceContainer extends React.Component{
                             item.id = index + 1
                             item.mode = fields.mode
                             item.area_original = item.area
-                            item.area= locale.texts[item.area]
+                            item.area = locale.texts[item.area]
+                            item.description = item.name
+                            return item
+                        })
+                        break;
+                    case 'area':
+                        data = res.data.rows.map((item, index) => {
+                            item.id = index + 1
+                            item.mode = fields.mode
+                            item.area_original = item.area
+                            item.area = locale.texts[item.area]
                             item.description = item.name
                             return item
                         })
@@ -318,6 +359,7 @@ class TraceContainer extends React.Component{
                         }, breadIndex + 1)
                         break;
                     case 'uuid':
+                    case 'area':
                         key = {
                             value: rowInfo.original.name,
                             label: rowInfo.original.name,

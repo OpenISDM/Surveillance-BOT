@@ -314,6 +314,29 @@ const locationHistoryByUUIDColumns = [
     },
 ]
 
+const locationHistoryByAreaColumns = [
+    {
+        Header: "POUND_SIGN",
+        accessor: "id",
+        width: 50,
+    },
+    {
+        Header: "name",
+        accessor: "name",
+        width: 250,
+    },
+    {
+        Header: "mac address",
+        accessor: "mac_address",
+        width: 250,
+    },
+    {
+        Header: "area",
+        accessor: "area",
+        width: 250,
+    },
+]
+
 
 
 export { 
@@ -324,5 +347,6 @@ export {
     patientTableColumn,
     userInfoTableColumn,
     locationHistoryByMacColumns,
-    locationHistoryByUUIDColumns
+    locationHistoryByUUIDColumns,
+    locationHistoryByAreaColumns
 }

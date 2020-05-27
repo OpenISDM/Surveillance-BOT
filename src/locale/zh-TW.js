@@ -336,6 +336,7 @@ const tw = {
     NO_DATA_FOUND: "無搜尋結果",
     SEARCH_FOR_NAME: "搜尋名字",
     SEARCH_FOR_UUID: "搜尋uuid",
+    SEARCH_FOR_AREA: "搜尋地區",
     PLEASE_TYPE_PERSONA_ID: "請輸入人員編號",
 
     /* Object Status */
