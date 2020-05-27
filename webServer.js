@@ -66,6 +66,8 @@ httpsServer.listen(httpsPort, () => {
     console.log(`HTTPS Server running on PORT ${httpsPort}`)
 })
 
+httpsServer.timeout = parseInt(process.env.SERVER_TIMEOUT);
+
 
 
 
