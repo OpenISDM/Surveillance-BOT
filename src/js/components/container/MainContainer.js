@@ -13,6 +13,8 @@ import messageGenerator from '../../helper/messageGenerator';
 import TabletMainContainer from '../platform/tablet/TabletMainContainer';
 import MobileMainContainer from '../platform/mobile/MobileMainContainer';
 import BrowserMainContainer from '../platform/browser/BrowserMainContainer';
+import SiteModuleTW from '../../../../site_module/locale/zh-TW';
+import SiteModuleEN from '../../../../site_module/locale/en-US';
 
 class MainContainer extends React.Component{
 
@@ -27,7 +29,8 @@ class MainContainer extends React.Component{
         clearSearchResult: false,
         authenticated: this.context.auth.authenticated,
         display: true,
-        locale: this.context.locale.abbr
+        locale: this.context.locale.abbr,
+        suggestData:[]
     }
 
     errorToast = null
@@ -35,7 +38,8 @@ class MainContainer extends React.Component{
     componentDidMount = () => {
         /** set the scrollability in body disabled */
         let targetElement = document.querySelector('body')
-        disableBodyScroll(targetElement);
+        disableBodyScroll(targetElement); 
+        this.getSuggestData();
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -47,14 +51,76 @@ class MainContainer extends React.Component{
                 searchResult: [],
                 searchKey: '',
                 hasSearchKey: false,
-            })
+            }) 
         } 
         if (this.context.locale.abbr !== prevState.locale) {   
             this.getSearchKey(this.state.searchKey);
         }
 
-    }
+    } 
 
+    async  getSuggestData()  {
+        let { 
+            auth, 
+            locale,  
+        } = this.context
+
+        let obj_asn = [],obj_name =[],area_name=[],lbeacon_description =[]
+
+        await  retrieveDataHelper.getObjectTable(
+            locale.lang || null, 
+            auth.user.areas_id, 
+            [1, 2]
+        ).then(res => {  
+            res.data.rows.map(item=>{
+                obj_asn.push(item.asset_control_number)
+                obj_name.push(item.name)
+            }) 
+        })
+        .catch(function (error) { 
+            console.log(error);
+        })
+
+        await  retrieveDataHelper.getAreaTable()
+         .then(res2 => {  
+            res2.data.rows.map(item=>{ 
+            this.context.locale.lang == 'en' 
+            ? area_name.push(SiteModuleEN[item.name])  
+            : area_name.push(SiteModuleTW[item.name])  
+            }) 
+        })
+        .catch(function (error) { 
+            console.log(error);
+        })
+
+        await retrieveDataHelper.getLbeaconTable(
+            locale.abbr
+        )
+        .then(res3 => { 
+            res3.data.rows.map(item=>{
+                lbeacon_description.push(item.description) 
+            })
+
+        let suggestDataTotal =[],suggestData = []
+        suggestDataTotal.push(obj_asn)
+        suggestDataTotal.push(obj_name)
+        suggestDataTotal.push(area_name)
+        suggestDataTotal.push(lbeacon_description) 
+        suggestDataTotal.map(item=>{
+            item.map(data=>{
+                suggestData.push(data) 
+            }) 
+        })   
+        this.setState({
+            suggestData : suggestData 
+        })  
+        console.log(suggestData)
+        }).catch(function (error) { 
+            console.log(error);
+        })    
+      
+    }
+ 
     /** Get tracking data from database.
      *  Once get the tracking data, violated objects would be collected. */ 
     getTrackingData = (callback) => {
@@ -87,7 +153,7 @@ class MainContainer extends React.Component{
             })
             this.setState({
                 trackingData,
-            }, callback)
+            }, callback)  
         })
         .catch(err => {
             console.log(`get tracking data failed ${err}`)
@@ -160,6 +226,7 @@ class MainContainer extends React.Component{
             showPath,
             display,
             pathMacAddress,
+            suggestData,
         } = this.state;
 
         const {
@@ -193,8 +260,8 @@ class MainContainer extends React.Component{
             display,
             pathMacAddress,
             mapButtonHandler,
-        }
-
+            suggestData
+        } 
         return (
             /** "page-wrap" the default id named by react-burget-menu */
             <Fragment>

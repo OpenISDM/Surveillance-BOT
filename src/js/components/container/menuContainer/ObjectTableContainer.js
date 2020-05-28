@@ -447,7 +447,7 @@ class ObjectTableContainer extends React.Component{
                     keyField='id'
                     data={this.state.filteredData}
                     columns={this.state.columns}
-                    ref={r => (this.selectTable = r)}
+                    ref={r => (this.selectTable = r)} 
                     className='-highlight text-none'
                     style={{maxHeight:'70vh'}} 
                     onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 

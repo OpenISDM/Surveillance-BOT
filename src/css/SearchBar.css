@@ -1,0 +1,71 @@
+
+  
+  .react-autosuggest__container {
+    position: relative;
+  }
+  
+  .react-autosuggest__input {
+    width: 260px;
+    height: 45px;
+    padding: 10px 20px 10px 40px;
+    font-family: Helvetica, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    border: 1px solid #aaa;
+    border-radius: 30px 30px 30px 30px;
+  }
+  
+  .react-autosuggest__input--focused {
+    outline: none;
+  }
+  
+  .react-autosuggest__input--open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .react-autosuggest__suggestions-container {
+    display: none;  
+  }
+  
+  .react-autosuggest__suggestions-container--open {
+    display: block; 
+    top: 25px;
+    width: 260px;
+    border: 1px solid #aaa;
+    background-color: #fff;
+    font-family: Helvetica, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    text-align: justify;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px; 
+    z-index: 2;  
+  }
+  
+  .react-autosuggest__suggestions-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  .react-autosuggest__suggestion {
+    cursor: pointer;
+    padding: 5px 41px;
+    width: 258px;
+    height: 30px;  
+  }
+  
+  .react-autosuggest__suggestion--highlighted {
+    background-color: #ddd; 
+  }
+
+  .icon {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 24px;
+    height: 24px;
+    background-color: #ffffff; 
+    font-size: 20px;
+  } 

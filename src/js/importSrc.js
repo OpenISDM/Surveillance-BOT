@@ -58,6 +58,11 @@ import "../../node_modules/pretty-checkbox/dist/pretty-checkbox.min.css"
 /** react-widget */
 import 'react-widgets/dist/css/react-widgets.css';
 
+
+/** search bar */
+// import "../../src/css/SearchBar.css"
+
+
 /** ant design */
 // import "../../node_modules/antd/dist/antd.css"
 

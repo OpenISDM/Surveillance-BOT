@@ -11,6 +11,7 @@ const BrowserSearchContainer = ({
     getSearchKey,
     handleTouchMove,
     clearSearchResult,
+    suggestData
 }) => {
     return (
         <div 
@@ -25,6 +26,7 @@ const BrowserSearchContainer = ({
                     getSearchKey={getSearchKey}
                     clearSearchResult={clearSearchResult}    
                     width={500}
+                    suggestData = {suggestData}
                 />
             </Row>
         </div>

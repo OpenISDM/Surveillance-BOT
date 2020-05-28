@@ -581,7 +581,7 @@ class ObjectTable extends React.Component{
                         columns={this.state.columns}
                         ref={r => (this.selectTable = r)}
                         className='-highlight text-none'
-
+                        
                         onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                         {...extraProps}
                         {...styleConfig.reactTable}

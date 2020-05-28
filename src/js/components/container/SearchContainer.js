@@ -13,13 +13,15 @@ const SearchContainer = ({
     getSearchKey,
     clearSearchResult,
     handleShowResultListForMobile,
+    suggestData
 }) => {
 
     const propsGroup = {
         searchKey,
         getSearchKey,
         clearSearchResult,
-        handleShowResultListForMobile
+        handleShowResultListForMobile,
+        suggestData
     }
     
     return (

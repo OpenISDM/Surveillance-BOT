@@ -15,9 +15,9 @@ const BrowserMainContainer = ({
     clearSearchResult,
     searchKey,
     searchResult,
-    hasSearchKey,
-}) => {
-
+    hasSearchKey, 
+    suggestData
+}) => {   
     let auth = React.useContext(AuthenticationContext)
 
     const style = {
@@ -40,7 +40,7 @@ const BrowserMainContainer = ({
         },
     } 
 
-    return (
+    return ( 
         <div 
             id="page-wrap" 
             className='mx-1 my-2 overflow-hidden' 
@@ -57,6 +57,7 @@ const BrowserMainContainer = ({
                         clearSearchResult={clearSearchResult}
                         auth={auth}
                         getSearchKey={getSearchKey}
+                        suggestData ={suggestData}
                     />                        
                     <div 
                         id='searchResult' 
