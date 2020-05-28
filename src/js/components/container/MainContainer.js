@@ -101,14 +101,15 @@ class MainContainer extends React.Component{
                 lbeacon_description.push(item.description) 
             })
 
-        let suggestDataTotal =[],suggestData = []
+        let suggestDataTotal =[],suggestData = [],  countlimit = 0
         suggestDataTotal.push(obj_asn)
         suggestDataTotal.push(obj_name)
         suggestDataTotal.push(area_name)
         suggestDataTotal.push(lbeacon_description) 
         suggestDataTotal.map(item=>{
-            item.map(data=>{
-                suggestData.push(data) 
+            item.map(data=>{ 
+                countlimit ++;
+                countlimit <=5 ? suggestData.push(data)  : null
             }) 
         })   
         this.setState({
