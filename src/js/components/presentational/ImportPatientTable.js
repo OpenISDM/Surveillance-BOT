@@ -245,20 +245,22 @@ class ImportPatientTable extends React.Component{
                         ReapeName += importData.name   + ','
                     }
                 })
-
-                DataNameIsNull != '' ? alert(locale.texts.ASSET_CONTROL_NUMBER_IS_REQUIRED+ DataNameIsNull) : null 
-                ReapeName != '' ?    alert(ReapeName + locale.texts.ASN_IS_REPEAT)  : null
-                //沒被擋掉的存到newData後輸出
-                
+                  
                 newData.map(item => {  
-                    item.name.indexOf("'") != -1 || item.name.indexOf('"') != -1 ? punctuationFlag = true : null 
+                    item.name.toString().indexOf("'") != -1 || item.name.toString().indexOf('"') != -1 ? punctuationFlag = true : null 
                     item.asset_control_number.toString().indexOf("'") != -1 ||  item.asset_control_number.toString().indexOf('"') != -1 ? punctuationFlag = true : null 
                     item.type = 'patient'
                 }) 
 
-                if(punctuationFlag){
-                    alert(locale.texts.NOT_ALLOW_PUNCTUATION)
-                }else{
+                if(punctuationFlag){ 
+                    messageGenerator.importErrorMessage(
+                       'NOT_ALLOW_PUNCTUATION'
+                    )  
+                }else if(DataNameIsNull != '' ){
+                    messageGenerator.importErrorMessage('ASSET_CONTROL_NUMBER_IS_REQUIRED')  
+                }else if(ReapeName != '' )
+                    messageGenerator.importErrorMessage('ASN_IS_REPEAT')
+                else{
                     axios.post(dataSrc.importedObject, {
                         locale: locale.abbr,
                         newData

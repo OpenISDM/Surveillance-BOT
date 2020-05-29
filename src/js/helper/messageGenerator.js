@@ -38,7 +38,26 @@ const setErrorMessage = (
     )
 }
 
+const importErrorMessage = (
+    msg  
+) => { 
+    return (
+        toast.success(<ToastMessage msg={msg} />, {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 3000,
+            className: 'toast-error-notice-container',
+            bodyClassName: "toast-notice-body",
+            hideProgressBar: true,
+            closeButton: false,
+            draggable: false,
+            closeOnClick: false,
+            transition: Slide,
+        })
+    )
+}
+
 export default {
     setSuccessMessage,
-    setErrorMessage
+    setErrorMessage,
+    importErrorMessage
 }
