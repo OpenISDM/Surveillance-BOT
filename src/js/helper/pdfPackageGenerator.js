@@ -224,16 +224,17 @@ const pdfPackageGenerator = {
                 let table;
                 switch(additional.type) {
                     case 'name':
+                    case 'nameGroupByArea':
                         table = pdfPackageGenerator.pdfFormat.getBodyItem.getLocationHistoryByNameAsTable(data, locale)
                         break;
                     case 'uuid':
+                    case 'area':
                         table = pdfPackageGenerator.pdfFormat.getBodyItem.getLocationHistoryByUUIDAsTable(data, locale)
                 }                
                 return table
             },
 
             contactTree: (data, locale, user, location) => {
-                console.log(data)
                 return pdfPackageGenerator.pdfFormat.getBodyItem.getContactTracingContent(data, locale)  
             },
         },
@@ -316,7 +317,6 @@ const pdfPackageGenerator = {
                             return `
                                 <tr>
                                     <td>${item.area}</td>
-                                    <td>${item.description}</td>
                                     <td>${item.startTime}</td>
                                     <td>${item.endTime}</td>
                                     <td>${item.residenceTime}</td>
@@ -361,7 +361,6 @@ const pdfPackageGenerator = {
                                     <td>${item.name}</td>
                                     <td>${item.mac_address}</td>
                                     <td>${item.area}</td>
-                                    <td>${item.location_description}</td>
                                 </tr>
                             `
                         }).join(' ')}
