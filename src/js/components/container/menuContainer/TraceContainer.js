@@ -440,27 +440,16 @@ class TraceContainer extends React.Component{
                         extension: 'csv',
                     }
                 )
-                let header = this.state.columns.map(column => { 
+                let fields = this.state.columns.map(column => { 
                     return {
-                        id: column.accessor,
-                        title: column.name
+                        label: locale.texts[column.name.replace(/ /g, '_').toUpperCase()],
+                        value: column.accessor
                     }
                 }) 
-                let newData = []
-                this.state.data.map((item,index)=>{ 
-                    newData.push({
-                        [locale.texts.AREA]: item.area,
-                        [locale.texts.DESCRIPTION] : item.description,
-                        UUID : item.uuid,
-                        [locale.texts.START_TIME] : item.startTime,
-                        [locale.texts.END_TIME] : item.endTime,
-                        [locale.texts.RESIDENCE_TIME] : item.residenceTime 
-                    }) 
-                })
 
                 axios.post(dataSrc.file.export.csv, {
-                    data: newData,
-                    header,          
+                    data: this.state.data,
+                    fields,          
                     filePackage
                 })
                 .then(res => {
@@ -473,6 +462,7 @@ class TraceContainer extends React.Component{
                     console.log(`export CSV failed ${err}`)
                 })
                 break;
+                
             case 'exportPDF':
             
                 let pdfPackage = pdfPackageGenerator.getPdfPackage({
