@@ -39,10 +39,11 @@ const setErrorMessage = (
 }
 
 const importErrorMessage = (
-    msg  
+    msg  ,
+    hint
 ) => { 
     return (
-        toast.success(<ToastMessage msg={msg} />, {
+        toast.success(<ToastMessage msg={msg} hint = {hint} />, {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
             className: 'toast-error-notice-container',

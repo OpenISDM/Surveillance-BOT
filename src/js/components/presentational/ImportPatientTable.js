@@ -214,7 +214,7 @@ class ImportPatientTable extends React.Component{
                 let newData = []
                 let reapetFlag = false;
                 let DataNameIsNull = '';
-                let ReapeName = ''; 
+                let ReapeName = ' '; 
                 let checkArray = []
                 let punctuationFlag = false;
 
@@ -232,7 +232,7 @@ class ImportPatientTable extends React.Component{
                             
                             if (checkArray!='') {
                                 checkArray.indexOf(importData.asset_control_number) != -1 
-                                ?  ReapeName += importData.name+ ','
+                                ?  ReapeName += importData.name+ ' '
                                 :  newData.push(importData)  
                             }else {
                                 newData.push(importData)  
@@ -242,10 +242,10 @@ class ImportPatientTable extends React.Component{
                             DataNameIsNull += importData.name + ','
                         }
                     } else {
-                        ReapeName += importData.name   + ','
+                        ReapeName += importData.name   + ' '
                     }
-                })
-                  
+                }) 
+                
                 newData.map(item => {  
                     item.name.toString().indexOf("'") != -1 || item.name.toString().indexOf('"') != -1 ? punctuationFlag = true : null 
                     item.asset_control_number.toString().indexOf("'") != -1 ||  item.asset_control_number.toString().indexOf('"') != -1 ? punctuationFlag = true : null 
@@ -253,13 +253,13 @@ class ImportPatientTable extends React.Component{
                 }) 
 
                 if(punctuationFlag){ 
-                    messageGenerator.importErrorMessage(
-                       'NOT_ALLOW_PUNCTUATION'
-                    )  
+                    messageGenerator.importErrorMessage( 'NOT_ALLOW_PUNCTUATION'  )  
                 }else if(DataNameIsNull != '' ){
-                    messageGenerator.importErrorMessage('ASSET_CONTROL_NUMBER_IS_REQUIRED')  
-                }else if(ReapeName != '' )
-                    messageGenerator.importErrorMessage('ASN_IS_REPEAT')
+                    messageGenerator.importErrorMessage('ASSET_CONTROL_NUMBER_IS_REQUIRED',DataNameIsNull)  
+                }else if(ReapeName != '' ){
+                      console.log(ReapeName)
+                    messageGenerator.importErrorMessage('ASN_IS_REPEAT' ,ReapeName)
+                }
                 else{
                     axios.post(dataSrc.importedObject, {
                         locale: locale.abbr,
