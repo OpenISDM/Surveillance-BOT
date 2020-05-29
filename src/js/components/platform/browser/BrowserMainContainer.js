@@ -27,13 +27,14 @@ const BrowserMainContainer = ({
         },
 
         pageWrap: {
-            overflow: "hidden hidden",
+            overflow: "hidden hidden" ,
+            height:'100vh'
         },
 
         searchResultDiv: {
-            display: hasSearchKey ? null : 'none',
+            display: hasSearchKey ? null : 'none', 
         },
-
+ 
         searchResultList: {
             dispaly: hasSearchKey ? null : 'none',
             maxHeight: '28vh'
@@ -43,12 +44,11 @@ const BrowserMainContainer = ({
     return ( 
         <div 
             id="page-wrap" 
-            className='mx-1 my-2 overflow-hidden' 
+            className='mx-1 my-2 overflow-scroll' 
             style={style.pageWrap} 
         >
             <Row 
-                id="mainContainer" 
-                className='d-flex w-100 justify-content-around mx-0' 
+                id="mainContainer"  
                 style={style.container}
             >
                 <Col>
@@ -58,7 +58,8 @@ const BrowserMainContainer = ({
                         auth={auth}
                         getSearchKey={getSearchKey}
                         suggestData ={suggestData}
-                    />                        
+                    />    
+
                     <div 
                         id='searchResult' 
                         style={style.searchResultDiv} 

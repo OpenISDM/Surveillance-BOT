@@ -9,10 +9,22 @@ let load_suggest = false;
   // Teach Autosuggest how to calculate suggestions for any given input value.
   const getSuggestions = value => { 
     const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;  
-    return inputLength === 0 ? [] : suggestData.filter(lang =>
-      lang.toLowerCase().slice(0, inputLength) === inputValue
-    );
+    const inputLength = inputValue.length;    
+
+    // return inputLength === 0 ? [] : suggestData.filter(lang =>
+    //   lang.toLowerCase().slice(0, inputLength) === inputValue
+    // );
+ 
+    // limit count by 5
+    let suggestTemp = []
+    suggestTemp = suggestData.filter(lang =>lang.toLowerCase().slice(0, inputLength) === inputValue) 
+    let suggestLimit =[]
+    suggestTemp.map((item,index)=>{
+      index < 5 ? suggestLimit.push(item) : null
+    })
+
+   return inputLength === 0 ? [] :  suggestLimit
+
   };
   const getSuggestionValue = suggestion => suggestion ;
  
@@ -45,8 +57,7 @@ class BOTSearchbar extends React.Component {
           this.setState({
                 value: '',
             }) 
-        }
- 
+        } 
         if(!load_suggest){ 
           suggestData  = this.props.suggestData
           load_suggest = true 

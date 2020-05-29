@@ -101,25 +101,23 @@ class MainContainer extends React.Component{
                 lbeacon_description.push(item.description) 
             })
 
-        let suggestDataTotal =[],suggestData = [],  countlimit = 0
+        let suggestDataTotal =[],suggestData = [] 
         suggestDataTotal.push(obj_asn)
         suggestDataTotal.push(obj_name)
         suggestDataTotal.push(area_name)
         suggestDataTotal.push(lbeacon_description) 
         suggestDataTotal.map(item=>{
-            item.map(data=>{ 
-                countlimit ++;
-                countlimit <=5 ? suggestData.push(data)  : null
+            item.map(data=>{  
+               suggestData.push(data)   
             }) 
-        })   
+        })    
         this.setState({
             suggestData : suggestData 
-        })  
-        console.log(suggestData)
+        })   
         }).catch(function (error) { 
             console.log(error);
         })    
-      
+       
     }
  
     /** Get tracking data from database.
@@ -214,8 +212,7 @@ class MainContainer extends React.Component{
     }
 
 
-    render(){
-
+    render(){ 
         const { 
             hasSearchKey,
             trackingData,

@@ -29,9 +29,10 @@ const TabletMainContainer = ({
     setShowedObjects,
     pathMacAddress,
     isHighlightSearchPanel,
-    locationMonitorConfig
+    locationMonitorConfig,
+    suggestData
 }) => {
-
+   
     let auth = React.useContext(AuthenticationContext)
 
     const style = {
@@ -42,6 +43,7 @@ const TabletMainContainer = ({
 
         pageWrap: {
             overflow: "hidden hidden",
+            height:'100vh'
         },
 
         searchResultDiv: {
@@ -54,7 +56,7 @@ const TabletMainContainer = ({
         },
     } 
 
-    return (
+    return ( 
         <div 
             id="page-wrap" 
             className='mx-1 my-2 overflow-hidden' 
@@ -71,6 +73,7 @@ const TabletMainContainer = ({
                         clearSearchResult={clearSearchResult}
                         auth={auth}
                         getSearchKey={getSearchKey}
+                        suggestData = {suggestData}
                     />                        
                     <div 
                         id='searchResult' 
