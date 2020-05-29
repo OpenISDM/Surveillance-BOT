@@ -39,7 +39,7 @@ const EditAreasForm = ({
             <Modal.Body>
                 <Formik
                     initialValues = {{
-                        areas_id: auth.user.areas_id
+                        areas_id: Array.from(auth.user.areas_id)
                     }}
                 
                     onSubmit={values => {
