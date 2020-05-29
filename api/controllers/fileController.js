@@ -4,13 +4,13 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const path = require('path');
 const fs = require('fs')
 const pdf = require('html-pdf'); 
-const json2csv = require('json2csv').parse;
+const { Parser } = require('json2csv');
 
 module.exports = { 
 
     exportCSV: (req, res) => {
         let {
-            header,
+            fields,
             data,
             filePackage
         } = req.body 
@@ -27,16 +27,19 @@ module.exports = {
     
         let filePath = path.join(process.env.LOCAL_FILE_PATH, filePackage.path)
 
- 
-        var csv = json2csv(data);
-        var options = {encoding:"utf8"}; 
-		fs.writeFile(filePath,"\ufeff"+csv,options, function(err) {
+        const json2csvParser = new Parser({ fields });
+        var csv = json2csvParser.parse(data);
+        var options = {
+            encoding:"utf8"
+        }; 
+
+		fs.writeFile(filePath, "\ufeff"+csv,options, function(err) {
 			if(err) {
 				console.log(err);
 			} else {
                 res.status(200).json(data)
-                console.log("The file was saved! \n"  + filePath ); 
-			}
+                console.log('the csv file was written successfully')			
+            }
 		}); 
        
         // const csvWriter = createCsvWriter({
