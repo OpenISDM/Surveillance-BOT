@@ -256,8 +256,7 @@ class ImportPatientTable extends React.Component{
                     messageGenerator.importErrorMessage( 'NOT_ALLOW_PUNCTUATION'  )  
                 }else if(DataNameIsNull != '' ){
                     messageGenerator.importErrorMessage('ASSET_CONTROL_NUMBER_IS_REQUIRED',DataNameIsNull)  
-                }else if(ReapeName != '' ){
-                      console.log(ReapeName)
+                }else if(ReapeName != '' ){ 
                     messageGenerator.importErrorMessage('ASN_IS_REPEAT' ,ReapeName)
                 }
                 else{
