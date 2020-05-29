@@ -16,7 +16,7 @@ const MobileMainContainer = ({
     searchKey,
     searchResult,
     hasSearchKey,
-
+    suggestData
 }) => {
 
     let auth = React.useContext(AuthenticationContext)
@@ -29,6 +29,7 @@ const MobileMainContainer = ({
 
         pageWrap: {
             overflow: "hidden hidden",
+            height:'100vh'
         },
 
         searchResultDiv: {
@@ -58,6 +59,7 @@ const MobileMainContainer = ({
                         clearSearchResult={clearSearchResult}
                         auth={auth}
                         getSearchKey={getSearchKey}
+                        suggestData = {suggestData}
                     />                        
                     <div 
                         id='searchResult' 
