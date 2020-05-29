@@ -80,7 +80,7 @@ const EditUserForm = ({
                                 .test(
                                     'name',
                                     locale.texts.SIGNUP_FAIL,
-                                    value => {  
+                                    value => {   
                                         let repeat = true
                                         if (value != undefined){                      
                                             data.map(item=>{  
@@ -90,10 +90,34 @@ const EditUserForm = ({
 
                                         return repeat
                                     }
+                                )            
+                                .test(
+                                    'name',
+                                    locale.texts.NOT_ALLOW_PUNCTUATION,
+                                    value => {  
+                                        let punctuationFlag = true
+                                        if (value != undefined){    
+                                            value.indexOf("'") != -1 ||  value.indexOf('"') != -1 ? punctuationFlag = false : null   
+                                        }
+                                        return punctuationFlag
+                                    }
                                 )
                                 .max(100),
                             area: selectedUser ? null : Yup.object().required(locale.texts.AREA_IS_REQUIRED),
-                            password: selectedUser ? '' : Yup.string().required(locale.texts.PASSWORD_IS_REQUIRED),
+                            password: selectedUser ? ''  : 
+                            Yup.string().required(locale.texts.PASSWORD_IS_REQUIRED)
+                            .test(
+                                'password',
+                                locale.texts.NOT_ALLOW_PUNCTUATION,
+                                value => {   
+                                    let punctuationFlag = true
+                                    if (value != undefined){   
+                                        value.indexOf("'") != -1 ||  value.indexOf('"') != -1 ? punctuationFlag = false : null   
+                                    }
+                                    return punctuationFlag
+                                }
+                            )
+                            ,
                             roles: Yup.string().required(locale.texts.ROLE_IS_REQUIRED)
                         })
                     }
