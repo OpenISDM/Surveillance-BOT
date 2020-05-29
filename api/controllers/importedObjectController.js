@@ -39,7 +39,7 @@ module.exports = {
                 response.status(200).json(res)
             })
             .catch(err => {
-                console.log(`add imported objects failed ${err}`)
+                console.log(` ${err}`)
             })   
     },
 }

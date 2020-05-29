@@ -216,6 +216,7 @@ class ImportPatientTable extends React.Component{
                 let DataNameIsNull = '';
                 let ReapeName = ''; 
                 let checkArray = []
+                let punctuationFlag = false;
 
                 data.map(importData => {
 
@@ -245,28 +246,35 @@ class ImportPatientTable extends React.Component{
                     }
                 })
 
-                DataNameIsNull != '' ? alert('ASN必須不等於空:' + DataNameIsNull) : null 
-                ReapeName != '' ?    alert(ReapeName + '的ASN與其他筆資料重複')  : null
+                DataNameIsNull != '' ? alert(locale.texts.ASSET_CONTROL_NUMBER_IS_REQUIRED+ DataNameIsNull) : null 
+                ReapeName != '' ?    alert(ReapeName + locale.texts.ASN_IS_REPEAT)  : null
                 //沒被擋掉的存到newData後輸出
-        
-                newData.map(item => {
-                        item.type = 'patient'
+                
+                newData.map(item => {  
+                    item.name.indexOf("'") != -1 || item.name.indexOf('"') != -1 ? punctuationFlag = true : null 
+                    item.asset_control_number.toString().indexOf("'") != -1 ||  item.asset_control_number.toString().indexOf('"') != -1 ? punctuationFlag = true : null 
+                    item.type = 'patient'
                 }) 
 
-                axios.post(dataSrc.importedObject, {
-                    locale: locale.abbr,
-                    newData
-                })
-                .then(res => {
-                    this.handleSubmitForm()  
-                    let callback = () => messageGenerator.setSuccessMessage(
-                        'save success'
-                    )
-                    callback()  
-                })
-                .catch(err => {
-                    console.log(err) 
-                })  
+                if(punctuationFlag){
+                    alert(locale.texts.NOT_ALLOW_PUNCTUATION)
+                }else{
+                    axios.post(dataSrc.importedObject, {
+                        locale: locale.abbr,
+                        newData
+                    })
+                    .then(res => {
+                        this.handleSubmitForm()  
+                        let callback = () => messageGenerator.setSuccessMessage(
+                            'save success'
+                        )
+                        callback()  
+                    })
+                    .catch(err => {
+                        console.log(err) 
+                    })  
+                }
+
             } catch (e) {
                 // 這裡可以拋出文件類型錯誤不正確的相關提示
                 alert(e);
