@@ -13,6 +13,10 @@ import {
 import LocaleContext from '../../context/LocaleContext';
 import config from '../../config'
 import AuthenticationContext from '../../context/AuthenticationContext';
+import {
+    ListTitle,
+    SubTitle
+} from '../BOTComponent/styleComponent';
 
 const EditAreasForm = ({
     show,
@@ -39,7 +43,7 @@ const EditAreasForm = ({
             <Modal.Body>
                 <Formik
                     initialValues = {{
-                        areas_id: auth.user.areas_id
+                        areas_id: Array.from(auth.user.areas_id)
                     }}
                 
                     onSubmit={values => {
@@ -48,11 +52,9 @@ const EditAreasForm = ({
 
                     render={({ values, errors, status, touched, isSubmitting, setFieldValue}) => (
                         <Form>
-                            <div
-                                className="subtitle"
-                            >   
+                            <SubTitle>
                                 {locale.texts.SELECTED_AREAS}
-                            </div>
+                            </SubTitle>
                             <ListGroup>
                                 {
                                     Object.values(areaTable)
@@ -83,11 +85,9 @@ const EditAreasForm = ({
                                         })
                                 }
                             </ListGroup>
-                            <div
-                                className="subtitle"
-                            >   
+                            <SubTitle>
                                 {locale.texts.NOT_SELECTED_AREAS}
-                            </div>
+                            </SubTitle>
                             <ListGroup>
                                 {
                                     Object.values(areaTable)

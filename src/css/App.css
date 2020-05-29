@@ -527,13 +527,6 @@ p {
     color: black
 }
 
-.subtitle {
-    font-size: 1rem;
-    font-weight: 400;
-    color: black;
-    margin-bottom: 5px;
-}
-
 .warning {
     font-size: 0.8rem;
     text-transform: initial;

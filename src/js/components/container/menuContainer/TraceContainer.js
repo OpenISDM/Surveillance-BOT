@@ -6,7 +6,8 @@ import {
 import {
     BrowserView,
     TabletView,
-    MobileOnlyView
+    MobileOnlyView,
+    isBrowser,
 } from 'react-device-detect';
 import BrowserTraceContainerView from '../../platform/browser/BrowserTraceContainerView';
 import MobileTraceContainerView from '../../platform/mobile/MobileTraceContainerView';
@@ -45,17 +46,6 @@ class TraceContainer extends React.Component{
     }
     columns = [];
 
-    componentDidMount = () => {
-        /** set the scrollability in body disabled */
-        let targetElement = document.querySelector('body')
-        enableBodyScroll(targetElement);
-    }
-
-    componentWillUnmount = () => {
-        let targetElement = document.querySelector('body')
-        disableBodyScroll(targetElement);
-    }
-
     defaultActiveKey='nameGroupByArea' 
 
     title='trace'
@@ -69,10 +59,6 @@ class TraceContainer extends React.Component{
             name: 'nameGroupByUUID',
             mode: 'nameGroupByUUID',
         },
-        // {
-        //     name: 'lbeacon',
-        //     mode: 'uuid'
-        // },
         {
             name: 'area',
             mode: 'area'
@@ -81,6 +67,13 @@ class TraceContainer extends React.Component{
 
 
     componentDidMount = () => {
+
+        /** disable the scrollability in body*/
+        if (!isBrowser) {
+            let targetElement = document.querySelector('body')
+            enableBodyScroll(targetElement);
+        }
+
         this.getObjectTable();
         this.getLbeaconTable();
         this.getAreaTable();
@@ -97,6 +90,11 @@ class TraceContainer extends React.Component{
             }
             this.getLocationHistory(field, 0)
         }
+    }
+
+    componentWillUnmount = () => {
+        let targetElement = document.querySelector('body')
+        disableBodyScroll(targetElement);
     }
 
     componentDidUpdate = (prevProps, prevState) => {
