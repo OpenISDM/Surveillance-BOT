@@ -43,7 +43,7 @@ module.exports = {
         const hash = bcrypt.hashSync(password, saltRounds);
 
         const signupPackage = {
-            name,
+            name:name.toLowerCase(),
             password: hash,
             area_id
         } 
@@ -57,7 +57,7 @@ module.exports = {
                 if (ress.rowCount < 1) { 
                     pool.query(dbQueries.addUser(signupPackage))
                     .then(res => {
-                        pool.query(dbQueries.insertUserData(name, roles, area_id))
+                        pool.query(dbQueries.insertUserData(name.toLowerCase(), roles, area_id))
                             .then(res => {
                                 console.log('sign up succeed')
                                 response.status(200).json(res)
