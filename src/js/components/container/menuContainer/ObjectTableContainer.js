@@ -64,7 +64,7 @@ class ObjectTableContainer extends React.Component{
             this.setState({ 
                 locale: this.context.locale.abbr
             }) 
-        }
+        } 
     }
 
     getRefresh = () =>{
@@ -451,12 +451,13 @@ class ObjectTableContainer extends React.Component{
                     className='-highlight text-none'
                     style={{maxHeight:'70vh'}} 
                     onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 
+                    onSortedChange={(e) => {this.setState({selectAll:false,selection:''})}}
                     {...extraProps}
                     {...styleConfig.reactTable}
                     NoDataComponent={() => null}
                     getTrProps={(state, rowInfo, column, instance) => {
                         return {
-                            onClick: (e) => { 
+                            onClick: (e) => {  
                                 if (!e.target.type) { 
                                     this.setState({
                                         isPatientShowEdit:true,
