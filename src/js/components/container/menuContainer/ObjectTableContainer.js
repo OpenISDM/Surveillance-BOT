@@ -320,7 +320,7 @@ class ObjectTableContainer extends React.Component{
             console.log(err)
         }) 
        
-        this.setState({selection:[]})
+        this.setState({selectAll:false,selection:[]})
     }
 
 
