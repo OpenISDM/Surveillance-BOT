@@ -5,10 +5,6 @@ const dbQueries = require('../db/dbQueries/trackingDataQueries')
 const pool = require('../db/dev/connection');
 
 moment.updateLocale('en', {
-    relativeTime : Object
-});
-
-moment.updateLocale('en', {
     relativeTime : {
         future: "being here for the past %s",
         past:   "%s ago",
