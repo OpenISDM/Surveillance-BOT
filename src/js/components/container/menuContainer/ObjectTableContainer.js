@@ -83,7 +83,7 @@ class ObjectTableContainer extends React.Component{
             item.area_name.label == undefined ?   item.area_name.label = '*site module error*' : null 
         })
 
-        this.state.filteredData.map(item=>{
+        this.state.filteredData.map(item=>{ 
             this.context.locale.lang == 'en' 
             ? item.area_name.label = SiteModuleEN[item.area_name.value]
             : item.area_name.label = SiteModuleTW[item.area_name.value]
@@ -118,8 +118,7 @@ class ObjectTableContainer extends React.Component{
 
             res.data.rows
             .filter(item => item.object_type != 0)
-            .map(item => {
-                
+            .map(item => { 
                 item.area_name = {
                     value:item.area_name,
                     label: locale.texts[item.area_name] || '*site module error*',
@@ -325,8 +324,7 @@ class ObjectTableContainer extends React.Component{
 
 
     filterData = (data, key, filteredAttribute) => { 
-        const { locale } = this.context   
-        
+        const { locale } = this.context    
         key = key.toLowerCase()
         let filteredData = data.filter(obj => { 
             if(filteredAttribute.includes('name')){
@@ -346,14 +344,13 @@ class ObjectTableContainer extends React.Component{
             if (filteredAttribute.includes('area')){ 
                 let keyRex = new RegExp(key) 
                 if (obj.area_name.label != undefined){
-                    if (obj.area_name.label.match(keyRex)) {
+                    if (obj.area_name.label.toLowerCase().match(keyRex)) {
                        return true 
                     }
                 } 
             }
 
-            if  (filteredAttribute.includes('macAddress')){
-
+            if  (filteredAttribute.includes('macAddress')){ 
                 let keyRex = key.replace(/:/g, '')
                 if (obj.mac_address.replace(/:/g, '').toLowerCase().match(keyRex)) return true
             }
@@ -442,7 +439,7 @@ class ObjectTableContainer extends React.Component{
                     />                    
 
                 </MobileOnlyView>
-                <hr/> 
+                <hr/>  
                 <SelectTable
                     keyField='id'
                     data={this.state.filteredData}
