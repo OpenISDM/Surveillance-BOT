@@ -414,8 +414,8 @@ class TraceContainer extends React.Component{
     }
 
 
-    handleClick = (e) => {
-        let name = e.target.name 
+    handleClick = (e, data) => {
+        let name = e.target.name || e.target.getAttribute('name')
 
         let {
             auth,
@@ -511,7 +511,7 @@ class TraceContainer extends React.Component{
                 let {
                     history,
                     index 
-                } = JSON.parse(e.target.getAttribute('data'))
+                } = JSON.parse(data)
                 setFieldValue('mode', history.mode)
                 setFieldValue('key', history.key) 
                 setFieldValue('startTime', moment(history.startTime).toDate())

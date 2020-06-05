@@ -140,19 +140,24 @@ const BrowseTraceContainerView = React.forwardRef(({
                         >
                             {histories.map((history, index) => { 
                                 return ( 
-                                    <Breadcrumb.Item
-                                        key={index}
-                                        style={{
-                                            color: breadIndex == index ? styleSheet.theme : styleSheet.black
-                                        }}
-                                        name='bread'
-                                        data={JSON.stringify({
-                                            history,
-                                            index
-                                        })}
-                                        onClick={handleClick}
-                                    >
-                                        {history.description}
+                                    <Breadcrumb.Item>
+                                        <div
+                                            key={index}
+                                            className="d-inline-block"
+                                            style={{
+                                                color: breadIndex == index ? styleSheet.theme : styleSheet.black
+                                            }}
+                                            name="bread"
+                                            onClick={(e) => {
+                                                let data = JSON.stringify({
+                                                    history,
+                                                    index
+                                                })
+                                                handleClick(e, data)
+                                            }}
+                                        >
+                                            {history.description}
+                                        </div>
                                     </Breadcrumb.Item>
                                 )
                             })}
