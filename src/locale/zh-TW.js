@@ -378,6 +378,8 @@ const tw = {
     SEARCH_FOR_NAME: "搜尋名字",
     SEARCH_FOR_UUID: "搜尋uuid",
     SEARCH_FOR_AREA: "搜尋地區",
+    SEARCH_FOR_NAMEGROUPBYAREA: "搜尋地區",
+    SEARCH_FOR_NAMEGROUPBYUUID: "搜尋uuid",
     PLEASE_TYPE_PERSONA_ID: "請輸入人員編號",
 
     /* Object Status */

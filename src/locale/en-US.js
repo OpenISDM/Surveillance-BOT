@@ -376,6 +376,8 @@ const en =  {
     SEARCH_FOR_NAME: "Search for name",
     SEARCH_FOR_UUID: "Search for uuid",
     SEARCH_FOR_AREA: "search for area",
+    SEARCH_FOR_NAMEGROUPBYAREA: "search for name",
+    SEARCH_FOR_NAMEGROUPBYUUID: "search for uuid",
     PLEASE_TYPE_PERSONA_ID: "please type ID",
 
     /* Object Status */
