@@ -264,9 +264,13 @@ const pdfPackageGenerator = {
                     case 'nameGroupByArea':
                         table = pdfPackageGenerator.pdfFormat.getBodyItem.getLocationHistoryByNameAsTable(data, locale)
                         break;
+                    case 'nameGroupByUUID':
+                        table = pdfPackageGenerator.pdfFormat.getBodyItem.getLocationHistoryByNameGroupByUUIDAsTable(data, locale)
+                        break;
                     case 'uuid':
                     case 'area':
                         table = pdfPackageGenerator.pdfFormat.getBodyItem.getLocationHistoryByUUIDAsTable(data, locale)
+                        break;
                 }                
                 return table
             },
@@ -328,7 +332,6 @@ const pdfPackageGenerator = {
                     columns, 
                     data
                 } = dataObject
-
                 let headers = columns.map(field => {
                     return `
                         <th 
@@ -354,6 +357,47 @@ const pdfPackageGenerator = {
                             return `
                                 <tr>
                                     <td>${item.area}</td>
+                                    <td>${item.startTime}</td>
+                                    <td>${item.endTime}</td>
+                                    <td>${item.residenceTime}</td>
+                                </tr>
+                            `
+                        }).join(' ')}
+                    </table>
+                `
+            },
+
+            getLocationHistoryByNameGroupByUUIDAsTable: (dataObject, locale) => {
+                let {
+                    columns, 
+                    data
+                } = dataObject
+                let headers = columns.map(field => {
+                    return `
+                        <th 
+                            style='
+                                text-align: left;
+                                text-transform: capitalize;
+                            '
+                        >
+                            ${field.Header}
+                        </th>
+                    `
+                }).join(' ')
+                return `
+                    <table 
+                        style='
+                            width:100%; 
+                            font-size: 0.8rem;
+                            margin-top: 1rem;
+                        '
+                    >
+                        ${headers}
+                        ${data.map((item, index) => {
+                            return `
+                                <tr>
+                                    <td>${item.area}</td>
+                                    <td>${item.location_description}</td>
                                     <td>${item.startTime}</td>
                                     <td>${item.endTime}</td>
                                     <td>${item.residenceTime}</td>
