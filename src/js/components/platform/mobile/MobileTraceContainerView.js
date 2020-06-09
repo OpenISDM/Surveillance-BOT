@@ -273,7 +273,10 @@ const  MobileTraceContainerView = React.forwardRef(({
                                         position: 'relative'
                                     }}
                                 >   
-                                    <DateTimePicker 
+                                    <DateTimePicker  
+                                        inputProps={{
+                                            component: props => <input {...props} readOnly />
+                                        }}
                                         name='startTime'
                                         value={values.startTime} 
                                         onkeydown="return false"
@@ -283,7 +286,7 @@ const  MobileTraceContainerView = React.forwardRef(({
                                             : setFieldValue('startTime', undefined)
                                         }}  
                                         defaultCurrentDate={moment().startOf("day").toDate()}
-                                        placeholder={locale.texts.START_TIME} 
+                                        placeholder={locale.texts.START_TIME}  
                                     />
 
                                     {errors.startTime && (
