@@ -313,6 +313,9 @@ const  MobileTraceContainerView = React.forwardRef(({
                                     }}
                                 >
                                     <DateTimePicker 
+                                        inputProps={{
+                                            component: props => <input {...props} readOnly />
+                                        }}
                                         name='endTime'
                                         value={values.endTime != null ? values.endTime  : undefined} 
                                         onChange={(value) => { 

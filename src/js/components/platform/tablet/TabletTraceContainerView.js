@@ -315,6 +315,9 @@ const TabletTraceContainerView = React.forwardRef(({
                                     }}
                                 >
                                     <DateTimePicker 
+                                        inputProps={{
+                                            component: props => <input {...props} readOnly />
+                                        }}
                                         name='endTime'
                                         className='mx-2'
                                         value={values.endTime != null ? values.endTime  : undefined} 
