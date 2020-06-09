@@ -251,7 +251,7 @@ class ImportPatientTable extends React.Component{
                 let newData = []
                 let reapetFlag = false;
                 let DataNameIsNull = '';
-                let ReapeName = ' '; 
+                let ReapeName = ''; 
                 let checkArray = []
                 let punctuationFlag = false;
 
@@ -279,7 +279,7 @@ class ImportPatientTable extends React.Component{
                             DataNameIsNull += importData.name + ','
                         }
                     } else {
-                        ReapeName += importData.name   + ' '
+                        ReapeName += importData.name   + ' ' 
                     }
                 }) 
                 
