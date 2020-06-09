@@ -618,7 +618,7 @@ class ObjectTable extends React.Component{
                         columns={this.state.columns}
                         ref={r => (this.selectTable = r)}
                         className='-highlight text-none'
-                        
+                         onSortedChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                         onPageChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                         {...extraProps}
                         {...styleConfig.reactTable}

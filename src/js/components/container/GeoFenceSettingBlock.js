@@ -324,7 +324,7 @@ class GeoFenceSettingBlock extends React.Component{
                     ref={r => (this.selectTable = r)}
                     className="-highlight"
                     minRows={0}
-                 
+                    onSortedChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                     {...extraProps}
                     {...styleConfig.reactTable}
                     getTrProps={(state, rowInfo, column, instance) => {   

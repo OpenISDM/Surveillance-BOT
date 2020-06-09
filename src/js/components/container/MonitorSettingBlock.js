@@ -314,6 +314,7 @@ class MonitorSettingBlock extends React.Component{
                     minRows={0} 
                     {...extraProps}
                     {...styleConfig.reactTable}
+                    onSortedChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                     getTrProps={(state, rowInfo, column, instance) => {   
                           return {
                               onClick: (e, handleOriginal) => {  

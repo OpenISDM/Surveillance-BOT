@@ -260,7 +260,7 @@ const BrowseTraceContainerView = React.forwardRef(({
                                         position: 'relative'
                                     }}
                                 >   
-                                    <DateTimePicker 
+                                    <DateTimePicker   
                                         name='startTime'
                                         className='mx-2'
                                         value={values.startTime} 

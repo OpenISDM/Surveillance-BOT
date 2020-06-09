@@ -267,6 +267,7 @@ class ObjectEditedRecord extends React.Component{
                         ref={r => (this.selectTable = r)}
                         className="-highlight"
                         pageSize={this.state.data.length}
+                         onSortedChange={(e) => {this.setState({selectAll:false,selection:''})}} 
                         style={{maxHeight:'80vh'}}                             
                         {...extraProps}
                         {...styleConfig.reactTable}
