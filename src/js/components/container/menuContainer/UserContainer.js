@@ -42,7 +42,10 @@ import {
 import {
     BrowserView,
     TabletView,
-    MobileOnlyView
+    MobileOnlyView,
+    isTablet,
+    CustomView,
+    isMobile 
 } from 'react-device-detect'
 import {
     userContainerModule
@@ -71,11 +74,11 @@ class UserSettingContainer extends React.Component{
 
         return (
             <Fragment>
-                <BrowserView>
-                    <BrowserPageComponent 
+               <CustomView condition={isTablet != true && isMobile != true}>
+                     <BrowserPageComponent 
                         containerModule={this.containerModule}
                     /> 
-                </BrowserView>
+                </CustomView> 
                 <TabletView>
                     <TabletPageComponent
                         containerModule={this.containerModule}

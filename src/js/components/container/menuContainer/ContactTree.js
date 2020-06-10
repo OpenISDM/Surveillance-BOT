@@ -42,7 +42,10 @@ import {
 import {
     BrowserView,
     TabletView,
-    MobileOnlyView
+    MobileOnlyView,
+    CustomView,
+    isMobile,
+    isTablet
 } from 'react-device-detect';
 import BrowserContactTree from '../../platform/browser/BrowserContactTree';
 
@@ -63,11 +66,11 @@ class ContactTree extends React.Component{
 
         return (
             <Fragment>
-                <BrowserView>
+                <CustomView condition={isTablet != true && isMobile != true}>
                     <BrowserContactTree
                         location={this.props.location}
                     /> 
-                </BrowserView>
+                </CustomView> 
             </Fragment>  
         )
     }

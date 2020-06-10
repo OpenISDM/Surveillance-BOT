@@ -44,6 +44,9 @@ import {
     TabletView,
     MobileOnlyView,
     isBrowser,
+    CustomView,
+    isMobile ,
+    isTablet,
 } from 'react-device-detect';
 import BrowserTraceContainerView from '../../platform/browser/BrowserTraceContainerView';
 import MobileTraceContainerView from '../../platform/mobile/MobileTraceContainerView';
@@ -602,12 +605,12 @@ class TraceContainer extends React.Component{
 
         return (
             <Fragment>
-                <BrowserView>
+                <CustomView condition={isTablet != true && isMobile != true}>
                     <BrowserTraceContainerView
                         {...propsGroup}
                         ref={this.formikRef}
                     /> 
-                </BrowserView>
+                </CustomView> 
                 <TabletView>
                     <TabletTraceContainerView
                         {...propsGroup}

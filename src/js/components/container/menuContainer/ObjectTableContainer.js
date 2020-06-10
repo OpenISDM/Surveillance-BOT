@@ -52,6 +52,9 @@ import {
     BrowserView,
     MobileOnlyView,
     TabletView,
+    CustomView,
+    isMobile,
+    isTablet
 } from 'react-device-detect';
 import BrowserObjectTableView from '../../platform/browser/BrowserObjectTableView';
 import MobileObjectTableView from '../../platform/mobile/MobileObjectTableView';
@@ -459,11 +462,11 @@ class ObjectTableContainer extends React.Component{
 
         return(
             <Fragment> 
-                <BrowserView>
-                    <BrowserObjectTableView
+               <CustomView condition={isTablet != true && isMobile != true}>
+                     <BrowserObjectTableView
                         {...propsGroup}
-                    />                    
-                </BrowserView>
+                    />    
+                </CustomView> 
                 <TabletView>
                     <TabletObjectTableView
                         {...propsGroup}

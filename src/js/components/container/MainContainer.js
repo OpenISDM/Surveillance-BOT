@@ -41,7 +41,10 @@ import { toast } from 'react-toastify';
 import {
     BrowserView,
     MobileOnlyView,
-    TabletView
+    TabletView,
+    CustomView,
+    isMobile,
+    isTablet
 } from 'react-device-detect';
 import { disableBodyScroll } from 'body-scroll-lock';
 import retrieveDataHelper from '../../helper/retrieveDataHelper';
@@ -295,15 +298,16 @@ class MainContainer extends React.Component{
             pathMacAddress,
             mapButtonHandler,
             suggestData
-        } 
+        }  
+
         return (
             /** "page-wrap" the default id named by react-burget-menu */
-            <Fragment>
-                <BrowserView>
+            <Fragment>  
+                <CustomView condition={isTablet != true && isMobile != true}>
                     <BrowserMainContainer 
                         {...propsGroup}
                     />
-                </BrowserView>
+                </CustomView> 
                 <TabletView>
                     <TabletMainContainer 
                         {...propsGroup}
@@ -316,6 +320,7 @@ class MainContainer extends React.Component{
                 </MobileOnlyView>
             </Fragment>
         )
+
     }
 }
 

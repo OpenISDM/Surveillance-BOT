@@ -51,7 +51,9 @@ import {
     MobileOnlyView,
     isMobileOnly,
     isBrowser,
-    isTablet,
+    isTablet, 
+    CustomView,
+    isMobile 
 } from 'react-device-detect'
 import {
     macAddressToCoordinate
@@ -546,9 +548,9 @@ class Map extends React.Component {
     render(){
         return(
             <div>
-                <BrowserView>   
+               <CustomView condition={isTablet != true && isMobile != true}>
                     <div id='mapid' style={{height:'80vh'}}></div>
-                </BrowserView>
+                </CustomView>  
                 <TabletView>
                     <div id='mapid' style={{height:'40vh'}}></div>
                 </TabletView>

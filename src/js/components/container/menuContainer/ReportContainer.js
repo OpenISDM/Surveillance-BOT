@@ -41,7 +41,9 @@ import {
     isTablet,
     MobileOnlyView,
     BrowserView,
-    TabletView
+    TabletView,
+    CustomView,
+    isMobile 
 } from 'react-device-detect'
 import { 
     disableBodyScroll,
@@ -74,11 +76,11 @@ class ReportContainer extends React.Component{
 
         return (
             <Fragment>
-                <BrowserView>
+                <CustomView condition={isTablet != true && isMobile != true}>
                     <BrowserPageComponent 
                         containerModule={this.containerModule}
                     /> 
-                </BrowserView>
+                </CustomView> 
                 <TabletView>
                     <TabletPageComponent
                         containerModule={this.containerModule}

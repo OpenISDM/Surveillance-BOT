@@ -45,7 +45,9 @@ import {
     isTablet,
     MobileOnlyView,
     BrowserView,
-    TabletView
+    TabletView,
+    CustomView,
+    isMobile 
 } from 'react-device-detect'
 import { 
     disableBodyScroll,
@@ -94,12 +96,12 @@ class SystemSetting extends React.Component{
     render() {
         return (
             <Fragment>
-                <BrowserView>
+                <CustomView condition={isTablet != true && isMobile != true}>
                     <BrowserPageComponent 
                         containerModule={this.containerModule}
                         setMessage={this.setMessage}
                     /> 
-                </BrowserView>
+                </CustomView> 
                 <TabletView>
                     <TabletPageComponent
                         containerModule={this.containerModule}

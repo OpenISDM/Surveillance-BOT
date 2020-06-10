@@ -41,7 +41,10 @@ import { AppContext } from '../../context/AppContext';
 import {
     BrowserView,
     TabletView,
-    MobileOnlyView
+    MobileOnlyView,
+    isTablet,
+    CustomView,
+    isMobile 
 } from 'react-device-detect'
 
 const style = {
@@ -68,8 +71,8 @@ const InfoPrompt = ({
     const { locale } = appContext
     return (
         <div>
-            <BrowserView>
-                <Alert variant='secondary' className='d-flex justify-content-start'>
+            <CustomView condition={isTablet != true && isMobile != true}>
+               <Alert variant='secondary' className='d-flex justify-content-start'>
                     <div 
                         className='text-capitalize mr-2' 
                         style={style.alertTextTitle}
@@ -102,7 +105,9 @@ const InfoPrompt = ({
                         {searchKey && locale.texts.OBJECTS}
                     </div>
                 </Alert>
-            </BrowserView>
+            </CustomView> 
+
+
             <TabletView>
                 <div>
                     <div className='text-capitalize' style={style.alerTextTitleForTablet}>{searchKey ? locale.texts.FOUND : locale.texts.PLEASE_SELECT_SEARCH_OBJECT}</div>

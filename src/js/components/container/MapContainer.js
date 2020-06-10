@@ -42,6 +42,9 @@ import {
     BrowserView, 
     TabletView, 
     MobileOnlyView, 
+    CustomView,
+    isMobile,
+    isTablet
 } from 'react-device-detect';
 import GeneralConfirmForm from '../presentational/GeneralConfirmForm';
 import TabletMapContainer from '../platform/tablet/TabletMapContainer';
@@ -143,11 +146,11 @@ class MapContainer extends React.Component {
         }
         return(
             <Fragment>
-                <BrowserView>
-                    <BrowserMapContainer 
+                <CustomView condition={isTablet != true && isMobile != true}>
+                     <BrowserMapContainer 
                         {...propsGroup}
                     />
-                </BrowserView>
+                </CustomView> 
                 <TabletView>
                     <TabletMapContainer 
                         {...propsGroup}

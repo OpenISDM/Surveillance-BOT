@@ -38,7 +38,10 @@ import React, { Fragment } from 'react';
 import {
     BrowserView,
     TabletView,
-    MobileOnlyView
+    MobileOnlyView,
+    isTablet,
+    CustomView,
+    isMobile 
 } from 'react-device-detect';
 import TabletSearchContainer from '../platform/tablet/TabletSearchContainer';
 import MobileSearchContainer from '../platform/mobile/MobileSearchContainer';
@@ -61,12 +64,12 @@ const SearchContainer = ({
     }
     
     return (
-        <Fragment>
-            <BrowserView>                   
+        <Fragment> 
+            <CustomView condition={isTablet != true && isMobile != true}>
                 <BrowserSearchContainer 
-                    {...propsGroup}
-                />
-            </BrowserView>
+                {...propsGroup}
+                 />
+            </CustomView> 
             <TabletView>
                 <TabletSearchContainer 
                     {...propsGroup}

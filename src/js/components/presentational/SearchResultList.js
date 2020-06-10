@@ -40,7 +40,10 @@ import { AppContext } from '../../context/AppContext';
 import {
     BrowserView,
     TabletView,
-    MobileOnlyView
+    MobileOnlyView,
+    isTablet,
+    CustomView,
+    isMobile 
 } from 'react-device-detect';
 import TabletSearchResultList from '../platform/tablet/TabletSearchResultList';
 import MobileSearchResultList from '../platform/mobile/MobileSearchResultList';
@@ -120,12 +123,12 @@ class SearchResultList extends React.Component {
             showNotFoundResult
         }
         return(
-            <Fragment>
-                <BrowserView>
+            <Fragment> 
+                <CustomView condition={isTablet != true && isMobile != true}>
                     <BrowserSearchResultList
                         {...propsGroup}
                     />
-                </BrowserView>
+                </CustomView>  
                 <TabletView>
                     <TabletSearchResultList 
                         {...propsGroup}
