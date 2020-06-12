@@ -218,7 +218,7 @@ class TraceContainer extends React.Component{
             .then(res => {
                 let area = res.data.rows.map(area => {
                     return {
-                        value: area.name,
+                        value: area.id,
                         label: locale.texts[area.name],
                         description: locale.texts[area.name],
                         id: area.id
@@ -238,26 +238,22 @@ class TraceContainer extends React.Component{
             locale
         } = this.context
 
-        let key = null
         let timeValidatedFormat = 'YYYY/MM/DD HH:mm:ss'
         /** Set formik status as 0. Would render loading page */
         this.formikRef.current.setStatus(config.AJAX_STATUS_MAP.LOADING)
+        let key = fields.key.value;
 
         switch(fields.mode) {
             case 'nameGroupByArea':
-                key = fields.key.value;
                 this.columns = locationHistoryByNameColumns;
                 break;
             case 'nameGroupByUUID':
-                key = fields.key.value;
                 this.columns = locationHistoryByNameGroupBYUUIDColumns;
                 break;
             case 'uuid':
-                key = fields.key.value;
                 this.columns = locationHistoryByUUIDColumns;
                 break;
             case 'area':
-                key = fields.key.value;
                 this.columns = locationHistoryByAreaColumns;
                 break;
         }
@@ -389,7 +385,8 @@ class TraceContainer extends React.Component{
                         key = {
                             value: rowInfo.original.area_id,
                             label: locale.texts[rowInfo.original.area_original],
-                            description: rowInfo.original.description
+                            description: rowInfo.original.description,
+                            // id: rowInfo.original.area_id
                         };
                         startTime = moment(rowInfo.original.startTime).toDate()
                         endTime = moment(rowInfo.original.endTime).toDate()
