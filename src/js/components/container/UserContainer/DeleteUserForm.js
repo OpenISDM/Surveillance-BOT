@@ -73,7 +73,6 @@ const DeleteUserForm = ({
             show={show} 
             size="sm" 
             onHide={handleClose}
-            className='text-capitalize'
         >
             <Modal.Header 
                 closeButton 
@@ -99,7 +98,7 @@ const DeleteUserForm = ({
 
                     render={({ values, errors, status, touched, isSubmitting, setFieldValue }) => (
                       
-                        <Form className="text-capitalize">
+                        <Form>
                             <FormikFormGroup 
                                 type="text"
                                 name="nameName"

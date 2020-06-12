@@ -199,7 +199,9 @@ class NavbarContainer extends React.Component {
                                     >
                                         <div className='dropdownWrapper'>
                                             <LinkContainer to='/page/userSetting' className='bg-white'>
-                                                <Dropdown.Item className='lang-select'>
+                                                <Dropdown.Item 
+                                                    className='lang-select text-none'
+                                                >
                                                     {auth.user.name}
                                                 </Dropdown.Item>
                                             </LinkContainer>
