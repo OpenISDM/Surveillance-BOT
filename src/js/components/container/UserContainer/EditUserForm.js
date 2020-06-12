@@ -76,6 +76,16 @@ const EditUserForm = ({
         };
     })
 
+    let style = {
+        
+        error: {
+            color: "#dc3545"
+        },
+        example: {
+            color: "grey"
+
+        }
+    }
     return (
         <Modal 
             show={show} 
@@ -105,29 +115,15 @@ const EditUserForm = ({
                                 .test({
                                     name: 'name', 
                                     message: locale.texts.THE_USERNAME_IS_ALREADY_TAKEN,
-                                    test: value => {
-                                        let reapeatFlag = true
+                                    test: value => {  
+                                        var reapeatFlag = true 
                                         data.map(item => {
-                                            item.name == value ? reapeatFlag = false : null
-                                        })
-                                         if (selectedUser) { selectedUser.name == value ? reapeatFlag = true : null }
-                                      return reapeatFlag
+                                            item.name.toUpperCase() == value.toUpperCase() ? reapeatFlag = false : null
+                                        })     
+                                        if (title == 'edit user') { selectedUser.name.toUpperCase() == value.toUpperCase() ? reapeatFlag = true : null }     
+                                        return  reapeatFlag
                                     },
-                                })
-                                .test(
-                                    'name',
-                                    locale.texts.SIGNUP_FAIL,
-                                    value => {   
-                                        let repeat = true
-                                        if (value != undefined){                      
-                                            data.map(item=>{  
-                                                item.name.toUpperCase() == value.toUpperCase() ? repeat = false : null
-                                            })       
-                                        }
-
-                                        return repeat
-                                    }
-                                )            
+                                }) 
                                 .test(
                                     'name',
                                     locale.texts.NOT_ALLOW_PUNCTUATION,
@@ -139,7 +135,10 @@ const EditUserForm = ({
                                         return punctuationFlag
                                     }
                                 )
-                                .max(100),
+                                .max(
+                                    100,
+                                    locale.texts.OVERLENGTH
+                                    ),
                             area: selectedUser ? null : Yup.object().required(locale.texts.AREA_IS_REQUIRED),
                             password: selectedUser ? ''  : 
                             Yup.string().required(locale.texts.PASSWORD_IS_REQUIRED)
@@ -164,17 +163,24 @@ const EditUserForm = ({
                     }}
 
                     render={({ values, errors, status, touched, isSubmitting, setFieldValue }) => (
-                        <Form className="text-capitalize">
+                        <Form className="text-capitalize"> 
                             <FormikFormGroup 
                                 type="text"
                                 name="name"
-                                label={locale.texts.NAME}
-                                error={errors.name}
+                                label={locale.texts.NAME} 
+                                error={''}
                                 touched={touched.name}
                                 placeholder={locale.texts.USERNAME} 
                                 autoComplete="off"
-                            />
- 
+                            /> 
+                            {errors.name  && 
+                                <small 
+                                    className="form-text"
+                                    style={style.error}
+                                >
+                                    {errors.name}
+                                </small>
+                            }
                             
                             <FormikFormGroup 
                                 type="text"

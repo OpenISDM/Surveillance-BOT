@@ -364,6 +364,7 @@ const en =  {
     ID_IS_NOT_FOUND: "ID is not found",
     ASN_IS_REPEAT:"asn is repeat",
     NOT_ALLOW_PUNCTUATION:"data have not allow's punctuation",
+    OVERLENGTH:"only allow below 100 chars",
 
     /** placeholder */
     PLEASE_ENTER_OR_SCAN_MAC_ADDRESS: "please enter or scan mac address",
