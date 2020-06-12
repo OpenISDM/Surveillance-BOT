@@ -147,7 +147,7 @@ class MainContainer extends React.Component{
         suggestDataTotal.push(lbeacon_description) 
         suggestDataTotal.map(item=>{
             item.map(data=>{  
-               suggestData.push(data)   
+               data != undefined ? suggestData.push(data)    : null
             }) 
         })    
         this.setState({
