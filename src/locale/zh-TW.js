@@ -366,6 +366,7 @@ const tw = {
     ID_IS_NOT_FOUND: "沒有符合的人員編號",
     ASN_IS_REPEAT:"ASN與其他筆資料重複",
     NOT_ALLOW_PUNCTUATION:"有非法字元，如單雙引號",
+    OVERLENGTH:"帳號僅允許一百字內",
 
     /** placeholder */
     PLEASE_ENTER_OR_SCAN_MAC_ADDRESS: "請輸入或掃描mac address",
