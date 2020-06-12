@@ -54,8 +54,8 @@ import FormikFormGroup from '../../presentational/FormikFormGroup';
 import styleConfig from '../../../config/styleConfig';
 import LocaleContext from '../../../context/LocaleContext';
 import messageGenerator from '../../../helper/messageGenerator';
-
-
+import siteModuleTW from '../../../../../site_module/locale/zh-TW'
+import siteModuleEN from '../../../../../site_module/locale/en-US'
 const EditUserForm = ({
     show,
     title,
@@ -66,16 +66,15 @@ const EditUserForm = ({
     data,
     areaTable
 }) => { 
-    let locale = React.useContext(LocaleContext)
-
+    let locale = React.useContext(LocaleContext)  
     const areaOptions = areaTable.map(area => {
         return {
             value: area.name,
-            label: locale.texts[area.name.toUpperCase().replace(/ /g, '_')],
+            // label: locale.texts[area.name.toUpperCase().replace(/ /g, '_')],
+            label: locale.lang =='tw' ? siteModuleTW[area.name] : siteModuleEN[area.name],
             id: area.id
         };
-    })
-
+    }) 
     let style = {
         
         error: {
@@ -117,10 +116,12 @@ const EditUserForm = ({
                                     message: locale.texts.THE_USERNAME_IS_ALREADY_TAKEN,
                                     test: value => {  
                                         var reapeatFlag = true 
-                                        data.map(item => {
-                                            item.name.toUpperCase() == value.toUpperCase() ? reapeatFlag = false : null
-                                        })     
-                                        if (title == 'edit user') { selectedUser.name.toUpperCase() == value.toUpperCase() ? reapeatFlag = true : null }     
+                                        if (value != undefined) {
+                                            data.map(item => {
+                                                item.name.toUpperCase() == value.toUpperCase() ? reapeatFlag = false : null
+                                            })     
+                                            if (title == 'edit user') { selectedUser.name.toUpperCase() == value.toUpperCase() ? reapeatFlag = true : null }     
+                                        }
                                         return  reapeatFlag
                                     },
                                 }) 
@@ -220,7 +221,7 @@ const EditUserForm = ({
                                     </CheckboxGroup>
                                 )}
                             />
-                            <hr/>
+                            <hr/>  
                             <FormikFormGroup 
                                 type="text"
                                 name="areaName"
