@@ -112,6 +112,11 @@ const styleConfig = {
             ...base,
             paddingLeft: 35
         }),
+
+        placeholder: (provided) => ({
+            ...provided,
+            textTransform: 'capitalize',
+        })
     },
 
     reactSelectFilter: {
@@ -156,6 +161,7 @@ const styleConfig = {
             cursor: 'pointer',
         }),
     },
+
     reactTable: {
 
         getTdProps: () => {
@@ -189,6 +195,7 @@ const styleConfig = {
                 }
             }
         },
+        
         getProps: () => {
             return {
                 style: {
