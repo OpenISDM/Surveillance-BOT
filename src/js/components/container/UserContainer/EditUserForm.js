@@ -53,9 +53,7 @@ import Checkbox from '../../presentational/Checkbox';
 import FormikFormGroup from '../../presentational/FormikFormGroup';
 import styleConfig from '../../../config/styleConfig';
 import LocaleContext from '../../../context/LocaleContext';
-import messageGenerator from '../../../helper/messageGenerator';
-import siteModuleTW from '../../../../../site_module/locale/zh-TW'
-import siteModuleEN from '../../../../../site_module/locale/en-US'
+import messageGenerator from '../../../helper/messageGenerator'; 
 const EditUserForm = ({
     show,
     title,
@@ -70,11 +68,10 @@ const EditUserForm = ({
     const areaOptions = areaTable.map(area => {
         return {
             value: area.name,
-            // label: locale.texts[area.name.toUpperCase().replace(/ /g, '_')],
-            label: locale.lang =='tw' ? siteModuleTW[area.name] : siteModuleEN[area.name],
+            label: locale.texts[area.name.toUpperCase().replace(/ /g, '_')], 
             id: area.id
         };
-    }) 
+    })  
     let style = {
         
         error: {
