@@ -85,8 +85,7 @@ const BrowserSearchResultList = ({
                         <Col 
                             className="d-flex justify-content-center"
                             style={style.list}
-                        >
-                        {console.log(searchResult)}
+                        > 
                             <ScrollArea 
                                 smoothScrolling={true}
                                 horizontal={false}

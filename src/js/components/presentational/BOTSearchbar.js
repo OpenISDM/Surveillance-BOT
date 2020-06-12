@@ -52,7 +52,7 @@ let load_suggest = false;
     // );
  
     // limit count by 5
-    let suggestTemp = []
+    let suggestTemp = [] 
     suggestTemp = suggestData.filter(lang =>lang.toLowerCase().slice(0, inputLength) === inputValue) 
     let suggestLimit =[]
     suggestTemp.map((item,index)=>{
@@ -93,7 +93,7 @@ class BOTSearchbar extends React.Component {
           this.setState({
                 value: '',
             }) 
-        } 
+        }  
         if(!load_suggest){ 
           suggestData  = this.props.suggestData
           load_suggest = true 
