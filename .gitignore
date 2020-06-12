@@ -12,6 +12,5 @@ default_folder/
 /dist/bundle.js
 /dist/*.html
 /dist/*.js
-version.txt
 .npm_cache
 

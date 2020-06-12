@@ -39,7 +39,7 @@ import BOT_LOGO from '../img//logo/BOT_LOGO_RED.png';
 
 const config = {
 
-    VERSION: 'v1.0 b.1872',
+    VERSION: 'v1.0 b.1887',
 
     TRACING_INTERVAL_UNIT: 'days',
 
