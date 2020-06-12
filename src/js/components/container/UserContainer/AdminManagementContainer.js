@@ -100,7 +100,7 @@ class AdminManagementContainer extends React.Component{
             columns.map((field, index) => {
                 field.Header = locale.texts[field.Header.toUpperCase().replace(/ /g, '_')]
             }) 
-            let data = res.data.rows.map((item, index) => {
+            let data = res.data.rows.map((item, index) => { 
                 item._id = index + 1
                 item.roles = item.role_type
                     .map(role => locale.texts[role.toUpperCase()]).join('/')
@@ -282,7 +282,7 @@ class AdminManagementContainer extends React.Component{
                         </ButtonToolbar>
                     </AccessControl>
                 </div>
-                <hr/>
+                <hr/> 
                 <ReactTable 
                     data={this.state.data} 
                     columns={this.state.data.length != 0 ? this.state.columns : [{Header: ''}]} 

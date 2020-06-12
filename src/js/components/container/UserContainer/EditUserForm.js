@@ -65,10 +65,11 @@ const EditUserForm = ({
     areaTable
 }) => { 
     let locale = React.useContext(LocaleContext)  
-    const areaOptions = areaTable.map(area => {
+    const areaOptions = areaTable.map(area => { 
         return {
             value: area.name,
-            label: locale.texts[area.name.toUpperCase().replace(/ /g, '_')], 
+            // label: locale.texts[area.name.toUpperCase().replace(/ /g, '_')], 
+            label:locale.texts[area.name],
             id: area.id
         };
     })  
