@@ -496,8 +496,8 @@ class ObjectTableContainer extends React.Component{
                             onClick: (e) => {  
                                 if (!e.target.type) { 
                                     this.setState({
-                                        isPatientShowEdit:true,
-                                        selectedRowData: this.state.data[rowInfo.index],
+                                        isPatientShowEdit: true,
+                                        selectedRowData: rowInfo.original,
                                         formTitle: 'edit info',
                                         disableASN: true,
                                         apiMethod: 'put',
