@@ -34,12 +34,11 @@
         Joe Chou, jjoe100892@gmail.com
 */
 
-
 require('dotenv').config();
 require('moment-timezone');
 const dbQueries = require('../db/dbQueries/authQueries');
 const pool = require('../db/dev/connection');
-const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 module.exports = {
 
@@ -59,7 +58,13 @@ module.exports = {
                         message: "Username or password is incorrect"
                     })
                 } else { 
-                    if (bcrypt.compareSync(password, res.rows[0].password)) {
+                
+                    const secret = 'BeDIS@1807'; 
+                    const hash = crypto.createHash('sha256', secret) 
+                        .update(password)                     
+                        .digest('hex'); 
+
+                    if (hash == res.rows[0].password) {
                         let { 
                             name, 
                             roles, 

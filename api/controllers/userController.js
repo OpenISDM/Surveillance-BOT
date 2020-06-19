@@ -36,12 +36,12 @@
 
 require('dotenv').config();
 require('moment-timezone');
-const bcrypt = require('bcrypt');
 const moment = require('moment');
 const dbQueries = require('../db/dbQueries/userQueries');
 const pool = require('../db/dev/connection');
 const session = require('express-session');
 const authQueries = require('../db/dbQueries/authQueries');
+const crypto = require('crypto');
 
 module.exports = {
 
@@ -68,25 +68,26 @@ module.exports = {
     },
 
     addUser: (request, response) => {
-
         const { 
             name, 
             password, 
             roles,
             area_id,
         } = request.body;    
-        const saltRounds = 10;
-        const hash = bcrypt.hashSync(password, saltRounds);
 
+        const secret = 'BeDIS@1807'; 
+        const hash = crypto.createHash('sha256', secret) 
+            .update(password) 
+            .digest('hex'); 
+          
         const signupPackage = {
-            name:name.toLowerCase(),
+            name: name.toLowerCase(),
             password: hash,
             area_id
         } 
         request.session.regenerate(() => {
             request.session.user = name 
         })
-
 
         pool.query(authQueries.signin(name))
             .then(ress => {  
@@ -159,8 +160,10 @@ module.exports = {
             password
         } = request.body;    
     
-        const saltRounds = 10;
-        const hash = bcrypt.hashSync(password, saltRounds);
+        const secret = 'BeDIS@1807'; 
+        const hash = crypto.createHash('sha256', secret) 
+            .update(password) 
+            .digest('hex'); 
     
         pool.query(dbQueries.editPassword(user_id,hash)) 
             .then(res => {
