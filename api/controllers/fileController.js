@@ -36,7 +36,6 @@
 
 require('dotenv').config();
 require('moment-timezone');
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const path = require('path');
 const fs = require('fs')
 const pdf = require('html-pdf'); 
@@ -78,19 +77,6 @@ module.exports = {
             }
 		}); 
        
-        // const csvWriter = createCsvWriter({
-        //     path: filePath,
-        //     header,
-        //     encoding: 'utf8'
-        // });
-        
-    
-        // csvWriter
-        //     .writeRecords(data)
-        //     .then((data)=> {
-        //         console.log('the csv file was written successfully')
-        //         res.status(200).json(data)
-        //     });
     },
 
     getFile: (req, res) => {

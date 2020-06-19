@@ -89,9 +89,6 @@ import "../../node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css"
 /** font awesome related source */ 
 import "../../node_modules/@fortawesome/fontawesome-free/css/all.css"
 
-/** pretty check box */
-import "../../node_modules/pretty-checkbox/dist/pretty-checkbox.min.css"
-
 /** react-widget */
 import 'react-widgets/dist/css/react-widgets.css';
 
