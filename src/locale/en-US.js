@@ -362,9 +362,11 @@ const en =  {
     ENTER_THE_RSSI:"Enter the RSSI",
     REQUIRED: "required",
     ID_IS_NOT_FOUND: "ID is not found",
-    ASN_IS_REPEAT:"asn is repeat",
-    NOT_ALLOW_PUNCTUATION:"data have not allow's punctuation",
-    OVERLENGTH:"only allow below 100 chars",
+    ASN_IS_REPEAT: "asn is repeat",
+    NOT_ALLOW_PUNCTUATION: "data have not allow's punctuation",
+    OVERLENGTH: "only allow below 100 chars",
+    LIMIT_IN_TWENTY_CHARACTER: "Limit in 20 characters",
+    LIMIT_IN_FOURTY_CHARACTER: "Limit in 40 characters",
 
     /** placeholder */
     PLEASE_ENTER_OR_SCAN_MAC_ADDRESS: "please enter or scan mac address",

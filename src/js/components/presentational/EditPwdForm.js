@@ -67,6 +67,7 @@ const EditPwdForm = ({
         >
             <Modal.Header 
                 closeButton 
+                className='text-capitalize'
             >
                 {locale.texts.EDIT_PASSWORD}
             </Modal.Header >
@@ -81,25 +82,29 @@ const EditPwdForm = ({
                     validationSchema = {
                         Yup.object().shape({
                             new_password: Yup.string() 
-                            .required(locale.texts.ENTER_THE_PASSWORD)
-                            .test(
-                                'new_password', 
-                                '',
-                                value => {
-                                    new_password_store = value
-                                    return true
-                                }
-                            ),
+                                .required(locale.texts.ENTER_THE_PASSWORD)
+                                .test(
+                                    'new_password', 
+                                    '',
+                                    value => {
+                                        new_password_store = value
+                                        return true
+                                    }
+                                )
+                                .max(
+                                    20,
+                                    locale.texts.LIMIT_IN_TWENTY_CHARACTER
+                                ),
 
                             check_password: Yup.string() 
-                            .required(locale.texts.ENTER_THE_PASSWORD)
-                            .test(
-                                'check_password', 
-                                locale.texts.PASSWORD_NOT_FIT,
-                                value => {
-                                    if ( value == new_password_store ){ return true } else {return false}
-                                }
-                            )
+                                .required(locale.texts.ENTER_THE_PASSWORD)
+                                .test(
+                                    'check_password', 
+                                    locale.texts.PASSWORD_NOT_FIT,
+                                    value => {
+                                        if ( value == new_password_store ){ return true } else {return false}
+                                    }
+                                )
                         })
                     }
 

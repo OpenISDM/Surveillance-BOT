@@ -114,7 +114,7 @@ const FormikFormGroup = ({
             }
             {error && touched && 
                 <small 
-                    className="form-text text-capitalize"
+                    className="form-text"
                     style={style.error}
                 >
                     {error}
@@ -122,7 +122,7 @@ const FormikFormGroup = ({
             }
             {example && !error && !touched &&
                 <small 
-                    className="form-text text-capitaliz"
+                    className="form-text"
                     style={style.example}
                 >
                     {example}

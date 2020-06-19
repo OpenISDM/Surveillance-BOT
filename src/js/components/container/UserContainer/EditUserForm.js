@@ -53,7 +53,7 @@ import Checkbox from '../../presentational/Checkbox';
 import FormikFormGroup from '../../presentational/FormikFormGroup';
 import styleConfig from '../../../config/styleConfig';
 import LocaleContext from '../../../context/LocaleContext';
-import messageGenerator from '../../../helper/messageGenerator'; 
+
 const EditUserForm = ({
     show,
     title,
@@ -73,16 +73,7 @@ const EditUserForm = ({
             id: area.id
         };
     })  
-    let style = {
-        
-        error: {
-            color: "#dc3545"
-        },
-        example: {
-            color: "grey"
 
-        }
-    }
     return (
         <Modal 
             show={show} 
@@ -135,24 +126,27 @@ const EditUserForm = ({
                                     }
                                 )
                                 .max(
-                                    100,
-                                    locale.texts.OVERLENGTH
-                                    ),
+                                    20,
+                                    locale.texts.LIMIT_IN_TWENTY_CHARACTER
+                                ),
                             area: selectedUser ? null : Yup.object().required(locale.texts.AREA_IS_REQUIRED),
-                            password: selectedUser ? ''  : 
-                            Yup.string().required(locale.texts.PASSWORD_IS_REQUIRED)
-                            .test(
-                                'password',
-                                locale.texts.NOT_ALLOW_PUNCTUATION,
-                                value => {   
-                                    let punctuationFlag = true
-                                    if (value != undefined){   
-                                        value.indexOf("'") != -1 ||  value.indexOf('"') != -1 ? punctuationFlag = false : null   
+                            password: selectedUser ? '' : 
+                                Yup.string().required(locale.texts.PASSWORD_IS_REQUIRED)
+                                .test(
+                                    'password',
+                                    locale.texts.NOT_ALLOW_PUNCTUATION,
+                                    value => {   
+                                        let punctuationFlag = true
+                                        if (value != undefined){   
+                                            value.indexOf("'") != -1 ||  value.indexOf('"') != -1 ? punctuationFlag = false : null   
+                                        }
+                                        return punctuationFlag
                                     }
-                                    return punctuationFlag
-                                }
-                            )
-                            ,
+                                )
+                                .max(
+                                    20,
+                                    locale.texts.LIMIT_IN_TWENTY_CHARACTER
+                                ),
                             roles: Yup.string().required(locale.texts.ROLE_IS_REQUIRED)
                         })
                     }
@@ -162,27 +156,18 @@ const EditUserForm = ({
                     }}
 
                     render={({ values, errors, status, touched, isSubmitting, setFieldValue }) => (
-                        <Form className="text-capitalize"> 
+                        <Form> 
                             <FormikFormGroup 
                                 type="text"
                                 name="name"
                                 label={locale.texts.NAME} 
-                                error={''}
+                                error={errors.name}
                                 touched={touched.name}
                                 placeholder={locale.texts.USERNAME} 
                                 autoComplete="off"
-                            /> 
-                            {errors.name  && 
-                                <small 
-                                    className="form-text"
-                                    style={style.error}
-                                >
-                                    {errors.name}
-                                </small>
-                            }
-                            
+                            />                             
                             <FormikFormGroup 
-                                type="text"
+                                type="password"
                                 name="password"
                                 label={locale.texts.PASSWORD}
                                 error={errors.password}

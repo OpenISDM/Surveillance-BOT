@@ -68,6 +68,7 @@ export const FormFieldName = styled.div`
     color: black;
     font-size: .8rem;
     margin-bottom: 5px;
+    text-transform: capitalize;
 `
 
 export const FieldLabel = styled.div`

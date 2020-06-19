@@ -81,10 +81,10 @@ class EditPatientForm extends React.Component {
                 show={show} 
                 onHide={handleClose} 
                 size='md'
-                className='text-capitalize'
             >
                 <Modal.Header 
                     closeButton
+                    className='text-capitalize'
                 >
                     {locale.texts[title.toUpperCase().replace(/ /g, '_')]}
                 </Modal.Header >
@@ -104,7 +104,12 @@ class EditPatientForm extends React.Component {
                         validationSchema = {
                             Yup.object().shape({
 
-                                name: Yup.string().required(locale.texts.NAME_IS_REQUIRED),
+                                name: Yup.string()
+                                    .required(locale.texts.NAME_IS_REQUIRED)
+                                    .max(
+                                        40,
+                                        locale.texts.LIMIT_IN_FOURTY_CHARACTER
+                                    ),
                                  
                                 area: Yup.string().required(locale.texts.AREA_IS_REQUIRED),
 
@@ -126,8 +131,11 @@ class EditPatientForm extends React.Component {
                                             return true; 
 
                                         }
+                                    )
+                                    .max(
+                                        40,
+                                        locale.texts.LIMIT_IN_FOURTY_CHARACTER
                                     ),
-
 
                                 mac_address: Yup.string()
                                     .required(locale.texts.MAC_ADDRESS_IS_REQUIRED)

@@ -367,6 +367,8 @@ const tw = {
     ASN_IS_REPEAT:"ASN與其他筆資料重複",
     NOT_ALLOW_PUNCTUATION:"有非法字元，如單雙引號",
     OVERLENGTH:"帳號僅允許一百字內",
+    LIMIT_IN_TWENTY_CHARACTER: "僅允許20個字元",
+    LIMIT_IN_FOURTY_CHARACTER: "僅允許40個字元",
 
     /** placeholder */
     PLEASE_ENTER_OR_SCAN_MAC_ADDRESS: "請輸入或掃描mac address",
