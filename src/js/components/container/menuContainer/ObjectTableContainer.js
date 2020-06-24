@@ -192,7 +192,8 @@ class ObjectTableContainer extends React.Component{
                 let areaSelection = res.data.rows.map(area => {
                     return {
                         value: area.name,
-                        label: locale.texts[area.name]
+                        label: locale.texts[area.name],
+                        id: area.id
                     }
                 })
                 this.setState({
@@ -519,7 +520,7 @@ class ObjectTableContainer extends React.Component{
                     physicianList={this.state.physicianList}
                     roomOptions={this.state.roomOptions}
                     disableASN = {this.state.disableASN}
-                    areaTable={this.state.areaTable}
+                    areaSelection={this.state.areaSelection}
                 />  
                 <BindForm 
                     show = {this.state.isShowBind} 

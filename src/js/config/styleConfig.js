@@ -97,6 +97,10 @@ const styleConfig = {
 
             // maxWidth: 'calc(90% - 8px)'
         }),
+        placeholder: (provided) => ({
+            ...provided,
+            textTransform: 'capitalize',
+        })
     },
     reactSelectSearch : {
         control: (provided) => ({
