@@ -273,7 +273,7 @@ const tw = {
     FOLD:"折疊",
     COMMENT: "註記",
     SELECT_LEVEL: "選擇階層",
-    NAMEGROUPBYAREA: "名稱(area group)",
+    NAMEGROUPBYAREA: "名稱",
     NAMEGROUPBYUUID: "名稱(UUID group)",
 
     /** form title */

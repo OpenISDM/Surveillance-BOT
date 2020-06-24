@@ -94,10 +94,10 @@ class TraceContainer extends React.Component{
             name: 'nameGroupByArea',
             columns: locationHistoryByNameColumns,
         },
-        nameGroupByUUID: {
-            name: 'nameGroupByUUID',
-            columns: locationHistoryByNameGroupBYUUIDColumns,
-        },
+        // nameGroupByUUID: {
+        //     name: 'nameGroupByUUID',
+        //     columns: locationHistoryByNameGroupBYUUIDColumns,
+        // },
         // uuid: {
         //     columns: locationHistoryByUUIDColumns,
         // },

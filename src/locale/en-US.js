@@ -315,7 +315,7 @@ const en =  {
     CHECK_PASSWORD:"Check password",
     LEVEL:"level",
     ADD_COMMENT: "add comment",
-    NAMEGROUPBYAREA: "name(area group)",
+    NAMEGROUPBYAREA: "name",
     NAMEGROUPBYUUID: "name(UUID group)",
 
     /** error message */

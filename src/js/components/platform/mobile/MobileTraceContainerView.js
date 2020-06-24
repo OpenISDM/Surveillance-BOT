@@ -179,7 +179,9 @@ const  MobileTraceContainerView = React.forwardRef(({
                             >
                                 {histories.map((history, index) => {
                                     return (
-                                        <Breadcrumb.Item>
+                                        <Breadcrumb.Item
+                                            key={index}
+                                        >
                                             <div
                                                 key={index}
                                                 className="d-inline-block"
@@ -197,7 +199,7 @@ const  MobileTraceContainerView = React.forwardRef(({
                                             >
                                                 {history.description}
                                             </div>
-                                        </Breadcrumb.Item>
+                                        </Breadcrumb.Item> 
                                     )
                                 })}
                             </Breadcrumb>
@@ -208,8 +210,8 @@ const  MobileTraceContainerView = React.forwardRef(({
                                             key={index}
                                         >
                                             <BOTNavLink 
-                                                eventKey={nav.mode}
-                                                active={values.mode == nav.mode}                               
+                                                eventKey={nav.name}
+                                                active={values.mode == nav.name}                               
                                                 onClick={handleClick}
                                                 name='nav'
                                             >
