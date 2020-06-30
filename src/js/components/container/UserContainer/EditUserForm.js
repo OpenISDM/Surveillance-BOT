@@ -53,7 +53,11 @@ import Checkbox from '../../presentational/Checkbox';
 import FormikFormGroup from '../../presentational/FormikFormGroup';
 import styleConfig from '../../../config/styleConfig';
 import LocaleContext from '../../../context/LocaleContext';
-
+let style = { 
+    error: {
+        color: "#dc3545"
+    }
+}
 const EditUserForm = ({
     show,
     title,
@@ -127,7 +131,7 @@ const EditUserForm = ({
                                 )
                                 .max(
                                     20,
-                                    locale.texts.LIMIT_IN_TWENTY_CHARACTER
+                                   ' '
                                 ),
                             area: selectedUser ? null : Yup.object().required(locale.texts.AREA_IS_REQUIRED),
                             password: selectedUser ? '' : 
@@ -145,7 +149,7 @@ const EditUserForm = ({
                                 )
                                 .max(
                                     20,
-                                    locale.texts.LIMIT_IN_TWENTY_CHARACTER
+                                   ' '
                                 ),
                             roles: Yup.string().required(locale.texts.ROLE_IS_REQUIRED)
                         })
@@ -165,7 +169,17 @@ const EditUserForm = ({
                                 touched={touched.name}
                                 placeholder={locale.texts.USERNAME} 
                                 autoComplete="off"
-                            />                             
+                            />             
+                             
+                            {errors.name == ' '  && 
+                                <small 
+                                    className="form-text text-capitaliz"
+                                    style={style.error}
+                                >
+                                    {locale.texts.LIMIT_IN_TWENTY_CHARACTER}
+                                </small>
+                            }
+
                             <FormikFormGroup 
                                 type="password"
                                 name="password"
@@ -176,6 +190,15 @@ const EditUserForm = ({
                                 display={!selectedUser}
                                 autoComplete="off"
                             />
+
+                            {errors.password == ' '  && 
+                                <small 
+                                    className="form-text text-capitaliz"
+                                    style={style.error}
+                                >
+                                    {locale.texts.LIMIT_IN_TWENTY_CHARACTER}
+                                </small>
+                            }
                             <hr/>
                             <FormikFormGroup 
                                 name="roles"

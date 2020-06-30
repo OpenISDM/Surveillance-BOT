@@ -43,7 +43,11 @@ import * as Yup from 'yup';
 import FormikFormGroup from '../presentational/FormikFormGroup'
 import styleConfig from '../../config/styleConfig'
 import { AppContext } from '../../context/AppContext'
-  
+let style = { 
+    error: {
+        color: "#dc3545"
+    }
+}
 const EditPatientForm = ({
     title, 
     handleClose,
@@ -98,7 +102,7 @@ const EditPatientForm = ({
                                 .required(locale.texts.NAME_IS_REQUIRED)
                                 .max(
                                     40,
-                                    locale.texts.LIMIT_IN_FOURTY_CHARACTER
+                                    ' '
                                 ),
                                 
                             area: Yup.string().required(locale.texts.AREA_IS_REQUIRED),
@@ -124,7 +128,7 @@ const EditPatientForm = ({
                                 )
                                 .max(
                                     40,
-                                    locale.texts.LIMIT_IN_FOURTY_CHARACTER
+                                    ' '
                                 ),
 
                             mac_address: Yup.string()
@@ -170,6 +174,14 @@ const EditPatientForm = ({
                                 touched={touched.name}
                                 placeholder=""
                             />
+                            {errors.name == ' '  && 
+                            <small 
+                                className="form-text text-capitaliz"
+                                style={style.error}
+                            >
+                                {locale.texts.LIMIT_IN_FOURTY_CHARACTER}
+                            </small>
+                            }
                             <Row noGutters>
                                 <Col>
                                     <FormikFormGroup 
@@ -181,7 +193,7 @@ const EditPatientForm = ({
                                         placeholder=""
                                         disabled={disableASN}
                                     />
-                                </Col>
+                                </Col>   
                                 <Col>
                                     <FormikFormGroup 
                                         type="text"
@@ -194,6 +206,14 @@ const EditPatientForm = ({
                                     />
                                 </Col>
                             </Row>
+                            {errors.asset_control_number == ' '  && 
+                            <small 
+                                className="form-text text-capitaliz"
+                                style={style.error}
+                            >
+                                {locale.texts.LIMIT_IN_FOURTY_CHARACTER}
+                            </small>
+                            }    
                             <Row noGutters>
                                 <Col>
                                     <FormikFormGroup 

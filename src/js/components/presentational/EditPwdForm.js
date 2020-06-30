@@ -34,7 +34,11 @@
         Joe Chou, jjoe100892@gmail.com
 */
 
-
+let style = { 
+    error: {
+        color: "#dc3545"
+    }
+}
 import React from 'react';
 import { 
     Modal, 
@@ -93,7 +97,7 @@ const EditPwdForm = ({
                                 )
                                 .max(
                                     20,
-                                    locale.texts.LIMIT_IN_TWENTY_CHARACTER
+                                    ' '
                                 ),
 
                             check_password: Yup.string() 
@@ -125,6 +129,15 @@ const EditPwdForm = ({
                                     <ErrorMessage name="new_password" component="div" className="invalid-feedback" />
                             </div> 
 
+                            {errors.new_password== ' '  && 
+                                <small 
+                                    className="form-text text-capitaliz"
+                                    style={style.error}
+                                >
+                                    {locale.texts.LIMIT_IN_TWENTY_CHARACTER}
+                                </small>
+                            }
+                            
                             <div className="form-group">
                                 <small id="TextIDsmall" className="form-text text-muted">{locale.texts.CHECK_PASSWORD}</small>
                                 <Field 
@@ -134,7 +147,7 @@ const EditPwdForm = ({
                                     className={'form-control' + (errors.check_password && touched.check_password ? ' is-invalid' : '')} 
                                 />
                                     <ErrorMessage name="check_password" component="div" className="invalid-feedback" />
-                            </div> 
+                            </div>  
 
                             <Modal.Footer>
                                 <Button 
