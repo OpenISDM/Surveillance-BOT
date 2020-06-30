@@ -95,6 +95,15 @@ const EditPwdForm = ({
                                         return true
                                     }
                                 )
+                                .test(
+                                    'new_password',
+                                    locale.texts.CHARACTER_LIMIT,
+                                    value => { 
+                                        if (value == undefined) return false 
+                                        var pattern = new RegExp("[0-9A-Za-z_、.]+"); 
+                                        return value.match(pattern)[0] == value
+                                    }
+                                )
                                 .max(
                                     20,
                                     ' '
@@ -137,7 +146,7 @@ const EditPwdForm = ({
                                     {locale.texts.LIMIT_IN_TWENTY_CHARACTER}
                                 </small>
                             }
-                            
+
                             <div className="form-group">
                                 <small id="TextIDsmall" className="form-text text-muted">{locale.texts.CHECK_PASSWORD}</small>
                                 <Field 

@@ -367,6 +367,7 @@ const en =  {
     OVERLENGTH: "only allow below 100 chars",
     LIMIT_IN_TWENTY_CHARACTER: "Limit in 20 characters",
     LIMIT_IN_FOURTY_CHARACTER: "Limit in 40 characters",
+    CHARACTER_LIMIT:"have character not allowed",
 
     /** placeholder */
     PLEASE_ENTER_OR_SCAN_MAC_ADDRESS: "please enter or scan mac address",

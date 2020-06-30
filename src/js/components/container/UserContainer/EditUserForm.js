@@ -129,6 +129,15 @@ const EditUserForm = ({
                                         return punctuationFlag
                                     }
                                 )
+                                .test(
+                                    'name',
+                                    locale.texts.CHARACTER_LIMIT,
+                                    value => { 
+                                        if (value == undefined) return false 
+                                        var pattern = new RegExp("[0-9A-Za-z_、.]+"); 
+                                        return value.match(pattern)[0] == value
+                                    }
+                                )
                                 .max(
                                     20,
                                    ' '
@@ -145,6 +154,15 @@ const EditUserForm = ({
                                             value.indexOf("'") != -1 ||  value.indexOf('"') != -1 ? punctuationFlag = false : null   
                                         }
                                         return punctuationFlag
+                                    }
+                                )
+                                .test(
+                                    'password',
+                                    locale.texts.CHARACTER_LIMIT,
+                                    value => { 
+                                        if (value == undefined) return false 
+                                        var pattern = new RegExp("[0-9A-Za-z_、.]+"); 
+                                        return value.match(pattern)[0] == value
                                     }
                                 )
                                 .max(

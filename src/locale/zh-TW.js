@@ -369,6 +369,7 @@ const tw = {
     OVERLENGTH:"帳號僅允許一百字內",
     LIMIT_IN_TWENTY_CHARACTER: "僅允許20個字元",
     LIMIT_IN_FOURTY_CHARACTER: "僅允許40個字元",
+    CHARACTER_LIMIT:"含有未被允許的字元",
 
     /** placeholder */
     PLEASE_ENTER_OR_SCAN_MAC_ADDRESS: "請輸入或掃描mac address",
