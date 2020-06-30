@@ -133,9 +133,14 @@ const EditUserForm = ({
                                     'name',
                                     locale.texts.CHARACTER_LIMIT,
                                     value => { 
-                                        if (value == undefined) return false 
-                                        var pattern = new RegExp("[0-9A-Za-z_、.]+"); 
-                                        return value.match(pattern)[0] == value
+                                            if (value == undefined) return false  
+                                        var pattern = new RegExp("[0-9A-Za-z!#$%&()*+,-./:;<=>?@^_`{|}~]+"); 
+                         
+                                        if (value.match(pattern)[0] = "" ){
+                                            return false
+                                        }else{
+                                            return value.match(pattern)[0] == value
+                                        }
                                     }
                                 )
                                 .max(
@@ -160,9 +165,15 @@ const EditUserForm = ({
                                     'password',
                                     locale.texts.CHARACTER_LIMIT,
                                     value => { 
-                                        if (value == undefined) return false 
-                                        var pattern = new RegExp("[0-9A-Za-z_、.]+"); 
-                                        return value.match(pattern)[0] == value
+                                        if (value == undefined) return false  
+                                        var pattern = new RegExp("[0-9A-Za-z!#$%&()*+,-./:;<=>?@^_`{|}~]+"); 
+                         
+                                        if (value.match(pattern)[0] = "" ){
+                                            return false
+                                        }else{
+                                            return value.match(pattern)[0] == value
+                                        }
+                                        
                                     }
                                 )
                                 .max(
