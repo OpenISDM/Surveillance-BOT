@@ -46,6 +46,7 @@ import {
 
 const FormikFormGroup = ({
    name = "default",
+   className = "default",
    label,
    error,
    touched,
@@ -54,7 +55,6 @@ const FormikFormGroup = ({
    placeholder,
    component,
    display = true,
-   className, 
    value,
    onChange,
    example = null,
@@ -71,10 +71,9 @@ const FormikFormGroup = ({
             color: 'grey'
         },
     }
-
     return (
         <div 
-            className={`form-group ${className}`}
+            className={`${className}`}
             style={style.container}
         >
             <FormFieldName>

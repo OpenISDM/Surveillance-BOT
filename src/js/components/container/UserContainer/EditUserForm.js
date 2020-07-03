@@ -108,44 +108,29 @@ const EditUserForm = ({
                                     name: 'name', 
                                     message: locale.texts.THE_USERNAME_IS_ALREADY_TAKEN,
                                     test: value => {  
-                                        var reapeatFlag = true 
-                                        if (value != undefined) {
-                                            data.map(item => {
-                                                item.name.toUpperCase() == value.toUpperCase() ? reapeatFlag = false : null
-                                            })     
-                                            if (title == 'edit user') { selectedUser.name.toUpperCase() == value.toUpperCase() ? reapeatFlag = true : null }     
-                                        }
-                                        return  reapeatFlag
+                                        if (value == undefined) return false;
+
+                                        if (title == 'edit user' && selectedUser.name.toUpperCase() == value.toUpperCase()) { 
+                                            return true;
+                                        }  
+                                        return !data.map(item => item.name.toUpperCase())
+                                            .includes(value.toUpperCase())
                                     },
-                                }) 
-                                .test(
-                                    'name',
-                                    locale.texts.NOT_ALLOW_PUNCTUATION,
-                                    value => {  
-                                        let punctuationFlag = true
-                                        if (value != undefined){    
-                                            value.indexOf("'") != -1 ||  value.indexOf('"') != -1 ? punctuationFlag = false : null   
-                                        }
-                                        return punctuationFlag
-                                    }
-                                )
+                                })
                                 .test(
                                     'name',
                                     locale.texts.CHARACTER_LIMIT,
                                     value => { 
-                                            if (value == undefined) return false  
+
+                                        if (value == undefined) return false 
+
                                         var pattern = new RegExp("[0-9A-Za-z!#$%&()*+,-./:;<=>?@^_`{|}~]+"); 
-                         
-                                        if (value.match(pattern)[0] = "" ){
-                                            return false
-                                        }else{
-                                            return value.match(pattern)[0] == value
-                                        }
+                                        return value.match(pattern)
                                     }
                                 )
                                 .max(
                                     20,
-                                   ' '
+                                   ' ',
                                 ),
                             area: selectedUser ? null : Yup.object().required(locale.texts.AREA_IS_REQUIRED),
                             password: selectedUser ? '' : 
@@ -178,7 +163,7 @@ const EditUserForm = ({
                                 )
                                 .max(
                                     20,
-                                   ' '
+                                    ' ',
                                 ),
                             roles: Yup.string().required(locale.texts.ROLE_IS_REQUIRED)
                         })
@@ -196,9 +181,8 @@ const EditUserForm = ({
                                 label={locale.texts.NAME} 
                                 error={errors.name}
                                 touched={touched.name}
-                                placeholder={locale.texts.USERNAME} 
                                 autoComplete="off"
-                            />             
+                            />           
                              
                             {errors.name == ' '  && 
                                 <small 
@@ -215,7 +199,6 @@ const EditUserForm = ({
                                 label={locale.texts.PASSWORD}
                                 error={errors.password}
                                 touched={touched.password}
-                                placeholder={locale.texts.PASSWORD}
                                 display={!selectedUser}
                                 autoComplete="off"
                             />
