@@ -68,7 +68,7 @@
     "moment-timezone": "^0.5.23",
     "node-pre-gyp": "^0.14.0",
     "nodemon": "^1.19.1",
-    "pg": "^7.8.1",
+    "pg": "^8.2.1",
     "phantomjs": "^2.1.7",
     "phantomjs-prebuilt": "^2.1.16",
     "pm2": "^3.5.0",
